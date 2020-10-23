@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "es2017",                      
+    "module": "commonjs",                   
+    "outDir": "./dist",                        
+    "rootDir": "./src",                      
+    "removeComments": true,              
+    "strict": true,                          
+     "typeRoots": [
+       "./node_modules/@types",
+       "./src/@types"
+     ],                       
+    "esModuleInterop": true,                 
+    "resolveJsonModule": true,
+    "experimentalDecorators": true,       
+    "emitDecoratorMetadata": true,        
+    "skipLibCheck": true,                    
+    "forceConsistentCasingInFileNames": true,
+    "strictPropertyInitialization": false,
+  },
+}
