@@ -1,6 +1,7 @@
 import { getRepository } from 'typeorm';
 import { v4 } from 'uuid';
 import Dogs from '../models/Dogs.entity';
+import AppError from '../errors/AppError';
 
 interface Request {
     name: string;
@@ -11,12 +12,16 @@ interface Request {
     castrated: boolean;
     vaccinated: boolean
 }
-class CreateUserService {
+class CreateDogService {
   public async execute({
     name, gender, size, history, castrated, vaccinated, user_id,
   }: Request):Promise<Dogs> {
+    console.log(user_id); // Buscar infos na tabela de usuario
     const dogsRepository = getRepository(Dogs);
-
+    const dogs = await dogsRepository.find({ where: { user_id } });
+    if (dogs.length > 4) {
+      throw new AppError('User could not register more than 5 Dogs');
+    }
     const randomId = v4();
     const dog = dogsRepository.create({
       id: randomId,
@@ -32,4 +37,4 @@ class CreateUserService {
     return dog;
   }
 }
-export default CreateUserService;
+export default CreateDogService;

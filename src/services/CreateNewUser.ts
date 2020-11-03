@@ -2,6 +2,7 @@ import { getRepository } from 'typeorm';
 import { hash } from 'bcryptjs';
 import { v4 } from 'uuid';
 import User from '../models/User.entity';
+import AppError from '../errors/AppError';
 
 interface Request {
     name:string;
@@ -15,12 +16,10 @@ class CreateUserService {
     const existedEmail = await userRepository.findOne({ where: { email } });
 
     if (existedEmail) {
-      console.log(existedEmail);
-      throw new Error('Email Already Exist');
+      throw new AppError('Email already Taken');
     }
     const hashedPassword = await hash(password, 8);
     const randomId = v4();
-    console.log(randomId);
     const user = userRepository.create({
       id: randomId,
       name,

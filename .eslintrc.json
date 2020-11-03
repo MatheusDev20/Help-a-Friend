@@ -19,6 +19,7 @@
     "rules": {
         "linebreak-style":"off",
         "no-console": "off",
+        "no-undefined":"off",
         "class-methods-use-this": "off",
         "camelcase":"off",
         "import/extensions":[
@@ -27,7 +28,11 @@
             {
                 "ts": "never"
             }
-        ]
+            
+        ],
+        "@typescript-eslint/no-unused-vars": ["error", {
+            "argsIgnorePattern": "_"
+        }]
     },
     "settings": {
         "import/resolver": {

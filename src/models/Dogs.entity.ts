@@ -28,6 +28,9 @@ export default class Dogs {
     history: string;
 
     @Column()
+    avatar: string;
+
+    @Column()
     castrated: boolean;
 
     @Column()
