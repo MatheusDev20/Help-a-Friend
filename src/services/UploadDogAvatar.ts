@@ -26,10 +26,10 @@ class UploadDogAvatar {
         uploadConfig.directory,
         selectedDog.avatar,
       );
-      const userAvatarFileExists = await fs.promises.stat(
+      const dogAvatarFileExists = await fs.promises.stat(
         DogAvatarFilePath,
       );
-      if (userAvatarFileExists) {
+      if (dogAvatarFileExists) {
         await fs.promises.unlink(DogAvatarFilePath);
       }
     }
