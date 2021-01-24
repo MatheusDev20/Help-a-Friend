@@ -1,12 +1,12 @@
 import {
   Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn,
 } from 'typeorm';
-import User from './User.entity';
+import User from '../../../../User/Infra/typeorm/entities/User';
 
 @Entity('dogs')
 export default class Dogs {
     @PrimaryGeneratedColumn('uuid')
-    id: string;
+    id: string
 
     @Column()
     name: string;

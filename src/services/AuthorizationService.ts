@@ -2,7 +2,7 @@ import { getRepository } from 'typeorm';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import AppError from '../errors/AppError';
-import Users from '../models/User.entity';
+import Users from '../modules/User/Infra/typeorm/entities/User';
 import authConfig from '../config/auth';
 
 interface Request {

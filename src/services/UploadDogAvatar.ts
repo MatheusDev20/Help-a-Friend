@@ -2,7 +2,7 @@ import { getRepository } from 'typeorm';
 import fs from 'fs';
 import path from 'path';
 import AppError from '../errors/AppError';
-import Dog from '../models/Dogs.entity';
+import Dog from '../modules/Dogs/Infra/typeorm/entities/Dogs';
 import uploadConfig from '../config/upload';
 
 interface Request {

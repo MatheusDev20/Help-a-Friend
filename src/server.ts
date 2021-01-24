@@ -1,9 +1,10 @@
+import 'reflect-metadata';
 import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
 import './database/index';
 import routes from './routes/index';
-import 'reflect-metadata';
 import AppError from './errors/AppError';
+import './shared/dependecyContainer/index';
 
 const app = express();
 

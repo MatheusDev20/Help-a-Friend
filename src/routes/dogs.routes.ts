@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import multer from 'multer';
-import CreateDogService from '../services/CreateDogsService';
+import CreateDogService from '../modules/Dogs/Services/CreateDogsService';
 import authorization from '../middlewares/authorization';
 import uploadConfig from '../config/upload';
 import UpdateDogAvatarService from '../services/UploadDogAvatar';

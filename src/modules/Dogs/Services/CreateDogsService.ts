@@ -1,7 +1,7 @@
 import { getRepository } from 'typeorm';
 import { v4 } from 'uuid';
-import Dogs from '../models/Dogs.entity';
-import AppError from '../errors/AppError';
+import Dogs from '../Infra/typeorm/entities/Dogs';
+import AppError from '../../../errors/AppError';
 
 interface Request {
     name: string;
