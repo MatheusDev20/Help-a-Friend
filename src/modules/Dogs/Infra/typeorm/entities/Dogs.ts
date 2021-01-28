@@ -3,6 +3,11 @@ import {
 } from 'typeorm';
 import User from '../../../../User/Infra/typeorm/entities/User';
 
+// eslint-disable-next-line no-shadow
+export enum Gender {
+  MALE = 'M',
+  FEMALE = 'F'
+}
 @Entity('dogs')
 export default class Dogs {
     @PrimaryGeneratedColumn('uuid')
@@ -11,7 +16,11 @@ export default class Dogs {
     @Column()
     name: string;
 
-    @Column()
+    @Column({
+      type: 'enum',
+      enum: Gender,
+      default: Gender.MALE,
+    })
     gender: string;
 
     @Column()
