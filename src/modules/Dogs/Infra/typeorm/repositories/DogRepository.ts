@@ -17,10 +17,14 @@ class DogsRepository implements IDogsRepository {
       return dog;
     }
 
-    public async findDog(user_id: string): Promise<Dogs[]> {
+    public async findUserDogs(user_id: string): Promise<Dogs[]> {
       const dogs = await this.dogsRepository.find({ where: { user_id } });
 
       return dogs;
+    }
+
+    public async save(dog: Dogs): Promise<Dogs> {
+      return this.dogsRepository.save(dog);
     }
 }
 

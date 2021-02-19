@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import usersRoute from '../modules/User/Infra/http/routes/users.routes';
 import dogsRoute from '../modules/Dogs/Infra/http/routes/dogs.routes';
-import sessionsRoute from './sessions.route';
+import sessionsRoute from '../modules/User/Infra/http/routes/sessions.routes';
 
 const routes = Router();
 

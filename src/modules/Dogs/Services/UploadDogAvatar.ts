@@ -1,25 +1,32 @@
-import { getRepository } from 'typeorm';
 import fs from 'fs';
 import path from 'path';
-import AppError from '../errors/AppError';
-import Dog from '../modules/Dogs/Infra/typeorm/entities/Dogs';
-import uploadConfig from '../config/upload';
+import { inject, injectable } from 'tsyringe';
+import IDogsRepository from '../Repositories/IDogsRepository';
+import AppError from '../../../errors/AppError';
+import Dog from '../Infra/typeorm/entities/Dogs';
+import uploadConfig from '../../../config/upload';
 
 interface Request {
     id: string
     dogName: string,
     filename: string
 }
-
+@injectable()
 class UploadDogAvatar {
+  constructor(@inject('DogsRepository') private dogsRepository: IDogsRepository) {
+  }
+
   public async execute({ id, dogName, filename }: Request): Promise<Dog> {
-    const dogsRepository = getRepository(Dog);
     // Query para achar todos os cachorros daquele usuario
-    const dogs = await dogsRepository.find({ where: { user_id: id } });
+    const dogs = await this.dogsRepository.findUserDogs(id);
+    console.log(dogs);
+    if (!dogs) {
+      throw new AppError('This user have no dogs registerd');
+    }
     const selectedDog = dogs.find((dog) => dog.name === dogName);
-    console.log(selectedDog);
+
     if (!selectedDog) {
-      throw new AppError('Dog not Found');
+      throw new AppError('Dog with this name was not Found');
     }
     if (selectedDog.avatar) {
       const DogAvatarFilePath = path.join(
@@ -34,7 +41,7 @@ class UploadDogAvatar {
       }
     }
     selectedDog.avatar = filename;
-    dogsRepository.save(selectedDog);
+    this.dogsRepository.save(selectedDog);
     return selectedDog;
   }
 }

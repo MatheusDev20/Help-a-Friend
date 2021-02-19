@@ -18,12 +18,23 @@ class UserRepository implements IUsersRepository {
       return user;
     }
 
+    public async findById(id: string): Promise<User | undefined> {
+      const user = await this.userRepository.findOne({
+        where: { id },
+      });
+      return user;
+    }
+
     public async create(data: CreateUserDTO): Promise<User> {
       const user = this.userRepository.create(data);
 
       await this.userRepository.save(user);
 
       return user;
+    }
+
+    public async save(user:User) {
+      return this.userRepository.save(user);
     }
 }
 

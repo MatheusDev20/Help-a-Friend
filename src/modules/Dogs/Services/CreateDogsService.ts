@@ -24,7 +24,7 @@ class CreateDogService {
     name, gender, size, history, castrated, vaccinated, user_id,
   }: Request):Promise<Dogs> {
     console.log(user_id); // Buscar infos na tabela de usuario
-    const dogs = await this.dogsRepository.findDog(user_id);
+    const dogs = await this.dogsRepository.findUserDogs(user_id);
 
     if (dogs) {
       if (dogs.length > 4) {

@@ -1,21 +1,26 @@
-import { getRepository } from 'typeorm';
 import path from 'path';
 import fs from 'fs';
-import AppError from '../errors/AppError';
-import User from '../modules/User/Infra/typeorm/entities/User';
-import uploadConfig from '../config/upload';
+import { inject, injectable } from 'tsyringe';
+import IUsersRepositoriy from '../Repositories/IUsersRepositoriy';
+import AppError from '../../../errors/AppError';
+import User from '../Infra/typeorm/entities/User';
+import uploadConfig from '../../../config/upload';
 
 interface Request {
     id: string;
     filename:string
 }
+@injectable()
 class UpdateUserAvatar {
+  constructor(@inject('UserRepository') private userRepository: IUsersRepositoriy) {}
+
   public async execute({ id, filename }: Request): Promise<User> {
-    const userRepository = getRepository(User);
-    const user = await userRepository.findOne(id);
+    console.log('Get in the service');
+    const user = await this.userRepository.findById(id);
     if (!user) {
       throw new AppError('User not authenticated', 401);
     }
+    console.log(user);
     if (user.avatar) {
       const UserAvatarFilePath = path.join(
         uploadConfig.directory,
@@ -29,7 +34,8 @@ class UpdateUserAvatar {
       }
     }
     user.avatar = filename;
-    userRepository.save(user);
+    console.log(user);
+    this.userRepository.save(user);
     return user;
   }
 }
