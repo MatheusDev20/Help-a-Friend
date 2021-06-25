@@ -1,5 +1,5 @@
 import User from '../Infra/typeorm/entities/User';
-import CreateUserDTO from '../dto/CreateUserDTO';
+import CreateUserDTO from '../Dto/CreateUserDTO';
 
 interface IUsersRepositoriy {
     findByEmail(email: string): Promise<User | undefined>;

@@ -1,23 +1,30 @@
-import { getRepository } from 'typeorm';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
-import AppError from '../errors/AppError';
-import Users from '../modules/User/Infra/typeorm/entities/User';
-import authConfig from '../config/auth';
+import { injectable, inject } from 'tsyringe';
+import IUsersRepositoriy from '../Repositories/IUsersRepositoriy';
+import AppError from '../../../errors/AppError';
+import Users from '../Infra/typeorm/entities/User';
+import authConfig from '../../../config/auth';
 
 interface Request {
-    email: string;
-    password: string;
+  email: string;
+  password: string;
 }
 interface Response {
-    user: Users;
-    token: string
+  user: Users;
+  token: string
+  expiration: string;
 }
+@injectable()
 class AuthorizationService {
+  constructor(
+    @inject('UserRepository') private userRepository: IUsersRepositoriy,
+  ) {
+  }
+
   public async execute({ email, password }: Request): Promise<Response> {
     // Buscar no banco um usuário com este email
-    const userRepository = getRepository(Users);
-    const user = await userRepository.findOne({ where: { email } });
+    const user = await this.userRepository.findByEmail(email);
     if (!user) {
       throw new AppError('Not registered Email');
     }
@@ -31,7 +38,7 @@ class AuthorizationService {
       expiresIn,
     });
     return {
-      user, token,
+      user, token, expiration: expiresIn,
     };
   }
 }
