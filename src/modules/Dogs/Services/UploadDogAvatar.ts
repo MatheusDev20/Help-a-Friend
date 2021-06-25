@@ -7,19 +7,18 @@ import Dog from '../Infra/typeorm/entities/Dogs';
 import uploadConfig from '../../../config/upload';
 
 interface Request {
-    id: string
-    dogName: string,
-    filename: string
+  userId: string
+  dogName: string,
+  filename: string
 }
 @injectable()
 class UploadDogAvatar {
   constructor(@inject('DogsRepository') private dogsRepository: IDogsRepository) {
   }
 
-  public async execute({ id, dogName, filename }: Request): Promise<Dog> {
+  public async execute({ userId, dogName, filename }: Request): Promise<Dog> {
     // Query para achar todos os cachorros daquele usuario
-    const dogs = await this.dogsRepository.findUserDogs(id);
-    console.log(dogs);
+    const dogs = await this.dogsRepository.findUserDogs(userId);
     if (!dogs) {
       throw new AppError('This user have no dogs registerd');
     }

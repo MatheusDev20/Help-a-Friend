@@ -1,41 +1,42 @@
 import { getRepository, Repository } from 'typeorm';
-import CreateUserDTO from '@modules/User/dto/CreateUserDTO';
 import IUsersRepository from '@modules/User/Repositories/IUsersRepositoriy';
+import CreateUserDTO from '../../../Dto/CreateUserDTO';
 import User from '../entities/User';
 
 class UserRepository implements IUsersRepository {
-    private userRepository: Repository<User> // Declarando o atributo do orm da classe
+  private userRepository: Repository<User> // Declarando o atributo do orm da classe
 
-    constructor() {
-      this.userRepository = getRepository(User);
-    }
+  constructor() {
+    this.userRepository = getRepository(User);
+  }
 
-    public async findByEmail(email: string): Promise<User | undefined> {
-      const user = await this.userRepository.findOne({
-        where: { email },
-      });
+  public async findByEmail(email: string): Promise<User | undefined> {
+    const user = await this.userRepository.findOne({
+      where: { email },
+    });
 
-      return user;
-    }
+    return user;
+  }
 
-    public async findById(id: string): Promise<User | undefined> {
-      const user = await this.userRepository.findOne({
-        where: { id },
-      });
-      return user;
-    }
+  public async findById(id: string): Promise<User | undefined> {
+    const user = await this.userRepository.findOne({
+      where: { id },
+    });
+    return user;
+  }
 
-    public async create(data: CreateUserDTO): Promise<User> {
-      const user = this.userRepository.create(data);
+  public async create(data: CreateUserDTO): Promise<User> {
+    const user = await this.userRepository.create(data);
 
-      await this.userRepository.save(user);
+    await this.userRepository.save(user);
 
-      return user;
-    }
+    return user;
+  }
 
-    public async save(user:User) {
-      return this.userRepository.save(user);
-    }
+  public async getAllUsers(): Promise<User[]> {
+    const users = await this.userRepository.createQueryBuilder('user').getMany();
+    return users;
+  }
 }
 
 export default UserRepository;

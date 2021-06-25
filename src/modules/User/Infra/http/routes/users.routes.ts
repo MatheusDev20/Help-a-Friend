@@ -10,8 +10,11 @@ const userRouter = Router();
 const upload = multer(uploadConfig);
 const userController = new UserController();
 const updateUserAvatar = new UpdateUserAvatarController();
-// Create new User
+
+userRouter.get('/', authorization, userController.read);
+
 userRouter.post('/', userDataValidator, userController.create);
+
 userRouter.patch(
   '/avatar',
   authorization,

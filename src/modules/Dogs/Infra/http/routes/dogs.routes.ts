@@ -10,7 +10,7 @@ const dogsController = new DogsController();
 dogsRouter.use(authorization);
 dogsRouter.post('/', dogsController.create);
 dogsRouter.patch(
-  '/avatar/:name',
+  '/avatar',
   upload.single('avatar'),
   dogsController.update,
 );
