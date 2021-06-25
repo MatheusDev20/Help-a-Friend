@@ -1,0 +1,1 @@
+docker run --name haf -e POSTGRES_PASSWORD=',Lc>KCL@wX+4@^8[' -p 5433:5432 -d postgres

@@ -1,4 +1,4 @@
- interface CreateUserDTO {
+interface CreateUserDTO {
     id: string;
     name: string;
     email: string;
