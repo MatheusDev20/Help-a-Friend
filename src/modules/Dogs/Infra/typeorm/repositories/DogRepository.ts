@@ -4,28 +4,37 @@ import CreateDogDTO from '@modules/Dogs/Dto/CreateDogDTO';
 import Dogs from '../entities/Dogs';
 
 class DogsRepository implements IDogsRepository {
-    private dogsRepository: Repository<Dogs> // Declarando o atributo do orm da classe
+  private dogsRepository: Repository<Dogs> // Declarando o atributo do orm da classe
 
-    constructor() {
-      this.dogsRepository = getRepository(Dogs);
-    }
+  constructor() {
+    this.dogsRepository = getRepository(Dogs);
+  }
 
-    public async create(data: CreateDogDTO): Promise<Dogs> {
-      const dog = this.dogsRepository.create(data);
+  public async create(data: CreateDogDTO): Promise<Dogs> {
+    const dog = this.dogsRepository.create(data);
 
-      await this.dogsRepository.save(dog);
-      return dog;
-    }
+    await this.dogsRepository.save(dog);
+    return dog;
+  }
 
-    public async findUserDogs(user_id: string): Promise<Dogs[]> {
-      const dogs = await this.dogsRepository.find({ where: { user_id } });
+  public async findUserDogs(user_id: string): Promise<Dogs[]> {
+    const dogs = await this.dogsRepository.find({ where: { user_id } });
 
-      return dogs;
-    }
+    return dogs;
+  }
 
-    public async save(dog: Dogs): Promise<Dogs> {
-      return this.dogsRepository.save(dog);
-    }
+  public async listAllDogs(): Promise<Dogs[]> {
+    const allDogs = await this.dogsRepository
+      .createQueryBuilder('dogs')
+      .getMany();
+    console.log(allDogs);
+
+    return allDogs;
+  }
+
+  public async save(dog: Dogs): Promise<Dogs> {
+    return this.dogsRepository.save(dog);
+  }
 }
 
 export default DogsRepository;
