@@ -8,6 +8,9 @@
     "dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts ",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
   },
+  "engines": {
+    "node": "14.x"
+  },
   "devDependencies": {
     "@types/multer": "^1.4.4",
     "@types/uuid": "^8.3.0",

@@ -1,16 +1,16 @@
 import { getRepository, Repository } from 'typeorm';
 import IUsersRepository from '@modules/User/Repositories/IUsersRepositoriy';
 import CreateUserDTO from '../../../Dto/CreateUserDTO';
-import User from '../entities/User';
+import Users from '../entities/User';
 
 class UserRepository implements IUsersRepository {
-  private userRepository: Repository<User> // Declarando o atributo do orm da classe
+  private userRepository: Repository<Users> // Declarando o atributo do orm da classe
 
   constructor() {
-    this.userRepository = getRepository(User);
+    this.userRepository = getRepository(Users);
   }
 
-  public async findByEmail(email: string): Promise<User | undefined> {
+  public async findByEmail(email: string): Promise<Users | undefined> {
     const user = await this.userRepository.findOne({
       where: { email },
     });
@@ -18,14 +18,14 @@ class UserRepository implements IUsersRepository {
     return user;
   }
 
-  public async findById(id: string): Promise<User | undefined> {
+  public async findById(id: string): Promise<Users | undefined> {
     const user = await this.userRepository.findOne({
       where: { id },
     });
     return user;
   }
 
-  public async create(data: CreateUserDTO): Promise<User> {
+  public async create(data: CreateUserDTO): Promise<Users> {
     const user = await this.userRepository.create(data);
 
     await this.userRepository.save(user);
@@ -33,9 +33,18 @@ class UserRepository implements IUsersRepository {
     return user;
   }
 
-  public async getAllUsers(): Promise<User[]> {
+  public async getAllUsers(): Promise<Users[]> {
     const users = await this.userRepository.createQueryBuilder('user').getMany();
     return users;
+  }
+
+  public async delete(user: Users): Promise<Users> {
+    await this.userRepository.createQueryBuilder()
+      .delete()
+      .from(Users)
+      .where('id =:id', { id: user.id })
+      .execute();
+    return user;
   }
 }
 

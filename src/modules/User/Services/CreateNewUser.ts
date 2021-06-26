@@ -7,21 +7,21 @@ import User from '../Infra/typeorm/entities/User';
 import AppError from '../../../errors/AppError';
 
 interface Request {
-    name:string;
-    email:string;
-    password:string;
+  name: string;
+  email: string;
+  password: string;
 }
 @injectable()
 class CreateUserService {
   constructor(
     @inject('UserRepository') private userRepository: IUsersRepository,
-  ) {}
+  ) { }
 
-  public async execute({ name, email, password }: Request):Promise<User> {
+  public async execute({ name, email, password }: Request): Promise<User> {
     const existedEmail = await this.userRepository.findByEmail(email);
 
     if (existedEmail) {
-      throw new AppError('Email already Taken');
+      throw new AppError('Email already Taken', 400);
     }
     const hashedPassword = await hash(password, 8);
     const randomId = v4();
