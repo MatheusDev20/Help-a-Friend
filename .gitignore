@@ -3,4 +3,4 @@ dist
 ormconfig.json
 tmp/*
 !tmp/.gitkeep
-
+.env
