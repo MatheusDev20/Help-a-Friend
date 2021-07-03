@@ -13,8 +13,8 @@ dogsRouter.use(authorization);
 dogsRouter.post('/', dogsController.create);
 dogsRouter.get('/all', listDogsController.listAll);
 dogsRouter.patch(
-  '/avatar',
-  upload.single('avatar'),
+  '/photo',
+  upload.single('photo'),
   dogsController.update,
 );
 

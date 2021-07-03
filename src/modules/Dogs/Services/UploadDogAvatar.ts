@@ -1,10 +1,8 @@
-import fs from 'fs';
-import path from 'path';
 import { inject, injectable } from 'tsyringe';
+import { v4 } from 'uuid';
 import IDogsRepository from '../Repositories/IDogsRepository';
 import AppError from '../../../errors/AppError';
 import Dog from '../Infra/typeorm/entities/Dogs';
-import uploadConfig from '../../../config/upload';
 
 interface Request {
   userId: string
@@ -27,19 +25,29 @@ class UploadDogAvatar {
     if (!selectedDog) {
       throw new AppError('Dog with this name was not Found');
     }
-    if (selectedDog.avatar) {
-      const DogAvatarFilePath = path.join(
-        uploadConfig.directory,
-        selectedDog.avatar,
-      );
-      const dogAvatarFileExists = await fs.promises.stat(
-        DogAvatarFilePath,
-      );
-      if (dogAvatarFileExists) {
-        await fs.promises.unlink(DogAvatarFilePath);
-      }
+    const existedPhotos = selectedDog.dog_photos;
+    if (!existedPhotos) {
+      const photos = [];
+
+      const photo = {
+        id: v4(),
+        url: `${process.env.LOCAL_API_URL}/files/${filename}`,
+      };
+      photos.push(photo);
+      selectedDog.dog_photos = JSON.stringify(photos);
+      this.dogsRepository.save(selectedDog);
+
+      return selectedDog;
     }
-    selectedDog.avatar = filename;
+    const photo = {
+      id: v4(),
+      url: `${process.env.LOCAL_API_URL}/files/${filename}`,
+    };
+    const newPhotos = JSON.parse(existedPhotos);
+    newPhotos.push(photo);
+
+    selectedDog.dog_photos = JSON.stringify(newPhotos);
+
     this.dogsRepository.save(selectedDog);
     return selectedDog;
   }

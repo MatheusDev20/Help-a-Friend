@@ -5,9 +5,10 @@ import UpdateUserAvatar from '../../../Services/UpdateUserAvatar';
 class UpdateUserAvatarController {
   public async update(
     request: Request,
-    response:Response,
-  ):Promise<Response> {
+    response: Response,
+  ): Promise<Response> {
     const updateUserAvatar = container.resolve(UpdateUserAvatar);
+    if (!request.file) return response.json({ message: 'Filename is required' }).status(400);
     const user = await updateUserAvatar.execute(
       { id: request.user.id, filename: request.file.filename },
     );

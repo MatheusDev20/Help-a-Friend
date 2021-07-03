@@ -13,6 +13,7 @@ export enum Size {
   PEQUENO = 'Pequeno',
   MEDIO = 'Medio'
 }
+
 @Entity('dogs')
 export default class Dogs {
   @PrimaryGeneratedColumn('uuid')
@@ -43,10 +44,13 @@ export default class Dogs {
   user: User;
 
   @Column()
-  history: string;
+  photos: string;
 
   @Column()
-  avatar: string;
+  dog_photos: string
+
+  @Column()
+  history: string;
 
   @Column()
   castrated: boolean;

@@ -6,6 +6,7 @@ interface IUsersRepositoriy {
     findById(id: string): Promise<User | undefined>;
     getAllUsers(): Promise<User[]> | undefined
     create(data: CreateUserDTO): Promise<User>;
+    save(user: User): Promise<void>;
     delete(user: User): Promise<User>
 }
 
