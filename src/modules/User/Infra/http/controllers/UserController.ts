@@ -20,6 +20,7 @@ class UserController {
       email,
       password,
     });
+    console.log('?');
     user.password = '';
     const payload = new AppResponse(200, user);
     return response.json(payload);

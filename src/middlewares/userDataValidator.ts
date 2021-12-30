@@ -7,6 +7,7 @@ function ValidateEmail(email: string) {
   }
   return undefined;
 }
+
 export default function
 userDataValidation(request: Request, _: Response, next: NextFunction):
 void {
