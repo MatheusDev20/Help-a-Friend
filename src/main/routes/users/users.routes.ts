@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import multer from 'multer';
-import userDataValidator from '../../../middlewares/userDataValidator';
 import UserController from '../../../modules/User/Infra/http/controllers/UserController';
 import uploadConfig from '../../../config/upload';
 import authorization from '../../../middlewares/authorization';
@@ -10,10 +9,6 @@ const userRouter = Router();
 const upload = multer(uploadConfig);
 const userController = new UserController();
 const updateUserAvatar = new UpdateUserAvatarController();
-
-userRouter.get('/', authorization, userController.read);
-
-userRouter.post('/', userDataValidator, userController.create);
 
 userRouter.patch(
   '/avatar',
