@@ -1,5 +1,5 @@
-import 'express-async-errors';
 import 'reflect-metadata';
+import 'express-async-errors';
 import express from 'express';
 import '../../infra/db/helpers/postgres-conn-helper';
 import routes from '../routes';
