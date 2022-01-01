@@ -6,6 +6,6 @@ const registerUserRouter = Router();
 
 const registerUserController = new RegisterNewUserController();
 
-registerUserRouter.post('/', userDataValidator, registerUserController.handle);
+registerUserRouter.post('/user', userDataValidator, registerUserController.handle);
 
 export default registerUserRouter;
