@@ -9,6 +9,7 @@ class EditUser {
 
   public execute(email: string, name: string, password: string): Promise<Users | AppError> {
     return new Promise((reject, resolve) => {
+      console.log('?');
       this.usersRepository.findByEmail(email).then((usr) => {
         if (!usr) {
           const err = new AppError('Unable to find user', 404);

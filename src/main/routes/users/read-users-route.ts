@@ -6,6 +6,6 @@ const readUsersRoute = Router();
 
 const readUsersController = new ReadUsersController();
 
-readUsersRoute.get('/user', authorization, readUsersController.handle);
+readUsersRoute.get('/', authorization, readUsersController.handle);
 
 export default readUsersRoute;

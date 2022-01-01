@@ -6,6 +6,6 @@ const deleteUserRoute = Router();
 
 const deleteUserController = new DeleteUserController();
 
-deleteUserRoute.delete('/user', authorization, deleteUserController.handle);
+deleteUserRoute.delete('/', authorization, deleteUserController.handle);
 
 export default deleteUserRoute;

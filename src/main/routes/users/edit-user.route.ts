@@ -6,6 +6,6 @@ const editUserRouter = Router();
 
 const editUserController = new EditUserController();
 
-editUserRouter.put('/user', authorization, editUserController.handle);
+editUserRouter.put('/', authorization, editUserController.handle);
 
 export default editUserRouter;
