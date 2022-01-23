@@ -8,7 +8,7 @@ interface jwtConfig {
 
 const authConfig: jwtConfig = {
   jwt: {
-    secret: process.env.SECRET_JWT,
+    secret: process.env.SECRET_JWT, // md5 -> help_a_friend
     expiresIn: '1d',
   },
 };

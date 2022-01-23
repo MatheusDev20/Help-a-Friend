@@ -7,3 +7,6 @@ docker container ls -a
 dokcer container rm [container_id]
 # Entrar na role do postgres com o user postgres
 sudo -i -u postgres
+
+# Senha do DB
+5D]5zZmM

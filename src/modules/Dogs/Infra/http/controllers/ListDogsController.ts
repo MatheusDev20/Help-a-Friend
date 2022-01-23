@@ -4,6 +4,7 @@ import ListAllDogs from '../../../Services/ListAllDogs';
 
 class ListDogsController {
   public async listAll(request: Request, response: Response): Promise<Response> {
+    console.log(request.user.id);
     const listDogs = container.resolve(ListAllDogs);
 
     const allDogs = await listDogs.execute();
