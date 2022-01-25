@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import UploadDogAvatarService from '../../../Services/UploadDogAvatar';
-import AppError from '../../../../../errors/AppError';
-import CreateDogService from '../../../Services/CreateDogsService';
+import UploadDogAvatarService from '../../../modules/Dogs/Services/UploadDogAvatar';
+import AppError from '../../../errors/AppError';
+import CreateDogService from '../../../modules/Dogs/Services/CreateDogsService';
 
 export default class DogsController {
   public async create(request: Request, response: Response): Promise<Response> {
