@@ -5,7 +5,6 @@ import dogsRoutes from './dogs';
 import sessionsRoute from './login/sessions.routes';
 
 const routes = Router();
-console.log(dogsRoutes);
 routes.use('/user', userRoutes);
 routes.use('/dogs', dogsRoutes);
 routes.use('/sessions', sessionsRoute);
