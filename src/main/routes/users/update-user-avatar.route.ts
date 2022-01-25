@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import multer from 'multer';
-import UpdateUserAvatarController from '../../../modules/User/Infra/http/controllers/UpdateUserAvatarController';
+import UpdateUserAvatarController from '../../../presentation/controllers/users/update-user-avatar-controller';
 import authorization from '../../../middlewares/authorization';
 import uploadConfig from '../../../config/upload';
 

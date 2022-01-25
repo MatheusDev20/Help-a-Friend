@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import AuthController from '../../../modules/User/Infra/http/controllers/AuthController';
+import AuthController from '../../../presentation/controllers/auth/auth-user-controller';
 
 const controller = new AuthController();
 const sessionsRouter = Router();
