@@ -1,5 +1,5 @@
 import app from './config/app';
 
-app.listen('3333', () => {
+app.listen(process.env.PORT, () => {
   console.log('Up and running');
 });
