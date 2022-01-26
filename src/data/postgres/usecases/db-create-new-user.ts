@@ -23,7 +23,7 @@ class CreateUserUseCase implements CreateNewUser {
     const existedEmail = await this.userRepository.findByEmail(email);
 
     if (existedEmail) {
-      throw new AppError('Email already Taken', 400);
+      throw new AppError('Email already Takenn', 400);
     }
     const hashedPassword = await hash(password, 8);
     const randomId = v4();
