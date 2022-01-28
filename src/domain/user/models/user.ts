@@ -5,4 +5,5 @@ export interface User {
   password: string;
   created_at: Date;
   updated_at: Date;
+  avatar: string
 }

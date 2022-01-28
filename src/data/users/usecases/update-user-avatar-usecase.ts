@@ -1,9 +1,9 @@
 import path from 'path';
 import fs from 'fs';
 import { inject, injectable } from 'tsyringe';
-import IUsersRepositoriy from '../Repositories/IUsersRepositoriy';
+import IUsersRepositoriy from '../../protocols/user-repository';
 import AppError from '../../../errors/AppError';
-import User from '../Infra/typeorm/entities/User';
+import { User } from '../../../domain/user/models/user';
 import uploadConfig from '../../../config/upload';
 
 interface Request {
@@ -11,10 +11,10 @@ interface Request {
   filename: string
 }
 @injectable()
-class UpdateUserAvatar {
+class UpdateUserAvatarUseCase {
   constructor(@inject('UserRepository') private userRepository: IUsersRepositoriy) { }
 
-  public async execute({ id, filename }: Request): Promise<User> {
+  public async update({ id, filename }: Request): Promise<User> {
     console.log('Get in the service');
     const user = await this.userRepository.findById(id);
     if (!user) {
@@ -41,4 +41,4 @@ class UpdateUserAvatar {
     return user;
   }
 }
-export default UpdateUserAvatar;
+export default UpdateUserAvatarUseCase;

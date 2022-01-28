@@ -1,19 +1,21 @@
 import { inject, injectable } from 'tsyringe';
 import AppError from '../../../errors/AppError';
-import IUsersRepositoriy from '../Repositories/IUsersRepositoriy';
+import IUsersRepositoriy from '../../protocols/user-repository';
 
 interface DeletedUser {
   name: string;
   email: string;
   msg: string;
 }
+
 @injectable()
-class DeleteUser {
+class DeleteUserUseCase {
   constructor(@inject('UserRepository') private userRepository: IUsersRepositoriy) { }
 
-  public async execute(email: string, loggedId: string): Promise<DeletedUser> {
+  public async delete(email: string, loggedId: string): Promise<DeletedUser> {
     const userToBeDeleted = await this.userRepository.findByEmail(email);
     const loggedUser = await this.userRepository.findById(loggedId);
+
     if (!userToBeDeleted) {
       throw new AppError('User not founded', 404);
     }
@@ -32,4 +34,4 @@ class DeleteUser {
     return payload;
   }
 }
-export default DeleteUser;
+export default DeleteUserUseCase;

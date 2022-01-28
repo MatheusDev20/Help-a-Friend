@@ -1,7 +1,7 @@
 import { getRepository, Repository } from 'typeorm';
-import IUsersRepository from '@modules/User/Repositories/IUsersRepositoriy';
-import CreateUserDTO from '../../../Dto/CreateUserDTO';
-import Users from '../entities/User';
+import IUsersRepository from '../../../../data/protocols/user-repository';
+import CreateUserDTO from '../../../../data/users/dto/create-user-dto';
+import Users from '../entities/user';
 
 class UserRepository implements IUsersRepository {
   private userRepository: Repository<Users> // Declarando o atributo do orm da classe
@@ -33,7 +33,7 @@ class UserRepository implements IUsersRepository {
     return user;
   }
 
-  public async getAllUsers(): Promise<Users[]> {
+  public async getAllUsers(): Promise<Users[] | null> {
     const users = await this.userRepository.createQueryBuilder('user').getMany();
     return users;
   }

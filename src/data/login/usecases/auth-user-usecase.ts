@@ -1,9 +1,9 @@
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import { injectable, inject } from 'tsyringe';
-import IUsersRepositoriy from '../Repositories/IUsersRepositoriy';
+import IUsersRepositoriy from '../../protocols/user-repository';
 import AppError from '../../../errors/AppError';
-import Users from '../Infra/typeorm/entities/User';
+import { User } from '../../../domain/user/models/user';
 import authConfig from '../../../config/auth';
 
 interface Request {
@@ -11,18 +11,18 @@ interface Request {
   password: string;
 }
 interface Response {
-  user: Users;
+  user: User;
   token: string
   expiration: string;
 }
 @injectable()
-class AuthorizationService {
+class AuthorizationUseCase {
   constructor(
     @inject('UserRepository') private userRepository: IUsersRepositoriy,
   ) {
   }
 
-  public async execute({ email, password }: Request): Promise<Response> {
+  public async auth({ email, password }: Request): Promise<Response> {
     // Buscar no banco um usuário com este email
     const user = await this.userRepository.findByEmail(email);
     if (!user) {
@@ -42,4 +42,4 @@ class AuthorizationService {
     };
   }
 }
-export default AuthorizationService;
+export default AuthorizationUseCase;

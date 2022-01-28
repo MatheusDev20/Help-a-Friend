@@ -1,13 +1,13 @@
 import { inject, injectable } from 'tsyringe';
 import AppError from '../../../errors/AppError';
-import Users from '../Infra/typeorm/entities/User';
-import IUsersRepositoriy from '../Repositories/IUsersRepositoriy';
+import { User } from '../../../domain/user/models/user';
+import IUsersRepositoriy from '../../protocols/user-repository';
 
 @injectable()
-class EditUser {
+class EditUserUseCase {
   constructor(@inject('UserRepository') private usersRepository: IUsersRepositoriy) { }
 
-  public execute(email: string, name: string, password: string): Promise<Users | AppError> {
+  public edit(email: string, name: string, password: string): Promise<User | AppError> {
     return new Promise((reject, resolve) => {
       console.log('?');
       this.usersRepository.findByEmail(email).then((usr) => {
@@ -28,4 +28,4 @@ class EditUser {
   }
 }
 
-export default EditUser;
+export default EditUserUseCase;

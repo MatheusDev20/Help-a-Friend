@@ -1,10 +1,10 @@
 import { container } from 'tsyringe';
 import IDogsRepository from '@modules/Dogs/Repositories/IDogsRepository';
 import DogsRepository from '../../modules/Dogs/Infra/typeorm/repositories/DogRepository';
-import IUsersRepositorie from '../../modules/User/Repositories/IUsersRepositoriy';
-import UserRepository from '../../modules/User/Infra/typeorm/repositories/UserRepository';
+import IUsersRepository from '../../data/protocols/user-repository';
+import UserRepository from '../../infra/db/postgres/repositories/user-repository';
 
-container.registerSingleton<IUsersRepositorie>(
+container.registerSingleton<IUsersRepository>(
   'UserRepository',
   UserRepository,
 );

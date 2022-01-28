@@ -2,7 +2,7 @@
 import {
   Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn,
 } from 'typeorm';
-import User from '../../../../User/Infra/typeorm/entities/User';
+import User from '../../../../../infra/db/postgres/entities/user';
 
 export enum Gender {
   MALE = 'M',
