@@ -9,6 +9,11 @@ module.exports = {
   migrations: [
     'src/infra/migrations/typeorm/migrations/*.ts',
   ],
-  ssl: true
+  ssl: true,
+  extra: {
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  }
 }
 
