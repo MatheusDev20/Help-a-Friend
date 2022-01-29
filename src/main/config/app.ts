@@ -3,7 +3,7 @@ import 'express-async-errors';
 import express from 'express';
 import '../../infra/db/helpers/postgres-conn-helper';
 import routes from '../routes';
-import '../../shared/dependecyContainer';
+import '../../infra/db/postgres/tsyringe/containers';
 import setupMiddlewares from './app-middlewares';
 import { enableError } from '../middlewares/error';
 
