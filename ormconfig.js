@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   type: 'postgres',
   url: process.env.DATABASE_URL,
   entities: ['src/infra/db/postgres/entities/*.ts'],
