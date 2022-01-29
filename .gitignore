@@ -1,6 +1,5 @@
 node_modules
 dist
-ormconfig.json
 tmp/*
 !tmp/.gitkeep
 .env
