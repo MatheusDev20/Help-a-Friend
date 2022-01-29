@@ -23,6 +23,6 @@ module.exports = {
     process.env.MIGRATIONS_PATH,
   ],
   ssl: ssl_enable,
-  extra: null
+  extra: ssl_confs
 }
 
