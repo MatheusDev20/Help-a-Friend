@@ -1,5 +1,5 @@
 import { getRepository, Repository } from 'typeorm';
-import CreateDogDTO from '@modules/Dogs/Dto/CreateDogDTO';
+import CreateDogDTO from '../../../../data/dogs/dto/create-dog-dto';
 import IDogsRepository from '../../../../data/protocols/dogs-repository';
 import Dogs from '../entities/dogs';
 

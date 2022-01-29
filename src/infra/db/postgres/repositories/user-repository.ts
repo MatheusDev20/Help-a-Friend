@@ -33,7 +33,7 @@ class UserRepository implements IUsersRepository {
     return user;
   }
 
-  public async getAllUsers(): Promise<Users[] | null> {
+  public async getAllUsers(): Promise<Users[]> {
     const users = await this.userRepository.createQueryBuilder('user').getMany();
     return users;
   }

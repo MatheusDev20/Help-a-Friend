@@ -6,7 +6,7 @@ import { User } from '../../../domain/user/models/user';
 class ReadAllUsersUseCase {
   constructor(@inject('UserRepository') private userRepository: IUserRepository) { }
 
-  public async read(): Promise<User[] | null> {
+  public async read(): Promise<User[]> {
     const users = await this.userRepository.getAllUsers();
     return users;
   }

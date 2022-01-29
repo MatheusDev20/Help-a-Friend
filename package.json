@@ -5,8 +5,10 @@
   "author": "Matheus de Paula <matheusdev20@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "build": "tsc",
     "dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules src/main/server.ts ",
-    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
+    "start": "node dist/server.js"
   },
   "engines": {
     "node": "14.x"

@@ -7,7 +7,6 @@ import ReadAllUsersUseCase from '../../../data/users/usecases/read-all-users-use
 class ReadUsersController implements Controller {
   public async handle(request: Request, response: Response): Promise<Response> {
     const useCase = container.resolve(ReadAllUsersUseCase);
-
     const users = await useCase.read();
 
     users.map(((user) => {
