@@ -1,8 +1,8 @@
 import { inject, injectable } from 'tsyringe';
 import { v4 } from 'uuid';
-import IDogsRepository from '../Repositories/IDogsRepository';
+import IDogsRepository from '../../protocols/dogs-repository';
 import AppError from '../../../errors/AppError';
-import Dog from '../Infra/typeorm/entities/Dogs';
+import Dog from '../../../infra/db/postgres/entities/dogs';
 
 interface Request {
   userId: string
@@ -10,7 +10,7 @@ interface Request {
   filename: string
 }
 @injectable()
-class UploadDogAvatar {
+class UploadDogImagesUseCase {
   constructor(@inject('DogsRepository') private dogsRepository: IDogsRepository) {
   }
 
@@ -53,4 +53,4 @@ class UploadDogAvatar {
   }
 }
 
-export default UploadDogAvatar;
+export default UploadDogImagesUseCase;

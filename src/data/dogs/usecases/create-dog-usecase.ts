@@ -1,28 +1,29 @@
 import { v4 } from 'uuid';
 import { inject, injectable } from 'tsyringe';
-import Dogs, { Gender } from '../Infra/typeorm/entities/Dogs';
+import Dogs, { Gender } from '../../../infra/db/postgres/entities/dogs';
 import AppError from '../../../errors/AppError';
 
-import IDogsRepository from '../Repositories/IDogsRepository';
+import IDogsRepository from '../../protocols/dogs-repository';
 
 interface Request {
-    name: string;
-    gender: Gender
-    size: string;
-    user_id: string;
-    history: string;
-    castrated: boolean;
-    vaccinated: boolean
+  name: string;
+  gender: Gender
+  size: string;
+  user_id: string;
+  history: string;
+  castrated: boolean;
+  vaccinated: boolean
 }
+
 @injectable()
-class CreateDogService {
+class CreateDogUseCase {
   constructor(
     @inject('DogsRepository') private dogsRepository: IDogsRepository,
-  ) {}
+  ) { }
 
   public async execute({
     name, gender, size, history, castrated, vaccinated, user_id,
-  }: Request):Promise<Dogs> {
+  }: Request): Promise<Dogs> {
     console.log(user_id); // Buscar infos na tabela de usuario
     const dogs = await this.dogsRepository.findUserDogs(user_id);
 
@@ -45,4 +46,4 @@ class CreateDogService {
     return dog;
   }
 }
-export default CreateDogService;
+export default CreateDogUseCase;

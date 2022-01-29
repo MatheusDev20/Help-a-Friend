@@ -11,3 +11,7 @@ const updateDogsPhotosController = new UpdateDogsPhotos();
 updateDogsPhotos.patch('/', authorization, upload.single('photo'), updateDogsPhotosController.update);
 
 export default updateDogsPhotos;
+
+
+
+[{"id":"9148cbd4-b477-470b-9e1f-9b65cf8ca604","url":"http://localhost:3333/files/302ad4d2fd579de688fd-teste.jpeg"}]

@@ -1,7 +1,7 @@
 import { getRepository, Repository } from 'typeorm';
-import IDogsRepository from '@modules/Dogs/Repositories/IDogsRepository';
 import CreateDogDTO from '@modules/Dogs/Dto/CreateDogDTO';
-import Dogs from '../entities/Dogs';
+import IDogsRepository from '../../../../data/protocols/dogs-repository';
+import Dogs from '../entities/dogs';
 
 class DogsRepository implements IDogsRepository {
   private dogsRepository: Repository<Dogs> // Declarando o atributo do orm da classe
