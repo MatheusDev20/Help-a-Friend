@@ -10,8 +10,7 @@ class ReadUsersController implements Controller {
     const users = await useCase.read();
 
     users.map(((user) => {
-      delete user.password;
-
+      user.password = '';
       return user;
     }));
 

@@ -32,7 +32,7 @@ class AuthorizationUseCase {
     if (!passwordMatch) {
       throw new AppError('Passwords Dont Match');
     }
-    const { secret, expiresIn } = authConfig.jwt;
+    const { secret, expiresIn } = authConfig;
     const token = sign({}, secret, {
       subject: user.id,
       expiresIn,
