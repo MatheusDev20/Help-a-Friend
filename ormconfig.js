@@ -14,7 +14,6 @@ module.exports = {
   type: 'postgres',
   url: process.env.DATABASE_URL,
   entities: [process.env.ENTITIES_PATH],
-  migrationsTableName: 'haf_migrations',
   cli: {
     migrationsDir: process.env.MIGRATIONS_DIR,
   },
