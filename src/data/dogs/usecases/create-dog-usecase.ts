@@ -1,13 +1,13 @@
 import { v4 } from 'uuid';
 import { inject, injectable } from 'tsyringe';
-import Dogs, { Gender } from '../../../infra/db/postgres/entities/dogs';
+import Dogs from '../../../infra/db/postgres/entities/dogs';
 import AppError from '../../../errors/AppError';
 
 import IDogsRepository from '../../protocols/dogs-repository';
 
 interface Request {
   name: string;
-  gender: Gender
+  gender: string;
   size: string;
   user_id: string;
   history: string;

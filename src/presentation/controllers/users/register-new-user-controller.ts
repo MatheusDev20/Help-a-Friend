@@ -10,7 +10,7 @@ class RegisterNewUserController implements Controller {
     const { name, email, password } = request.body;
     const createUser = container.resolve(CreateUserUseCase);
 
-    const user = await createUser.add({
+    const user = await createUser.create({
       name,
       email,
       password,
