@@ -4,12 +4,11 @@ let ssl_confs = null
 if (process.env.ENVIROMENT == 'PROD') {
   ssl_enable = true
   ssl_confs = {
-    extra: {
-       ssl: {
-        rejectUnauthorized: false,
-      },
+    ssl: {
+      rejectUnauthorized: false,
     }
   }
+
 }
 module.exports = {
   type: 'postgres',
