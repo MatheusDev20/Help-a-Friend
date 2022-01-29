@@ -15,10 +15,10 @@ module.exports = {
   url: process.env.DATABASE_URL,
   entities: [process.env.ENTITIES_PATH],
   cli: {
-    migrationsDir: process.env.MIGRATIONS_DIR,
+    migrationsDir: 'dist/migrations'
   },
   migrations: [
-    process.env.MIGRATIONS_PATH,
+    'dist/migrations/*.js'
   ],
   ssl: ssl_enable,
   extra: ssl_confs
