@@ -16,7 +16,7 @@ module.exports = {
   entities: [process.env.ENTITIES_PATH],
   migrationsTableName: 'haf_migrations',
   cli: {
-    migrationsDir: 'src/infra/db/postgres/migrations',
+    migrationsDir: 'src/infra/db/postgres/migrations/typeorm/migrations',
   },
   migrations: [
     process.env.MIGRATIONS_PATH,
