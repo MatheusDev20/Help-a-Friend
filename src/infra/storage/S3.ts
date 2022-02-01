@@ -30,7 +30,7 @@ class S3Storage implements Storage {
       Body: fileContent,
     }).promise();
     console.log(ret);
-    return fileName;
+    return buildPathS3(fileName);
   }
 
   async listBuckets(): Promise<any> {
