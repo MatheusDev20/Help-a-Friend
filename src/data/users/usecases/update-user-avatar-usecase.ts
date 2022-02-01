@@ -35,8 +35,8 @@ class UpdateUserAvatarUseCase {
         await fs.promises.unlink(UserAvatarFilePath);
       }
     }
-    this.storageProvider.uploadFile(filename);
-    const avatarUrl = `${process.env.STORAGE_URL}/files/${filename}`;
+    const file = this.storageProvider.uploadFile(filename);
+    const avatarUrl = `${process.env.STORAGE_URL}/${file}`;
     user.avatar = avatarUrl;
     this.userRepository.save(user);
     return user;
