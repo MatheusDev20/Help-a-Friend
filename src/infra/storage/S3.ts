@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import aws, { S3 } from 'aws-sdk';
 import path from 'path';
 import fs from 'fs';
