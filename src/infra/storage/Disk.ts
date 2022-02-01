@@ -11,10 +11,6 @@ class DiskStorage implements Storage {
     );
     return fileName;
   }
-
-  public async listBuckets(): Promise<any> {
-    console.log('?');
-  }
 }
 
 export default DiskStorage;
