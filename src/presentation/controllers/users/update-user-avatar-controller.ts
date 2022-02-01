@@ -9,7 +9,6 @@ class UpdateUserAvatarController {
     response: Response,
   ): Promise<Response> {
     const useCase = container.resolve(UpdateUserAvatarUseCase);
-    console.log(request.file);
     if (!request.file) return response.json({ message: 'Filename is required' }).status(400);
     const user = await useCase.update(
       { id: request.user.id, filename: request.file.filename },

@@ -4,6 +4,7 @@ import crypto from 'crypto';
 
 const tmpFolder = path.join(__dirname, '..', '..', 'tmp');
 // exportar o objeto de conf do multer
+console.log(tmpFolder);
 export default {
   directory: tmpFolder,
   storage: multer.diskStorage({
