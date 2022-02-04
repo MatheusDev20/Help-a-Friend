@@ -1,3 +1,3 @@
 export interface Storage {
-  uploadFile: (fileName: string) => Promise<string>
+  uploadFile: (fileName: string, resource: string) => Promise<string>
 }

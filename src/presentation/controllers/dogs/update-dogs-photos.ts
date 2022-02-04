@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import UploadDogsImagesUseCase from '../../../data/dogs/usecases/update-dog-photos-usecase';
@@ -6,14 +7,22 @@ import AppError from '../../../errors/AppError';
 export default class UpdateDogsPhotos {
   public async update(request: Request, response: Response): Promise<Response> {
     const { name } = request.query;
-    const updateDogAvatar = container.resolve(UploadDogsImagesUseCase);
-    if (!request.file?.filename || !name) {
-      throw new AppError('Filename is missing');
+    if (!name) {
+      throw new AppError('Please provide a dog name');
     }
-    const dog = await updateDogAvatar.execute({
+
+    if (!request.file) {
+      throw new AppError('File is required');
+    }
+
+    const filename = request.file?.filename;
+
+    const updateDogImages = container.resolve(UploadDogsImagesUseCase);
+
+    const dog = await updateDogImages.upload({
       userId: request.user.id,
       dogName: name as string,
-      filename: request.file.filename,
+      filename,
     });
     return response.json(dog);
   }

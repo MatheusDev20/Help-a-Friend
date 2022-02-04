@@ -1,6 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 import AppError from '../../../errors/AppError';
 import IUsersRepositoriy from '../../protocols/user-repository';
+import { DeleteUser } from '../../../domain/user/usecases/delete-user';
 
 interface DeletedUser {
   name: string;
@@ -9,7 +10,7 @@ interface DeletedUser {
 }
 
 @injectable()
-class DeleteUserUseCase {
+class DeleteUserUseCase implements DeleteUser {
   constructor(@inject('UserRepository') private userRepository: IUsersRepositoriy) { }
 
   public async delete(email: string, loggedId: string): Promise<DeletedUser> {

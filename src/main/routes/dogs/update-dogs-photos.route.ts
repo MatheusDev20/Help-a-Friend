@@ -8,6 +8,6 @@ const updateDogsPhotos = Router();
 const upload = multer(uploadConfig);
 const updateDogsPhotosController = new UpdateDogsPhotos();
 
-updateDogsPhotos.patch('/', authorization, upload.single('photo'), updateDogsPhotosController.update);
+updateDogsPhotos.patch('/', authorization, upload.single('dogImage'), updateDogsPhotosController.update);
 
 export default updateDogsPhotos;

@@ -1,4 +1,4 @@
-export default (fileName: string): string => {
+export default (fileName: string, resource: string): string => {
   const date = new Date();
-  return `${date.getFullYear()}/${date.getMonth() + 1}/${fileName}`;
+  return `${resource}/${date.getFullYear()}/${date.getMonth() + 1}/${fileName}`;
 };

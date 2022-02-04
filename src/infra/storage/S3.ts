@@ -21,17 +21,18 @@ class S3Storage implements Storage {
     });
   }
 
-  public async uploadFile(fileName: string): Promise<any> {
+  public async uploadFile(fileName: string, resource: string): Promise<any> {
     const originalPath = path.resolve(upload.directory, fileName);
     const fileContent = await fs.promises.readFile(originalPath);
+
     const ret = await this.s3Client.putObject({
       Bucket: process.env.BUCKET_NAME,
-      Key: buildPathS3(fileName),
+      Key: buildPathS3(fileName, resource),
       ACL: 'public-read',
       Body: fileContent,
     }).promise();
     console.log(ret);
-    return buildPathS3(fileName);
+    return buildPathS3(fileName, resource);
   }
 
   async listBuckets(): Promise<any> {

@@ -1,8 +1,10 @@
 import { inject, injectable } from 'tsyringe';
 import { v4 } from 'uuid';
+import { UploadDogImages } from '../../../domain/dogs/upload-dog-photos';
 import IDogsRepository from '../../protocols/dogs-repository';
 import AppError from '../../../errors/AppError';
-import Dog from '../../../infra/db/postgres/entities/dogs';
+import { Dog } from '../../../domain/dogs/models/dog';
+import { Storage } from '../../protocols/storage';
 
 interface Request {
   userId: string
@@ -10,11 +12,11 @@ interface Request {
   filename: string
 }
 @injectable()
-class UploadDogImagesUseCase {
-  constructor(@inject('DogsRepository') private dogsRepository: IDogsRepository) {
+class UploadDogImagesUseCase implements UploadDogImages {
+  constructor(@inject('DogsRepository') private dogsRepository: IDogsRepository, @inject('Storage') private storageProvider: Storage) {
   }
 
-  public async execute({ userId, dogName, filename }: Request): Promise<Dog> {
+  public async upload({ userId, dogName, filename }: Request): Promise<Dog> {
     // Query para achar todos os cachorros daquele usuario
     const dogs = await this.dogsRepository.findUserDogs(userId);
     if (!dogs) {
@@ -25,14 +27,16 @@ class UploadDogImagesUseCase {
     if (!selectedDog) {
       throw new AppError('Dog with this name was not Found');
     }
+    const file = await this.storageProvider.uploadFile(filename, 'dogs');
     const existedPhotos = selectedDog.dog_photos;
     if (!existedPhotos) {
       const photos = [];
 
       const photo = {
         id: v4(),
-        url: `${process.env.LOCAL_API_URL}/files/${filename}`,
+        url: `${process.env.STORAGE_URL_PROD}/${file}`,
       };
+
       photos.push(photo);
       selectedDog.dog_photos = JSON.stringify(photos);
       this.dogsRepository.save(selectedDog);
@@ -41,7 +45,7 @@ class UploadDogImagesUseCase {
     }
     const photo = {
       id: v4(),
-      url: `${process.env.LOCAL_API_URL}/files/${filename}`,
+      url: `${process.env.STORAGE_URL_PROD}/${file}`,
     };
     const newPhotos = JSON.parse(existedPhotos);
     newPhotos.push(photo);
