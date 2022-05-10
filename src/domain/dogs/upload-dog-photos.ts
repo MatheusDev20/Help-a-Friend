@@ -1,5 +1,5 @@
 import { Dog } from './models/dog';
-
+// Comentário
 interface UploadDogImagesDto {
   userId: string;
   dogName: string;
