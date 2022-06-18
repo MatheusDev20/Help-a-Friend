@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules src/main/server.ts ",
+    "dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules src/main/server.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
     "start": "node dist/main/server.js"
   },

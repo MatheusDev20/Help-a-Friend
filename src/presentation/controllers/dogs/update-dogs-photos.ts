@@ -1,10 +1,16 @@
 /* eslint-disable no-restricted-syntax */
+
 import { Request, Response } from 'express';
-import { container } from 'tsyringe';
 import UploadDogsImagesUseCase from '../../../data/dogs/usecases/update-dog-photos-usecase';
 import AppError from '../../../errors/AppError';
 
 export default class UpdateDogsPhotos {
+  private readonly useCase: UploadDogsImagesUseCase
+
+  constructor(useCase: UploadDogsImagesUseCase) {
+    this.useCase = useCase;
+  }
+
   public async update(request: Request, response: Response): Promise<Response> {
     const { name } = request.query;
     if (!name) {
@@ -17,13 +23,12 @@ export default class UpdateDogsPhotos {
 
     const filename = request.file?.filename;
 
-    const updateDogImages = container.resolve(UploadDogsImagesUseCase);
-
-    const dog = await updateDogImages.upload({
+    const dog = await this.useCase.upload({
       userId: request.user.id,
       dogName: name as string,
       filename,
     });
+
     return response.json(dog);
   }
 }

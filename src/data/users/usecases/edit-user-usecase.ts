@@ -1,16 +1,18 @@
-import { inject, injectable } from 'tsyringe';
 import AppError from '../../../errors/AppError';
 import { User } from '../../../domain/user/models/user';
-import IUsersRepositoriy from '../../protocols/user-repository';
+import IUsersRepository from '../../protocols/user-repository';
 
-@injectable()
 class EditUserUseCase {
-  constructor(@inject('UserRepository') private usersRepository: IUsersRepositoriy) { }
+  private readonly repository: IUsersRepository;
+
+  constructor(repository: IUsersRepository) {
+    this.repository = repository;
+  }
 
   public edit(email: string, name: string, password: string): Promise<User | AppError> {
     return new Promise((reject, resolve) => {
       console.log('?');
-      this.usersRepository.findByEmail(email).then((usr) => {
+      this.repository.findByEmail(email).then((usr) => {
         if (!usr) {
           const err = new AppError('Unable to find user', 404);
           reject(err);
