@@ -1,15 +1,16 @@
 import { Request, Response } from 'express';
-import CreateDogUseCase from '../../../data/dogs/usecases/create-dog-usecase';
+import { Controller } from '../../protocols/controller';
+import CreatePetUseCase from '../../../data/pets/usecases/create-pet-usecase';
 import AppError from '../../../errors/AppError';
 
-export default class DogsController {
-  private readonly useCase: CreateDogUseCase;
+export default class CreatePetsController implements Controller {
+  private readonly useCase: CreatePetUseCase;
 
-  constructor(useCase: CreateDogUseCase) {
+  constructor(useCase: CreatePetUseCase) {
     this.useCase = useCase;
   }
 
-  public async create(request: Request, response: Response): Promise<Response> {
+  public async handle(request: Request, response: Response): Promise<Response> {
     const {
       name, gender, size, history, castrated, vaccinated,
     } = request.body;
@@ -19,10 +20,10 @@ export default class DogsController {
     }
 
     const { id } = request.user;
-    const dog = await this.useCase.execute({
+    const pet = await this.useCase.execute({
       name, gender, size, user_id: id, history, castrated, vaccinated,
     });
 
-    return response.json(dog);
+    return response.json(pet);
   }
 }

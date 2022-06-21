@@ -1,4 +1,4 @@
-interface CreateDogDTO {
+interface CreatePetDTO {
   id: string;
   name: string;
   user_id: string;
@@ -9,4 +9,4 @@ interface CreateDogDTO {
   vaccinated: boolean;
 }
 
-export default CreateDogDTO;
+export default CreatePetDTO;

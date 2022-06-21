@@ -4,20 +4,15 @@ import { Request, Response, NextFunction } from 'express';
 import AppError from '../../errors/AppError';
 
 // eslint-disable-next-line import/prefer-default-export
-const enableError = (err: Error, request: Request, response: Response, _: NextFunction): any => {
+export const enableError = (err: Error, request: Request, response: Response, _: NextFunction): any => {
   if (err instanceof AppError) {
-    console.log(err);
     return response.status(err.statusCode).json({
-      status: 'error',
+      statusCode: err.statusCode,
       message: err.message,
     });
   }
-  console.log(err);
   return response.status(500).json({
     status: 'error',
     message: 'Internal Server Error',
   });
 };
-
-// eslint-disable-next-line import/prefer-default-export
-export { enableError };

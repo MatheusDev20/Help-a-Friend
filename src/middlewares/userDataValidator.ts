@@ -10,7 +10,7 @@ function ValidateEmail(email: string) {
 
 export default function
 userDataValidation(request: Request, _: Response, next: NextFunction):
-void {
+  void {
   const { name, password, email } = request.body;
   if (typeof (name) !== 'string') {
     throw new AppError('Name should be a string value');

@@ -1,9 +1,8 @@
 import { v4 } from 'uuid';
-import { inject, injectable } from 'tsyringe';
 import Dogs from '../../../infra/db/postgres/entities/dogs';
 import AppError from '../../../errors/AppError';
 
-import IDogsRepository from '../../protocols/dogs-repository';
+import { IPetsRepository } from '../../protocols/pets-repository';
 
 interface Request {
   name: string;
@@ -15,25 +14,26 @@ interface Request {
   vaccinated: boolean
 }
 
-@injectable()
-class CreateDogUseCase {
-  constructor(
-    @inject('DogsRepository') private dogsRepository: IDogsRepository,
-  ) { }
+class CreatePetUseCase {
+  private readonly repository;
+
+  constructor(repository: IPetsRepository) {
+    this.repository = repository;
+  }
 
   public async execute({
     name, gender, size, history, castrated, vaccinated, user_id,
   }: Request): Promise<Dogs> {
     console.log(user_id); // Buscar infos na tabela de usuario
-    const dogs = await this.dogsRepository.findUserDogs(user_id);
+    const pets = await this.repository.findUserPets(user_id);
 
-    if (dogs) {
-      if (dogs.length > 4) {
+    if (pets) {
+      if (pets.length > 4) {
         throw new AppError('User could not register more than 5 Dogs');
       }
     }
     const randomId = v4();
-    const dog = this.dogsRepository.create({
+    const pet = this.repository.create({
       id: randomId,
       user_id,
       name,
@@ -43,7 +43,7 @@ class CreateDogUseCase {
       castrated,
       vaccinated,
     });
-    return dog;
+    return pet;
   }
 }
-export default CreateDogUseCase;
+export default CreatePetUseCase;

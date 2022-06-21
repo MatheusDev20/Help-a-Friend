@@ -14,12 +14,11 @@ export default function authorization(request: Request, response: Response, next
   const authHeader = request.headers.authorization;
 
   if (!authHeader) {
-    throw new AppError('User is not Logged in ( Token is not passed )', 401);
+    throw new AppError('User is not Logged in ( Token is not provided )', 401);
   }
 
   const [, token] = authHeader.split(' ');
   const { secret } = authConfig;
-  console.log(secret);
   try {
     const decoded = verify(token, secret);
     const { sub } = decoded as TokenPayload;

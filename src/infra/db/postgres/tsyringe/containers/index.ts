@@ -1,6 +1,6 @@
 import { container } from 'tsyringe';
-import IDogsRepository from '../../../../../data/protocols/dogs-repository';
-import DogsRepository from '../../repositories/dogs-repository';
+import IDogsRepository from '../../../../../data/protocols/pets-repository';
+import DogsRepository from '../../repositories/pets-repository';
 import IUsersRepository from '../../../../../data/protocols/user-repository';
 import UserRepository from '../../repositories/user-repository';
 import { Storage } from '../../../../../data/protocols/storage';

@@ -5,5 +5,6 @@ export const enableCors = (req: Request, res: Response, next: NextFunction): voi
   res.set('access-control-allow-origin', '*');
   res.set('access-control-allow-methods', '*');
   res.set('access-control-allow-headers', '*');
-  next();
+
+  return next();
 };

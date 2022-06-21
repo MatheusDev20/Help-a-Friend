@@ -2,7 +2,7 @@
 import CreateUserDTO from '../users/dto/create-user-dto';
 import { User } from '../../domain/user/models/user';
 
-interface IUsersRepositoriy {
+interface IUsersRepository {
   findByEmail(email: string): Promise<User | undefined>;
   findById(id: string): Promise<User | undefined>;
   getAllUsers(): Promise<User[]>
@@ -11,4 +11,4 @@ interface IUsersRepositoriy {
   delete(user: User): Promise<User>
 }
 
-export default IUsersRepositoriy;
+export default IUsersRepository;
