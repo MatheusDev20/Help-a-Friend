@@ -4,18 +4,8 @@ import {
 } from 'typeorm';
 import User from './user';
 
-// export enum Gender {
-//   MALE = 'M',
-//   FEMALE = 'F'
-// }
-// export enum Size {
-//   GRANDE = 'Grande',
-//   PEQUENO = 'Pequeno',
-//   MEDIO = 'Medio'
-// }
-
-@Entity('dogs')
-export default class Dogs {
+@Entity('pets')
+export default class Pets {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
@@ -36,10 +26,7 @@ export default class Dogs {
   user: User;
 
   @Column()
-  photos: string;
-
-  @Column()
-  dog_photos: string
+  pet_photos: string
 
   @Column()
   history: string;

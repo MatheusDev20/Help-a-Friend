@@ -8,17 +8,16 @@ if (process.env.ENVIROMENT == 'PROD') {
       rejectUnauthorized: false,
     }
   }
-
 }
 module.exports = {
   type: 'postgres',
   url: process.env.DATABASE_URL,
   entities: [process.env.ENTITIES_PATH],
   cli: {
-    migrationsDir: 'dist/migrations'
+    migrationsDir: process.env.MIGRATIONS_DIR
   },
   migrations: [
-    'dist/migrations/*.js'
+    'src/migrations/*.ts'
   ],
   ssl: ssl_enable,
   extra: ssl_confs

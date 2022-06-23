@@ -1,5 +1,5 @@
 import CreatePetDTO from '../pets/dto/create-dog-dto';
-import Dog from '../../infra/db/postgres/entities/dogs';
+import Pets from '../../infra/db/postgres/entities/pets';
 
 interface Photo {
   imgId: string;
@@ -7,9 +7,9 @@ interface Photo {
 }
 
 export interface IPetsRepository {
-  create(data: CreatePetDTO): Promise<Dog>
-  findUserPets(user_id: string): Promise<Dog[]> | undefined;
-  listAllUserPets(): Promise<Dog[]> | undefined;
-  save(dog: Dog): Promise<Dog>;
-  updatePetPhotos(dog: Dog, imgLinks: string[]): Promise<Photo[]>
+  create(data: CreatePetDTO): Promise<Pets>
+  findUserPets(user_id: string): Promise<Pets[]> | undefined;
+  listAllUserPets(): Promise<Pets[]> | undefined;
+  save(pet: Pets): Promise<Pets>;
+  updatePetPhotos(pet: Pets, imgLinks: string[]): Promise<Photo[]>
 }

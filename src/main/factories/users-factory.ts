@@ -1,4 +1,7 @@
 /* eslint-disable import/prefer-default-export */
+import UpdateUserAvatarUseCase from '../../data/users/usecases/update-user-avatar-usecase';
+import S3Storage from '../../infra/storage/S3';
+import UpdateUserAvatarController from '../../presentation/controllers/users/update-user-avatar-controller';
 import AuthorizationUseCase from '../../data/users/usecases/auth-user-usecase';
 import AuthController from '../../presentation/controllers/auth/auth-user-controller';
 import DeleteUserController from '../../presentation/controllers/users/delete-user-controller';
@@ -29,4 +32,16 @@ const makeAuthUserController = (): Controller => {
   return authController;
 };
 
-export { makeSignUpUserController, makeDeleteUserController, makeAuthUserController };
+const makeAvatarUpload = (): Controller => {
+  const usersRepository = new UserRepository();
+  const storage = new S3Storage();
+  const updateAvatarUseCase = new UpdateUserAvatarUseCase(usersRepository, storage);
+
+  const updateAvatarController = new UpdateUserAvatarController(updateAvatarUseCase);
+
+  return updateAvatarController;
+};
+
+export {
+  makeSignUpUserController, makeDeleteUserController, makeAuthUserController, makeAvatarUpload,
+};

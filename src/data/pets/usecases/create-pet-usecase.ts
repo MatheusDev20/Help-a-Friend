@@ -1,5 +1,5 @@
 import { v4 } from 'uuid';
-import Dogs from '../../../infra/db/postgres/entities/dogs';
+import Pets from '../../../infra/db/postgres/entities/pets';
 import AppError from '../../../errors/AppError';
 
 import { IPetsRepository } from '../../protocols/pets-repository';
@@ -23,10 +23,8 @@ class CreatePetUseCase {
 
   public async execute({
     name, gender, size, history, castrated, vaccinated, user_id,
-  }: Request): Promise<Dogs> {
-    console.log(user_id); // Buscar infos na tabela de usuario
+  }: Request): Promise<Pets> {
     const pets = await this.repository.findUserPets(user_id);
-
     if (pets) {
       if (pets.length > 4) {
         throw new AppError('User could not register more than 5 Dogs');
