@@ -17,7 +17,7 @@ module.exports = {
     migrationsDir: process.env.MIGRATIONS_DIR
   },
   migrations: [
-    'src/migrations/*.ts'
+    process.env.MIGRATIONS_PATH
   ],
   ssl: ssl_enable,
   extra: ssl_confs
