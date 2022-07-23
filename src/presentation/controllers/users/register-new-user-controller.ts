@@ -1,3 +1,4 @@
+import { v4 } from 'uuid';
 import { Request, Response } from 'express';
 import { Controller } from 'presentation/protocols/controller';
 import AppResponse from '../../../Models/Response';
@@ -12,13 +13,13 @@ class RegisterNewUserController implements Controller {
 
   async handle(request: Request, response: Response): Promise<Response> {
     const { name, email, password } = request.body;
+
     const user = await this.useCase.create({
+      id: v4(),
       name,
       email,
       password,
     });
-
-    user.password = '';
     const payload = new AppResponse(200, user);
     return response.json(payload);
   }

@@ -15,4 +15,5 @@ export default (router: Router): void => {
   router.delete('/delete', authMiddleware, adapt(factories.makeDeleteUserController()));
   router.post('/login', adapt(factories.makeAuthUserController()));
   router.post('/avatar', authMiddleware, upload.single('avatar'), adapt(factories.makeAvatarUpload()));
+  router.get('/getProfile', authMiddleware, adapt(factories.makeUserProfile()));
 };

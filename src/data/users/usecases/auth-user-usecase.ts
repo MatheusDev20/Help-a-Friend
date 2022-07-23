@@ -1,16 +1,19 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
+import { AuthenticatedUser } from '../../../domain/dtos/AuthenticatedUser';
 import AppError from '../../../errors/AppError';
-import { User } from '../../../domain/user/models/user';
 import authConfig from '../../../config/auth';
 import IUsersRepository from '../../protocols/user-repository';
 
 interface Request {
-  email: string;
-  password: string;
+  authInfo: {
+    email: string,
+    userPassword: string
+  }
 }
 interface Response {
-  user: User;
+  authUser: AuthenticatedUser
   token: string
   expiration: string;
 }
@@ -21,14 +24,13 @@ class AuthorizationUseCase {
     this.repository = repository;
   }
 
-  public async auth({ email, password }: Request): Promise<Response> {
-    // Buscar no banco um usuário com este email
-    const user = await this.repository.findByEmail(email);
+  public async auth({ authInfo }: Request): Promise<Response> {
+    const user = await this.repository.findByEmail(authInfo.email);
 
     if (!user) {
       throw new AppError('Not registered Email');
     }
-    const passwordMatch = await compare(password, user.password);
+    const passwordMatch = await compare(authInfo.userPassword, user.password);
 
     if (!passwordMatch) {
       throw new AppError('Wrong password');
@@ -39,8 +41,12 @@ class AuthorizationUseCase {
       subject: user.id,
       expiresIn,
     });
+    const {
+      password, created_at, updated_at, ...authUser
+    } = user;
+
     return {
-      user, token, expiration: expiresIn,
+      authUser, token, expiration: expiresIn,
     };
   }
 }

@@ -11,13 +11,17 @@ class AuthController implements Controller {
 
   public async handle(request: Request, response: Response): Promise<Response> {
     const { email, password } = request.body;
-    const { token, expiration } = await this.useCase.auth({
-      email,
-      password,
-    });
+    const { token, expiration, authUser } = await this.useCase.auth(
+      {
+        authInfo: {
+          email,
+          userPassword: password,
+        },
+      },
+    );
 
     return response.json({
-      token, expiration,
+      token, expiration, authUser,
     });
   }
 }

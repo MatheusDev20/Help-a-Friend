@@ -1,3 +1,4 @@
+import { Controller } from '../../presentation/protocols/controller';
 /* eslint-disable import/prefer-default-export */
 import UpdateUserAvatarUseCase from '../../data/users/usecases/update-user-avatar-usecase';
 import S3Storage from '../../infra/storage/S3';
@@ -9,7 +10,8 @@ import DeleteUserUseCase from '../../data/users/usecases/delete-user-usecase';
 import RegisterNewUserController from '../../presentation/controllers/users/register-new-user-controller';
 import UserRepository from '../../infra/db/postgres/repositories/user-repository';
 import CreateUserUseCase from '../../data/users/usecases/add-user-usecase';
-import { Controller } from '../../presentation/protocols/controller';
+import GetUserProfileController from '../../presentation/controllers/users/get-user-profile';
+import GetUserProfileUseCase from '../../data/users/usecases/get-user-profile';
 
 const makeSignUpUserController = (): Controller => {
   const userRepository = new UserRepository();
@@ -21,8 +23,8 @@ const makeSignUpUserController = (): Controller => {
 const makeDeleteUserController = (): Controller => {
   const userRepository = new UserRepository();
   const deleteUserUseCase = new DeleteUserUseCase(userRepository);
-  const registerUserConroller = new DeleteUserController(deleteUserUseCase);
-  return registerUserConroller;
+  const deleteUserController = new DeleteUserController(deleteUserUseCase);
+  return deleteUserController;
 };
 
 const makeAuthUserController = (): Controller => {
@@ -42,6 +44,18 @@ const makeAvatarUpload = (): Controller => {
   return updateAvatarController;
 };
 
+const makeUserProfile = (): Controller => {
+  const usersRepository = new UserRepository();
+  const getProfileUseCase = new GetUserProfileUseCase(usersRepository);
+  const getProfileController = new GetUserProfileController(getProfileUseCase);
+
+  return getProfileController;
+};
+
 export {
-  makeSignUpUserController, makeDeleteUserController, makeAuthUserController, makeAvatarUpload,
+  makeSignUpUserController,
+  makeDeleteUserController,
+  makeAuthUserController,
+  makeAvatarUpload,
+  makeUserProfile,
 };

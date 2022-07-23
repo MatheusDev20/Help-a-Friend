@@ -1,10 +1,15 @@
+import { UserProfile } from 'domain/dtos/UserProfile';
 import { getRepository, Repository } from 'typeorm';
 import IUsersRepository from '../../../../data/protocols/user-repository';
 import CreateUserDTO from '../../../../data/users/dto/create-user-dto';
 import Users from '../entities/user';
 
+export interface CreatedUserDTO {
+  id: string;
+  email: string;
+}
 class UserRepository implements IUsersRepository {
-  private userRepository: Repository<Users> // Declarando o atributo do orm da classe
+  private userRepository: Repository<Users>
 
   constructor() {
     this.userRepository = getRepository(Users);
@@ -24,17 +29,15 @@ class UserRepository implements IUsersRepository {
     return user;
   }
 
-  public async create(data: CreateUserDTO): Promise<Users> {
+  public async create(data: CreateUserDTO): Promise<CreatedUserDTO> {
     const user = await this.userRepository.create(data);
 
     await this.userRepository.save(user);
-
-    return user;
-  }
-
-  public async getAllUsers(): Promise<Users[]> {
-    const users = await this.userRepository.createQueryBuilder('user').getMany();
-    return users;
+    const createdUser = {
+      email: user.email,
+      id: user.id,
+    };
+    return createdUser;
   }
 
   public async delete(user: Users): Promise<Users> {
@@ -48,6 +51,17 @@ class UserRepository implements IUsersRepository {
 
   public async save(user: Users): Promise<void> {
     await this.userRepository.save(user);
+  }
+
+  public async getUserProfile(id: string): Promise<UserProfile> {
+    const user = await this.findById(id);
+
+    const userProfile = {
+      name: user?.name,
+      email: user?.email,
+    };
+
+    return userProfile;
   }
 }
 

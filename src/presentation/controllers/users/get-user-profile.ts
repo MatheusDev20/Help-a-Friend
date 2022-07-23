@@ -2,9 +2,9 @@
 
 import { Request, Response } from 'express';
 import { Controller } from '../../protocols/controller';
-import ReadAllUsersUseCase from '../../../data/users/usecases/read-all-users-usecase';
+import ReadAllUsersUseCase from '../../../data/users/usecases/get-user-profile';
 
-class ReadUsersController implements Controller {
+class GetUserProfileController implements Controller {
   private readonly useCase: ReadAllUsersUseCase
 
   constructor(useCase: ReadAllUsersUseCase) {
@@ -12,15 +12,9 @@ class ReadUsersController implements Controller {
   }
 
   public async handle(request: Request, response: Response): Promise<Response> {
-    const users = await this.useCase.read();
-
-    users.map(((user) => {
-      user.password = '';
-      return user;
-    }));
-
-    return response.json(users);
+    const userProfile = await this.useCase.getProfile(request.user.id);
+    return response.json(userProfile);
   }
 }
 
-export default ReadUsersController;
+export default GetUserProfileController;

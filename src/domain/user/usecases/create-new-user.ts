@@ -1,11 +1,6 @@
-import { User } from '../models/user';
-
-interface CreateUserDTO {
-  name: string;
-  email: string;
-  password: string;
-}
+import { CreatedUserDTO } from '../../../infra/db/postgres/repositories/user-repository';
+import CreateUserDTO from '../../../data/users/dto/create-user-dto';
 
 export interface CreateNewUser {
-  create: (user: CreateUserDTO) => Promise<User>
+  create: (user: CreateUserDTO) => Promise<CreatedUserDTO>
 }

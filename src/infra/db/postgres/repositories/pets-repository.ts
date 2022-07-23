@@ -25,7 +25,6 @@ class PetsRepository implements IPetsRepository {
   }
 
   public async findUserPets(user_id: string): Promise<Pets[]> {
-    console.log('WHy');
     const pets = await this.petsRepository.find({ where: { user_id } });
     console.log(pets);
     return pets;

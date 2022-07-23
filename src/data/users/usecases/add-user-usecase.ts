@@ -1,16 +1,12 @@
+/* eslint-disable no-param-reassign */
 import { hash } from 'bcryptjs';
-import { v4 } from 'uuid';
 import { CreateNewUser } from 'domain/user/usecases/create-new-user';
+import { CreatedUserDTO } from '../../../infra/db/postgres/repositories/user-repository';
 import IUsersRepository from '../../protocols/user-repository';
-import { User } from '../../../domain/user/models/user';
 
 import AppError from '../../../errors/AppError';
+import CreateUserDTO from '../dto/create-user-dto';
 
-interface Request {
-  name: string;
-  email: string;
-  password: string;
-}
 class CreateUserUseCase implements CreateNewUser {
   private readonly repository: IUsersRepository;
 
@@ -18,21 +14,17 @@ class CreateUserUseCase implements CreateNewUser {
     this.repository = repository;
   }
 
-  public async create({ name, email, password }: Request): Promise<User> {
-    const existedEmail = await this.repository.findByEmail(email);
+  public async create(userData: CreateUserDTO): Promise<CreatedUserDTO> {
+    const existedEmail = await this.repository.findByEmail(userData.email);
 
     if (existedEmail) {
       throw new AppError('Email already Taken', 400);
     }
-    const hashedPassword = await hash(password, 8);
-    const randomId = v4();
-    const user = this.repository.create({
-      id: randomId,
-      name,
-      email,
-      password: hashedPassword,
-    });
-    return user;
+
+    userData.password = await hash(userData.password, 8);
+
+    const createdUser = this.repository.create(userData);
+    return createdUser;
   }
 }
 export default CreateUserUseCase;
