@@ -19,6 +19,12 @@ class Users {
   @Column()
   avatar: string;
 
+  @Column()
+  petPreference: string
+
+  @Column()
+  admin: boolean
+
   @CreateDateColumn()
   created_at: Date;
 

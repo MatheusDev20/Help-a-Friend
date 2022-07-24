@@ -59,6 +59,9 @@ class UserRepository implements IUsersRepository {
     const userProfile = {
       name: user?.name,
       email: user?.email,
+      petPreference: user?.petPreference,
+      admin: user?.admin,
+      avatar: user?.avatar,
     };
 
     return userProfile;
