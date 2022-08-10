@@ -25,7 +25,7 @@ export default class Pets {
   @JoinColumn({ name: 'user_id' })
   user: User;
 
-  @Column()
+  @Column({ nullable: true })
   pet_photos: string
 
   @Column()
@@ -36,4 +36,13 @@ export default class Pets {
 
   @Column()
   vaccinated: boolean;
+
+  @Column()
+  city: string
+
+  @Column()
+  uf: string
+
+  @Column()
+  pet_location: string
 }

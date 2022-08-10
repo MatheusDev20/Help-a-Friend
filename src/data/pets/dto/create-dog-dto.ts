@@ -7,6 +7,9 @@ interface CreatePetDTO {
   history: string;
   castrated: boolean;
   vaccinated: boolean;
+  city: string;
+  uf: string
+  pet_location: string
 }
 
 export default CreatePetDTO;

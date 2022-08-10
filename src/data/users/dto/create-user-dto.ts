@@ -3,6 +3,8 @@ interface CreateUserDTO {
   name: string;
   email: string;
   password: string;
+  petPreference: string;
+  admin: boolean;
 }
 
 export default CreateUserDTO;

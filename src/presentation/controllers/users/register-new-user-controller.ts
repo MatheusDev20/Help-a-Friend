@@ -12,13 +12,17 @@ class RegisterNewUserController implements Controller {
   }
 
   async handle(request: Request, response: Response): Promise<Response> {
-    const { name, email, password } = request.body;
+    const {
+      name, email, password, petPreference,
+    } = request.body;
 
     const user = await this.useCase.create({
       id: v4(),
       name,
       email,
       password,
+      petPreference,
+      admin: false,
     });
     const payload = new AppResponse(200, user);
     return response.json(payload);

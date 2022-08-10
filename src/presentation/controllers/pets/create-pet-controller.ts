@@ -12,7 +12,8 @@ export default class CreatePetsController implements Controller {
 
   public async handle(request: Request, response: Response): Promise<Response> {
     const {
-      name, gender, size, history, castrated, vaccinated,
+      name, gender, size, history, castrated, vaccinated, city,
+      uf,
     } = request.body;
 
     if (gender !== 'M' && gender !== 'F') {
@@ -20,8 +21,17 @@ export default class CreatePetsController implements Controller {
     }
 
     const { id } = request.user;
-    const pet = await this.useCase.execute({
-      name, gender, size, user_id: id, history, castrated, vaccinated,
+    const pet = await this.useCase.createPet({
+      name,
+      gender,
+      size,
+      user_id: id,
+      history,
+      castrated,
+      vaccinated,
+      city,
+      uf,
+
     });
 
     return response.json(pet);

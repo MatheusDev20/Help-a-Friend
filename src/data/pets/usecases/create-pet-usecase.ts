@@ -12,6 +12,8 @@ interface Request {
   history: string;
   castrated: boolean;
   vaccinated: boolean
+  city: string
+  uf: string
 }
 
 class CreatePetUseCase {
@@ -21,8 +23,9 @@ class CreatePetUseCase {
     this.repository = repository;
   }
 
-  public async execute({
-    name, gender, size, history, castrated, vaccinated, user_id,
+  public async createPet({
+    name, gender, size, history, castrated, vaccinated, user_id, city,
+    uf,
   }: Request): Promise<Pets> {
     const pets = await this.repository.findUserPets(user_id);
     if (pets) {
@@ -31,6 +34,7 @@ class CreatePetUseCase {
       }
     }
     const randomId = v4();
+    const pet_location = `${city},${uf}`;
     const pet = this.repository.create({
       id: randomId,
       user_id,
@@ -40,6 +44,9 @@ class CreatePetUseCase {
       history,
       castrated,
       vaccinated,
+      city,
+      uf,
+      pet_location,
     });
     return pet;
   }
