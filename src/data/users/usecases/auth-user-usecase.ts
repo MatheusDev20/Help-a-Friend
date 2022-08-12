@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
-import { AuthenticatedUser } from '../../../domain/dtos/AuthenticatedUser';
+import { AuthenticatedUser } from '../../../domain/user/dtos/AuthenticatedUser';
 import AppError from '../../../errors/AppError';
 import authConfig from '../../../config/auth';
 import IUsersRepository from '../../protocols/user-repository';

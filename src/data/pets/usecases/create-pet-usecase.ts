@@ -1,32 +1,20 @@
 import { v4 } from 'uuid';
-import Pets from '../../../infra/db/postgres/entities/pets';
+import { CreatePetDTO, CreatedDogResponse } from '../../../domain/pets/dtos/create-pet-dto';
 import AppError from '../../../errors/AppError';
-
+import { CreatePet } from '../../../domain/pets/usecases';
 import { IPetsRepository } from '../../protocols/pets-repository';
 
-interface Request {
-  name: string;
-  gender: string;
-  size: string;
-  user_id: string;
-  history: string;
-  castrated: boolean;
-  vaccinated: boolean
-  city: string
-  uf: string
-}
-
-class CreatePetUseCase {
+class CreatePetUseCase implements CreatePet {
   private readonly repository;
 
   constructor(repository: IPetsRepository) {
     this.repository = repository;
   }
 
-  public async createPet({
+  public async create({
     name, gender, size, history, castrated, vaccinated, user_id, city,
     uf,
-  }: Request): Promise<Pets> {
+  }: CreatePetDTO): Promise<CreatedDogResponse> {
     const pets = await this.repository.findUserPets(user_id);
     if (pets) {
       if (pets.length > 4) {
@@ -35,7 +23,8 @@ class CreatePetUseCase {
     }
     const randomId = v4();
     const pet_location = `${city},${uf}`;
-    const pet = this.repository.create({
+
+    const pet = await this.repository.create({
       id: randomId,
       user_id,
       name,
@@ -48,7 +37,11 @@ class CreatePetUseCase {
       uf,
       pet_location,
     });
-    return pet;
+
+    return {
+      id: pet.id,
+      name: pet.name,
+    };
   }
 }
 export default CreatePetUseCase;

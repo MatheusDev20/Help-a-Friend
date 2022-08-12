@@ -1,4 +1,4 @@
-import { UserProfile } from '../../../domain/dtos/UserProfile';
+import { UserProfile } from '../../../domain/user/dtos/UserProfile';
 import IUsersRepository from '../../protocols/user-repository';
 
 class GetUserProfileUseCase {

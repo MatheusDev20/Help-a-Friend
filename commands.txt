@@ -1,1 +1,13 @@
-docker run --name haf -e POSTGRES_PASSWORD=',Lc>KCL@wX+4@^8[' -p 5433:5432 -d postgres
+ Cria container do postgres a partir da imagem mais nova do DockerHub
+  docker run --name haf -e POSTGRES_PASSWORD=',Lc>KCL@wX+4@^8[' -p 5433:5432 -d postgres
+
+Rodar as migrações em PROD no heroku
+
+Entrar no Bash do heroku
+  heroku login
+  heroku run bash
+  rodar o comando do package.json "npm run migration-run-prod"
+
+
+
+

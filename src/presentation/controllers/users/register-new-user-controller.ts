@@ -1,7 +1,7 @@
 import { v4 } from 'uuid';
 import { Request, Response } from 'express';
 import { Controller } from 'presentation/protocols/controller';
-import AppResponse from '../../../Models/Response';
+import AppResponse from '../helpers/Response';
 import { CreateNewUser } from '../../../domain/user/usecases/create-new-user';
 
 class RegisterNewUserController implements Controller {

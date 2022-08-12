@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { UploadPetPhotos } from '../../../domain/pets/upload-dog-photos';
+import { UploadPetPhotos } from '../../../domain/pets/usecases/upload-pet-photos';
 import { IPetsRepository } from '../../protocols/pets-repository';
 import AppError from '../../../errors/AppError';
 import { Storage } from '../../protocols/storage';

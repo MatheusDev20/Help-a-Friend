@@ -1,4 +1,4 @@
-import { UserProfile } from '../../domain/dtos/UserProfile';
+import { UserProfile } from '../../domain/user/dtos/UserProfile';
 import { CreatedUserDTO } from '../../infra/db/postgres/repositories/user-repository';
 // import User from '../../modules/User/Infra/typeorm/entities/User';
 import CreateUserDTO from '../users/dto/create-user-dto';

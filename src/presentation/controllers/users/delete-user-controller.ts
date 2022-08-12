@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import DeleteUserUseCase from '../../../data/users/usecases/delete-user-usecase';
 import { Controller } from '../../protocols/controller';
-import AppResponse from '../../../Models/Response';
+import AppResponse from '../helpers/Response';
 
 class DeleteUserController implements Controller {
   private readonly useCase: DeleteUserUseCase;
