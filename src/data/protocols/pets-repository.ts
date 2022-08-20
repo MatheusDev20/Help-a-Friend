@@ -12,4 +12,5 @@ export interface IPetsRepository {
   listAllUserPets(): Promise<Pets[]> | undefined;
   save(pet: Pets): Promise<Pets>;
   updatePetPhotos(pet: Pets, imgLinks: string[]): Promise<Photo[]>
+  getPage(page: string): Promise<Pets[]>
 }

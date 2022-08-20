@@ -1,3 +1,5 @@
+import { GetPetPage } from '../../data/pets/usecases/get-pet-page';
+import { ListPetPage } from '../../presentation/controllers/pets/list-pets-page';
 import { ListPetsPerUseCase } from '../../data/pets/usecases/list-pet-usecase';
 import UpdatePetsPhotosController from '../../presentation/controllers/pets/update-pet-photos';
 import UploadPetPhotosUseCase from '../../data/pets/usecases/update-dog-photos';
@@ -28,7 +30,7 @@ const makeUploadPetPhotosController = (): Controller => {
   return updatePetsPhotosController;
 };
 
-const makeListPetsController = (): Controller => {
+const makeListUserPetsController = (): Controller => {
   const petRepository = new PetsRepository();
   const listPetsUseCase = new ListPetsPerUseCase(petRepository);
 
@@ -37,4 +39,17 @@ const makeListPetsController = (): Controller => {
   return listPetsForUserController;
 };
 
-export { makeCreatePetController, makeUploadPetPhotosController, makeListPetsController };
+const makeListPetPageController = (): Controller => {
+  const petRepository = new PetsRepository();
+  const getPetPage = new GetPetPage(petRepository);
+  const listPetPageController = new ListPetPage(getPetPage);
+
+  return listPetPageController;
+};
+
+export {
+  makeCreatePetController,
+  makeUploadPetPhotosController,
+  makeListUserPetsController,
+  makeListPetPageController,
+};

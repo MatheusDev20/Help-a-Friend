@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { Controller } from '../../protocols/controller';
 import { ListPetsPerUser } from '../../../domain/pets/usecases';
-// Classe para lidar com a rota de listar todos os Pets cadastrados por um usuário.
 
 export class GetUserPetsListController implements Controller {
   private readonly listPetsPerUser: ListPetsPerUser

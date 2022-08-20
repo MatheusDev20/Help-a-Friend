@@ -69,6 +69,16 @@ class PetsRepository implements IPetsRepository {
     await this.petsRepository.save(pet);
     return photos;
   }
+
+  public async getPage(page: string): Promise<Pets[]> {
+    const skip = (Number(page) - 1) * 9;
+    const [result] = await this.petsRepository.findAndCount({
+      take: 9,
+      skip,
+    });
+
+    return result;
+  }
 }
 
 export default PetsRepository;
