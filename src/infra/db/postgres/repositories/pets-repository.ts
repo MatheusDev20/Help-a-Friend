@@ -49,7 +49,7 @@ class PetsRepository implements IPetsRepository {
       imgLinks.forEach((img) => {
         photos.push({
           imgId: v4(),
-          url: `${process.env.STORAGE_URL_PROD}/${img}`,
+          url: `${process.env.STORAGE_URL}/${img}`,
         });
       });
       pet.pet_photos = JSON.stringify(photos);
@@ -62,7 +62,7 @@ class PetsRepository implements IPetsRepository {
     imgLinks.forEach((img) => {
       photos.push({
         imgId: v4(),
-        url: `${process.env.STORAGE_URL_PROD}/${img}`,
+        url: `${process.env.STORAGE_URL}/${img}`,
       });
     });
     pet.pet_photos = JSON.stringify(photos);
