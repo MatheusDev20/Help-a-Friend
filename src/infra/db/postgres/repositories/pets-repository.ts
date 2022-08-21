@@ -71,7 +71,7 @@ class PetsRepository implements IPetsRepository {
   }
 
   public async getPage(page: string): Promise<Pets[]> {
-    const skip = (Number(page) - 1) * 9;
+    const skip = (Number(page) - 1) * 10;
     const [result] = await this.petsRepository.findAndCount({
       take: 9,
       skip,

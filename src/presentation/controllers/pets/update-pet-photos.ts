@@ -27,6 +27,7 @@ export default class UpdatePetsPhotosController implements Controller {
     (request.files as Array<Express.Multer.File>).map((photo) => {
       filenames.push(photo.filename);
     });
+
     const uploadedPhotos = await this.useCase.upload({
       userId: request.user.id,
       petName: name as string,
