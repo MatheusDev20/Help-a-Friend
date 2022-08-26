@@ -1,3 +1,4 @@
+import UserRepository from '../../infra/db/postgres/repositories/user-repository';
 import { GetPetPage } from '../../data/pets/usecases/get-pet-page';
 import { ListPetPage } from '../../presentation/controllers/pets/list-pets-page';
 import { ListPetsPerUseCase } from '../../data/pets/usecases/list-pet-usecase';
@@ -13,7 +14,8 @@ import PetsRepository from '../../infra/db/postgres/repositories/pets-repository
 /* eslint-disable import/prefer-default-export */
 const makeCreatePetController = (): Controller => {
   const petRepository = new PetsRepository();
-  const createDogUseCase = new CreatePetUseCase(petRepository);
+  const userRepository = new UserRepository();
+  const createDogUseCase = new CreatePetUseCase(petRepository, userRepository);
 
   const createDogController = new CreateDogsController(createDogUseCase);
 

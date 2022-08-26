@@ -10,6 +10,8 @@ interface CreatePetDTO {
   city: string;
   uf: string
   pet_location: string
+  pet_owner_email?: string
+  specie: string
 }
 
 export default CreatePetDTO;

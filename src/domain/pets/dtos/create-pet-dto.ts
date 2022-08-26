@@ -7,7 +7,8 @@ export interface CreatePetDTO {
   castrated: boolean;
   vaccinated: boolean;
   city: string;
-  uf: string
+  uf: string;
+  specie: string;
 }
 
 export interface CreatedDogResponse {

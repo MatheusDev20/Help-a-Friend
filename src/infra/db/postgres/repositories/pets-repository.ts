@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { getRepository, Repository } from 'typeorm';
 import { v4 } from 'uuid';
+import { Filters } from '../../../../domain/pets/dtos/filters';
 import CreatePetDTO from '../../../../data/pets/dto/create-dog-dto';
 import { IPetsRepository } from '../../../../data/protocols/pets-repository';
 import Pets from '../entities/pets';
@@ -26,7 +27,6 @@ class PetsRepository implements IPetsRepository {
 
   public async findUserPets(user_id: string): Promise<Pets[]> {
     const pets = await this.petsRepository.find({ where: { user_id } });
-    console.log(pets);
     return pets;
   }
 
@@ -70,14 +70,23 @@ class PetsRepository implements IPetsRepository {
     return photos;
   }
 
-  public async getPage(page: string): Promise<Pets[]> {
+  public async getPage(page: string, filters: Filters): Promise<Pets[] | undefined> {
     const skip = (Number(page) - 1) * 10;
-    const [result] = await this.petsRepository.findAndCount({
+
+    if (!filters) {
+      const [result] = await this.petsRepository.findAndCount({
+        take: 10,
+        skip,
+      });
+      return result;
+    }
+    const [filtered] = await this.petsRepository.findAndCount({
+      where: filters,
       take: 10,
       skip,
     });
 
-    return result;
+    return filtered;
   }
 }
 

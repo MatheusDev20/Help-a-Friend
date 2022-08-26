@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import AppError from '../../../errors/AppError';
 import { Controller } from '../../protocols/controller';
 import { IGetPetPage } from '../../../domain/pets/usecases/get-pet-page';
 
@@ -11,8 +12,13 @@ export class ListPetPage implements Controller {
 
   public async handle(request: Request, response: Response): Promise<Response> {
     const { page } = request.query;
+    const { filters } = request.body;
 
-    const res = await this.useCase.getPage(String(page));
+    if (!page) {
+      throw new AppError('Parameter missing: page');
+    }
+
+    const res = await this.useCase.getPage(page as string, filters);
 
     return response.json(res);
   }

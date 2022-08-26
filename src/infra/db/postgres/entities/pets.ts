@@ -45,4 +45,10 @@ export default class Pets {
 
   @Column()
   pet_location: string
+
+  @Column()
+  pet_owner_email: string
+
+  @Column()
+  specie: string
 }

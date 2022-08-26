@@ -20,6 +20,7 @@ export default class CreatePetsController implements Controller {
       vaccinated,
       city,
       uf,
+      specie,
     } = request.body;
 
     if (gender !== 'M' && gender !== 'F') {
@@ -37,6 +38,7 @@ export default class CreatePetsController implements Controller {
       vaccinated,
       city,
       uf,
+      specie,
 
     });
 

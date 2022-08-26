@@ -1,30 +1,37 @@
 import { v4 } from 'uuid';
+import IUsersRepository from '../../protocols/user-repository';
 import { CreatePetDTO, CreatedDogResponse } from '../../../domain/pets/dtos/create-pet-dto';
 import AppError from '../../../errors/AppError';
 import { CreatePet } from '../../../domain/pets/usecases';
 import { IPetsRepository } from '../../protocols/pets-repository';
 
 class CreatePetUseCase implements CreatePet {
-  private readonly repository;
+  private readonly petRepository;
 
-  constructor(repository: IPetsRepository) {
-    this.repository = repository;
+  private readonly userRepository
+
+  constructor(petRepository: IPetsRepository, userRepository: IUsersRepository) {
+    this.petRepository = petRepository;
+    this.userRepository = userRepository;
   }
 
   public async create({
     name, gender, size, history, castrated, vaccinated, user_id, city,
-    uf,
+    uf, specie,
   }: CreatePetDTO): Promise<CreatedDogResponse> {
-    const pets = await this.repository.findUserPets(user_id);
+    const userInfo = await this.userRepository.findById(user_id);
+    const pet_owner_email = userInfo?.email;
+
+    const pets = await this.petRepository.findUserPets(user_id);
     if (pets) {
       if (pets.length > 4) {
         throw new AppError('User could not register more than 5 Dogs');
       }
     }
     const randomId = v4();
-    const pet_location = `${city},${uf}`;
+    const pet_location = `${city}, ${uf}`;
 
-    const pet = await this.repository.create({
+    const pet = await this.petRepository.create({
       id: randomId,
       user_id,
       name,
@@ -36,6 +43,8 @@ class CreatePetUseCase implements CreatePet {
       city,
       uf,
       pet_location,
+      pet_owner_email,
+      specie,
     });
 
     return {
