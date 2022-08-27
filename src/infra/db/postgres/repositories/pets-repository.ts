@@ -72,7 +72,7 @@ class PetsRepository implements IPetsRepository {
 
   public async getPage(page: string, filters: Filters): Promise<Pets[] | undefined> {
     const skip = (Number(page) - 1) * 10;
-
+    console.log(filters);
     if (!filters) {
       const [result] = await this.petsRepository.findAndCount({
         take: 10,

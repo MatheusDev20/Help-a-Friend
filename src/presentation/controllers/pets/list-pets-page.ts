@@ -14,12 +14,18 @@ export class ListPetPage implements Controller {
     const {
       page, size, gender, specie,
     } = request.query;
-    const filters = {
-      size: size as string,
-      gender: gender as string,
-      specie: specie as string,
-    };
 
+    const filters: any = {};
+
+    if (size) {
+      filters.size = size as string;
+    }
+    if (gender) {
+      filters.gender = gender as string;
+    }
+    if (specie) {
+      filters.specie = specie as string;
+    }
     if (!page) {
       throw new AppError('Parameter missing: page');
     }
