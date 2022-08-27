@@ -22,7 +22,7 @@ const pickFromArray = (arr) => {
   return arr[Math.floor(Math.random() * arr.length)]
 }
 
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 30; i++) {
   const randomDog = {
     name: makeRandomDogName(),
     gender: pickFromArray(genders),
@@ -35,10 +35,10 @@ for (let i = 0; i < 100; i++) {
     uf: 'Minas Gerais'
   }
   randomDog.history = randomDog.history + ' ', randomDog.name
-  axios.post('http://localhost:3000/api/pet', randomDog, {
+  axios.post('https://pure-depths-09351.herokuapp.com/api/pet', randomDog, {
     headers: {
       'Content-Type': 'application/json',
-      "Authorization": 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NjE0NzUyMzQsImV4cCI6MTY2MTU2MTYzNCwic3ViIjoiNzIzMGY1YTMtMzA1Ni00YjcwLTg3NWQtODViMzRlZDBmMDVmIn0.pBOjiA4CEKUX_CjJPRpf7eA7bZQ0WwXfau5pGUhTxzg'
+      "Authorization": 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NjE1NjEyNTIsImV4cCI6MTY2MTY0NzY1Miwic3ViIjoiOTExOTczYmYtMjgyZi00Yjc2LTk5YjQtYTVmN2FjNzU3YmNkIn0.t2bmZp1Hb0tvhMWMFAuH8oqNxmNF-2o_CvNJKnJt8yg'
     },
   }).then((res) => console.log(res.data))
 }

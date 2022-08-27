@@ -11,8 +11,14 @@ export class ListPetPage implements Controller {
   }
 
   public async handle(request: Request, response: Response): Promise<Response> {
-    const { page } = request.query;
-    const { filters } = request.body;
+    const {
+      page, size, gender, specie,
+    } = request.query;
+    const filters = {
+      size: size as string,
+      gender: gender as string,
+      specie: specie as string,
+    };
 
     if (!page) {
       throw new AppError('Parameter missing: page');

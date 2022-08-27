@@ -5,12 +5,6 @@
   "author": "Matheus de Paula <matheusdev20@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "migration:generate-dev": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:generate",
-    "migration:generate-prod": "./node_modules/.bin/typeorm migration:generate",
-    "migration:create-dev": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:create",
-    "migration:create-prod": "./node_modules/.bin/typeorm migration:create",
-    "migration:run-dev": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:run",
-    "migration:run-prod": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:run",
     "build": "tsc",
     "start-dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules src/main/server.ts",
     "start": "node dist/main/server.js"
