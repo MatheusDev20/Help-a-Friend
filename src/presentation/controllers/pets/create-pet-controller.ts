@@ -22,7 +22,6 @@ export default class CreatePetsController implements Controller {
       uf,
       specie,
     } = request.body;
-
     if (gender !== 'M' && gender !== 'F') {
       throw new AppError('Values M or F only supported by Gender');
     }

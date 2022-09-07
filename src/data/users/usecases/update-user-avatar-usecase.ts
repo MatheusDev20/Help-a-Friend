@@ -42,7 +42,7 @@ class UpdateUserAvatarUseCase implements UpdateUserAvatar {
 
     const avatarUrl = process.env.ENVIROMENT === 'PROD'
       ? `${process.env.STORAGE_URL}/${file}`
-      : `${process.env.STORAGE_URL_LOCAL}/${file}`;
+      : `${process.env.STORAGE_URL}/${file}`;
 
     user.avatar = avatarUrl;
     this.repository.save(user);

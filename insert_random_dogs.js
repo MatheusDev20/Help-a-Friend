@@ -3,6 +3,7 @@ const possibleChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
 const genders = ['M', 'F']
 const sizes = ['Grande', 'Médio', 'Pequeno']
 const species = ['Cachorro', 'Gato']
+
 const makeRandomDogName = () => {
   let randomLen = getRandomLen(5, 7)
   let word = '';
@@ -22,7 +23,7 @@ const pickFromArray = (arr) => {
   return arr[Math.floor(Math.random() * arr.length)]
 }
 
-for (let i = 0; i < 30; i++) {
+for (let i = 0; i < 4; i++) {
   const randomDog = {
     name: makeRandomDogName(),
     gender: pickFromArray(genders),
@@ -34,11 +35,11 @@ for (let i = 0; i < 30; i++) {
     city: 'Juiz de Fora',
     uf: 'Minas Gerais'
   }
-  randomDog.history = randomDog.history + ' ', randomDog.name
-  axios.post('https://pure-depths-09351.herokuapp.com/api/pet', randomDog, {
+  randomDog.history = randomDog.history + ' ', + randomDog.name
+  axios.post('http://localhost:3001/api/pet', randomDog, {
     headers: {
       'Content-Type': 'application/json',
-      "Authorization": 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NjE1NjEyNTIsImV4cCI6MTY2MTY0NzY1Miwic3ViIjoiOTExOTczYmYtMjgyZi00Yjc2LTk5YjQtYTVmN2FjNzU3YmNkIn0.t2bmZp1Hb0tvhMWMFAuH8oqNxmNF-2o_CvNJKnJt8yg'
+      "Authorization": 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NjE3MjAyMzYsImV4cCI6MTY2MTgwNjYzNiwic3ViIjoiMTU0MGU3NjUtZGIxYi00ZGRjLWI4NDYtZmQzYjA5MjJhM2Q3In0.qlfyVicEqzZdQaHHSpNQtG6JFnw25L4C1FYwMnSyIAI'
     },
   }).then((res) => console.log(res.data))
 }

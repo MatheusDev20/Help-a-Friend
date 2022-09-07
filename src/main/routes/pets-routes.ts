@@ -16,7 +16,7 @@ const adapter = (controller: Controller) => async (req: Request, res: Response) 
 };
 export default (router: Router): void => {
   router.post('/pet', authMiddleware, adapter(makeCreatePetController()));
-  router.post('/pet/upload', authMiddleware, upload.array('photos', 2), adapter(makeUploadPetPhotosController()));
+  router.post('/pet/upload', authMiddleware, upload.array('photos', 4), adapter(makeUploadPetPhotosController()));
   router.get('/pet', authMiddleware, adapter(makeListUserPetsController()));
   router.get('/pet/list', adapter(makeListPetPageController()));
 };

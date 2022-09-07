@@ -36,9 +36,12 @@ class UploadPetPhotosUseCase implements UploadPetPhotos {
     if (!selectedDog) {
       throw new AppError('Dog with this name was not Found');
     }
+
     const uploadedFiles = await this.storage.uploadMultipleFiles(filenames, 'dogs');
+
     const photos = await this.repository.updatePetPhotos(selectedDog, uploadedFiles);
     return photos;
   }
 }
+
 export default UploadPetPhotosUseCase;
