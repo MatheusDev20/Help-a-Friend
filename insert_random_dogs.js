@@ -39,7 +39,7 @@ for (let i = 0; i < 4; i++) {
   axios.post('http://localhost:3001/api/pet', randomDog, {
     headers: {
       'Content-Type': 'application/json',
-      "Authorization": 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NjE3MjAyMzYsImV4cCI6MTY2MTgwNjYzNiwic3ViIjoiMTU0MGU3NjUtZGIxYi00ZGRjLWI4NDYtZmQzYjA5MjJhM2Q3In0.qlfyVicEqzZdQaHHSpNQtG6JFnw25L4C1FYwMnSyIAI'
+      "Authorization": 'Bearer' + ' '
     },
   }).then((res) => console.log(res.data))
 }
