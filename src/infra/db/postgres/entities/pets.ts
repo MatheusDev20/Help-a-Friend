@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-shadow */
 import {
   Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn,
