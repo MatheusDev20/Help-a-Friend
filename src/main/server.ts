@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+// import path from 'path';
 import { postgresConnection } from '../infra/db/helpers/postgres-conn-helper';
 import app from './config/app';
 import setupRoutes from './config/setup-routes';
