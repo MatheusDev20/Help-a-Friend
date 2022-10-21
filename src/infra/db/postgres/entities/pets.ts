@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-shadow */
 import {
-  Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn,
+  Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn,
 } from 'typeorm';
 import User from './user';
 
@@ -52,4 +52,10 @@ export default class Pets {
 
   @Column()
   specie: string
+
+  @CreateDateColumn()
+  createdAt: Date
+
+  @UpdateDateColumn()
+  updateAt: Date
 }
