@@ -1,4 +1,6 @@
 import { Request, Response } from 'express';
+import { validationResult } from 'express-validator';
+import { InvalidParamError } from '../../errors/InvalidParamsError';
 import { Controller } from '../../protocols/controller';
 import CreatePetUseCase from '../../../data/pets/usecases/create-pet-usecase';
 import AppError from '../../../errors/AppError';
@@ -11,6 +13,10 @@ export default class CreatePetsController implements Controller {
   }
 
   public async handle(request: Request, response: Response): Promise<Response> {
+    const errors = validationResult(request);
+
+    if (!errors.isEmpty()) throw new InvalidParamError(errors);
+
     const {
       name,
       gender,
@@ -22,6 +28,7 @@ export default class CreatePetsController implements Controller {
       uf,
       specie,
     } = request.body;
+
     if (gender !== 'M' && gender !== 'F') {
       throw new AppError('Values M or F only supported by Gender');
     }
