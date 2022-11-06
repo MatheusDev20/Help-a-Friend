@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable no-param-reassign */
 import { getRepository, Repository } from 'typeorm';
 import { v4 } from 'uuid';
-import { Filters } from '../../../../domain/pets/dtos/filters';
 import CreatePetDTO from '../../../../data/pets/dto/create-dog-dto';
 import { IPetsRepository } from '../../../../data/protocols/pets-repository';
 import Pets from '../entities/pets';
@@ -19,10 +19,10 @@ class PetsRepository implements IPetsRepository {
   }
 
   public async create(data: CreatePetDTO): Promise<Pets> {
-    const dog = this.petsRepository.create(data);
+    const pet = this.petsRepository.create(data);
 
-    await this.petsRepository.save(dog);
-    return dog;
+    await this.petsRepository.save(pet);
+    return pet;
   }
 
   public async findUserPets(user_id: string): Promise<Pets[]> {
@@ -70,9 +70,8 @@ class PetsRepository implements IPetsRepository {
     return photos;
   }
 
-  public async getPage(page: string, filters: Filters): Promise<Pets[] | undefined> {
+  public async getPage(page: string, filters: any): Promise<Pets[] | undefined> {
     const skip = (Number(page) - 1) * 10;
-    console.log(filters);
     if (!filters) {
       const [result] = await this.petsRepository.findAndCount({
         take: 10,
@@ -80,6 +79,9 @@ class PetsRepository implements IPetsRepository {
       });
       return result;
     }
+    Object.keys(filters).forEach((key) => {
+      if (!filters[key]) { delete filters[key]; }
+    });
     const [filtered] = await this.petsRepository.findAndCount({
       where: filters,
       take: 10,
