@@ -1,20 +1,19 @@
-import { Router, Request, Response } from 'express';
+import { Router } from 'express';
 import multer from 'multer';
-import { body, query } from 'express-validator';
-import { Controller } from '../../presentation/protocols/controller';
+import { body, query, param } from 'express-validator';
 import authMiddleware from '../../middlewares/authorization';
 import uploadConfig from '../../config/upload';
+import routeAdapter from './adapters/route-adapter';
 import {
   makeCreatePetController,
   makeUploadPetPhotosController,
-  makeListUserPetsController,
+  // makeListUserPetsController,
   makeListPetPageController,
+  makeGetPetInformationController,
 } from '../factories/pets-factory';
 
 const upload = multer(uploadConfig);
-const adapter = (controller: Controller) => async (req: Request, res: Response) => {
-  await controller.handle(req, res);
-};
+
 export default (router: Router): void => {
   router.post(
     '/pet',
@@ -28,11 +27,18 @@ export default (router: Router): void => {
     body('uf').notEmpty(),
     body('specie').notEmpty(),
     authMiddleware,
-    adapter(makeCreatePetController()),
+    routeAdapter(makeCreatePetController()),
   );
-  router.post('/pet/upload', authMiddleware, upload.array('photos', 4), adapter(makeUploadPetPhotosController()));
-  router.get('/pet', authMiddleware, adapter(makeListUserPetsController()));
+
+  router.post('/pet/upload', authMiddleware, upload.array('photos', 4), routeAdapter(makeUploadPetPhotosController()));
+
+  // router.get('/pet', adapter(makeListUserPetsController()));
+
   router.get('/pet/list',
     query('page').notEmpty().isNumeric(),
-    adapter(makeListPetPageController()));
+    routeAdapter(makeListPetPageController()));
+
+  router.get('/pet/:id',
+    param('id').notEmpty(),
+    routeAdapter(makeGetPetInformationController()));
 };

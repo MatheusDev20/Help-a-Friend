@@ -1,3 +1,4 @@
+import { GetPetInformation } from '../../presentation/controllers/pets/get-pet-information';
 import UserRepository from '../../infra/db/postgres/repositories/user-repository';
 import { GetPetPage } from '../../data/pets/usecases/get-pet-page';
 import { ListPetPage } from '../../presentation/controllers/pets/list-pets-page';
@@ -49,9 +50,16 @@ const makeListPetPageController = (): Controller => {
   return listPetPageController;
 };
 
+const makeGetPetInformationController = (): Controller => {
+  const controller = new GetPetInformation();
+
+  return controller;
+};
+
 export {
   makeCreatePetController,
   makeUploadPetPhotosController,
   makeListUserPetsController,
   makeListPetPageController,
+  makeGetPetInformationController,
 };
