@@ -1,4 +1,4 @@
-import AppError from '../../../errors/AppError';
+import AppError from '../../../presentation/errors/AppError';
 import { User } from '../../../domain/user/models/user';
 import IUsersRepository from '../../protocols/user-repository';
 

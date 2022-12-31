@@ -2,7 +2,7 @@
 
 import { UploadPetPhotos } from '../../../domain/pets/usecases/upload-pet-photos';
 import { IPetsRepository } from '../../protocols/pets-repository';
-import AppError from '../../../errors/AppError';
+import AppError from '../../../presentation/errors/AppError';
 import { Storage } from '../../protocols/storage';
 
 interface Request {

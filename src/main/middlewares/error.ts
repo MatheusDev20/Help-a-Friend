@@ -3,7 +3,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { Result, ValidationError } from 'express-validator';
 import { InvalidParamError } from '../../presentation/errors/InvalidParamsError';
-import AppError from '../../errors/AppError';
+import AppError from '../../presentation/errors/AppError';
 
 // eslint-disable-next-line import/prefer-default-export
 export const enableError = (err: Error | Result<ValidationError>, request: Request, response: Response, _: NextFunction): any => {

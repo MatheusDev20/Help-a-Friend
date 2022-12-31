@@ -2,6 +2,7 @@
 /* eslint-disable no-param-reassign */
 import { getRepository, Repository } from 'typeorm';
 import { v4 } from 'uuid';
+import AppError from '../../../../presentation/errors/AppError';
 import CreatePetDTO from '../../../../data/pets/dto/create-dog-dto';
 import { IPetsRepository } from '../../../../data/protocols/pets-repository';
 import Pets from '../entities/pets';
@@ -89,6 +90,16 @@ class PetsRepository implements IPetsRepository {
     });
 
     return filtered;
+  }
+
+  public async findByID(id: string): Promise<Pets> {
+    const pet = await this.petsRepository.find({
+      where: {
+        id,
+      },
+    });
+    if (pet.length === 0) throw new AppError('Pet not found', 404);
+    return pet[0];
   }
 }
 

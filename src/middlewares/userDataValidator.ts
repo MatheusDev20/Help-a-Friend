@@ -1,5 +1,5 @@
 import { Response, Request, NextFunction } from 'express';
-import AppError from '../errors/AppError';
+import AppError from '../presentation/errors/AppError';
 
 function ValidateEmail(email: string) {
   if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {

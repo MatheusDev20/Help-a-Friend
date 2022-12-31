@@ -3,7 +3,7 @@ import { validationResult } from 'express-validator';
 import { InvalidParamError } from '../../errors/InvalidParamsError';
 import { Controller } from '../../protocols/controller';
 import CreatePetUseCase from '../../../data/pets/usecases/create-pet-usecase';
-import AppError from '../../../errors/AppError';
+import AppError from '../../errors/AppError';
 
 export default class CreatePetsController implements Controller {
   private readonly useCase: CreatePetUseCase;

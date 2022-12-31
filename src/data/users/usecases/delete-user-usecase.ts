@@ -1,4 +1,4 @@
-import AppError from '../../../errors/AppError';
+import AppError from '../../../presentation/errors/AppError';
 import IUsersRepository from '../../protocols/user-repository';
 import { DeleteUser } from '../../../domain/user/usecases/delete-user';
 

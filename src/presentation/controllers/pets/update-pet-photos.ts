@@ -4,7 +4,7 @@ import { Controller } from 'presentation/protocols/controller';
 
 import { Request, Response } from 'express';
 import UploadDogsImagesUseCase from '../../../data/pets/usecases/update-dog-photos';
-import AppError from '../../../errors/AppError';
+import AppError from '../../errors/AppError';
 
 export default class UpdatePetsPhotosController implements Controller {
   private readonly useCase: UploadDogsImagesUseCase

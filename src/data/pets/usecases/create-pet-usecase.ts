@@ -1,7 +1,7 @@
 import { v4 } from 'uuid';
 import IUsersRepository from '../../protocols/user-repository';
 import { CreatePetDTO, CreatedDogResponse } from '../../../domain/pets/dtos/create-pet-dto';
-import AppError from '../../../errors/AppError';
+import AppError from '../../../presentation/errors/AppError';
 import { CreatePet } from '../../../domain/pets/usecases';
 import { IPetsRepository } from '../../protocols/pets-repository';
 

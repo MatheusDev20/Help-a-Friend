@@ -4,7 +4,7 @@ import { CreateNewUser } from 'domain/user/usecases/create-new-user';
 import { CreatedUserDTO } from '../../../infra/db/postgres/repositories/user-repository';
 import IUsersRepository from '../../protocols/user-repository';
 
-import AppError from '../../../errors/AppError';
+import AppError from '../../../presentation/errors/AppError';
 import CreateUserDTO from '../dto/create-user-dto';
 
 class CreateUserUseCase implements CreateNewUser {

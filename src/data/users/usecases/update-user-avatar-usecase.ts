@@ -4,7 +4,7 @@ import { Storage } from '../../protocols/storage';
 import { UpdateUserAvatar, UpdateUserAvatarDTO } from '../../../domain/user/usecases/update-user-avatar';
 
 import IUsersRepositoriy from '../../protocols/user-repository';
-import AppError from '../../../errors/AppError';
+import AppError from '../../../presentation/errors/AppError';
 import { User } from '../../../domain/user/models/user';
 import uploadConfig from '../../../config/upload';
 

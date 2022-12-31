@@ -11,7 +11,6 @@ export class GetUserPetsListController implements Controller {
 
   public async handle(request: Request, response: Response): Promise<Response> {
     const pets = await this.listPetsPerUser.list(request.user.id);
-
     return response.json(pets);
   }
 }

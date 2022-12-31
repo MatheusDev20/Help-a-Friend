@@ -2,7 +2,7 @@
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import { AuthenticatedUser } from '../../../domain/user/dtos/AuthenticatedUser';
-import AppError from '../../../errors/AppError';
+import AppError from '../../../presentation/errors/AppError';
 import authConfig from '../../../config/auth';
 import IUsersRepository from '../../protocols/user-repository';
 
