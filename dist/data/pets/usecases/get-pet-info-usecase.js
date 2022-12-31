@@ -9,17 +9,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GetPetInformation = void 0;
-class GetPetInformation {
-    constructor(getPetInfo) {
-        this.getPetInfo = getPetInfo;
+exports.GetPetInfoUseCase = void 0;
+class GetPetInfoUseCase {
+    constructor(repository) {
+        this.repository = repository;
     }
-    handle(request, response) {
+    byId(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { id } = request.params;
-            const pet = yield this.getPetInfo.byId(id);
-            return response.json(pet);
+            const response = yield this.repository.findByID(id);
+            console.log(response);
+            return response;
         });
     }
 }
-exports.GetPetInformation = GetPetInformation;
+exports.GetPetInfoUseCase = GetPetInfoUseCase;

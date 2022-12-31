@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_validator_1 = require("express-validator");
 const InvalidParamsError_1 = require("../../errors/InvalidParamsError");
-const AppError_1 = __importDefault(require("../../../errors/AppError"));
+const AppError_1 = __importDefault(require("../../errors/AppError"));
 class CreatePetsController {
     constructor(useCase) {
         this.useCase = useCase;

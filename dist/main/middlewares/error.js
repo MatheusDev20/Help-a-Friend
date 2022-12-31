@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.enableError = void 0;
 const InvalidParamsError_1 = require("../../presentation/errors/InvalidParamsError");
-const AppError_1 = __importDefault(require("../../errors/AppError"));
+const AppError_1 = __importDefault(require("../../presentation/errors/AppError"));
 const enableError = (err, request, response, _) => {
     if (err instanceof AppError_1.default) {
         return response.status(err.statusCode).json({

@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
-const AppError_1 = __importDefault(require("../../../errors/AppError"));
+const AppError_1 = __importDefault(require("../../../presentation/errors/AppError"));
 const upload_1 = __importDefault(require("../../../config/upload"));
 class UpdateUserAvatarUseCase {
     constructor(repository, storage) {

@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.makeGetPetInformationController = exports.makeListPetPageController = exports.makeListUserPetsController = exports.makeUploadPetPhotosController = exports.makeCreatePetController = void 0;
+const get_pet_info_usecase_1 = require("../../data/pets/usecases/get-pet-info-usecase");
 const get_pet_information_1 = require("../../presentation/controllers/pets/get-pet-information");
 const user_repository_1 = __importDefault(require("../../infra/db/postgres/repositories/user-repository"));
 const get_pet_page_1 = require("../../data/pets/usecases/get-pet-page");
@@ -47,7 +48,9 @@ const makeListPetPageController = () => {
 };
 exports.makeListPetPageController = makeListPetPageController;
 const makeGetPetInformationController = () => {
-    const controller = new get_pet_information_1.GetPetInformation();
+    const petRepository = new pets_repository_1.default();
+    const getPetInfoUseCase = new get_pet_info_usecase_1.GetPetInfoUseCase(petRepository);
+    const controller = new get_pet_information_1.GetPetInformation(getPetInfoUseCase);
     return controller;
 };
 exports.makeGetPetInformationController = makeGetPetInformationController;

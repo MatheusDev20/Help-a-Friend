@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const uuid_1 = require("uuid");
+const AppError_1 = __importDefault(require("../../../../presentation/errors/AppError"));
 const pets_1 = __importDefault(require("../entities/pets"));
 class PetsRepository {
     constructor() {
@@ -92,6 +93,18 @@ class PetsRepository {
                 skip,
             });
             return filtered;
+        });
+    }
+    findByID(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const pet = yield this.petsRepository.find({
+                where: {
+                    id,
+                },
+            });
+            if (pet.length === 0)
+                throw new AppError_1.default('Pet not found', 404);
+            return pet[0];
         });
     }
 }

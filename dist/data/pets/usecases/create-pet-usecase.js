@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const uuid_1 = require("uuid");
-const AppError_1 = __importDefault(require("../../../errors/AppError"));
+const AppError_1 = __importDefault(require("../../../presentation/errors/AppError"));
 class CreatePetUseCase {
     constructor(petRepository, userRepository) {
         this.petRepository = petRepository;
