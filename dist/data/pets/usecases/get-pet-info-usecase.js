@@ -17,7 +17,6 @@ class GetPetInfoUseCase {
     byId(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const response = yield this.repository.findByID(id);
-            console.log(response);
             return response;
         });
     }
