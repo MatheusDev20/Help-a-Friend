@@ -1,5 +1,5 @@
-import { PetInfo } from '../dtos/pet-info-dto';
+import Pets from '../../../infra/db/postgres/entities/pets';
 
 export interface IGetPetInformation {
-   byId(id: string): Promise<PetInfo>
+   byId(id: string): Promise<Pets>
 }
