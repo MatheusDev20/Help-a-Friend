@@ -1,0 +1,11 @@
+
+2 - Stop saving JWT User Token on Local Storage -> Dependes on Backend
+
+4 - Optimize the way that images are loading ( Lazy Loading Pre image etc..) -> Pending
+
+5 - Managing better how the user handle auth
+
+6 - Forget Password Screen
+
+7 - Stop letting the user select files who are not .png or .jpg to upload Avatar and Pets images.
+
