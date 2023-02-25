@@ -1,4 +1,4 @@
-import { Pet } from './../../interfaces/pet'
+import { Pet } from '../../interfaces/pet'
 
 import { Filters, RegisterPetData } from '../../interfaces'
 import { HafApi } from './haf_backend'

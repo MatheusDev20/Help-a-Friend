@@ -23,18 +23,18 @@ export const PetsList = (): JSX.Element => {
   useEffect(() => {
     setLoading(false)
     setPets([])
-    // const fetchData = async (): Promise<Pet[]> => {
-    //   setLoading(true)
-    //   return await getPetPage(String(currentPage))
-    // }
+    const fetchData = async (): Promise<Pet[]> => {
+      setLoading(true)
+      return await getPetPage(String(currentPage))
+    }
 
-    // fetchData().then((page) => {
-    //   setPets(page)
-    //   setLoading(false)
-    // }).catch((err) => {
-    //   console.log(err)
-    //   setLoading(false)
-    // })
+    fetchData().then((page) => {
+      setPets(page)
+      setLoading(false)
+    }).catch((err) => {
+      console.log(err)
+      setLoading(false)
+    })
   }, [currentPage])
 
   const handleNext = (e: React.SyntheticEvent): void => {
