@@ -1,0 +1,8 @@
+node_modules
+# dist
+tmp/*
+!tmp/.gitkeep
+.env
+commands.md
+commands.txt
+avatarPhotos
