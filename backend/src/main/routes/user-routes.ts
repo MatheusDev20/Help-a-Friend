@@ -20,13 +20,17 @@ export default (router: Router): void => {
     body('petPreference').notEmpty(),
     adapt(factories.makeSignUpUserController()),
   );
+
   router.delete('/delete',
     authMiddleware,
     adapt(factories.makeDeleteUserController()));
+
   router.post('/login',
     body('email').notEmpty().isEmail(),
     body('password').notEmpty().isLength({ min: 8 }),
     adapt(factories.makeAuthUserController()));
+
   router.post('/avatar', authMiddleware, upload.single('avatar'), adapt(factories.makeAvatarUpload()));
+
   router.get('/getProfile', authMiddleware, adapt(factories.makeUserProfile()));
 };
