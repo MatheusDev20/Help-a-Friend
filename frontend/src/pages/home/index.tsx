@@ -8,8 +8,8 @@ export const Home: React.FC = () => {
     <>
     <Flex flexDir='column' gap='3rem' position='relative' minH='100vh'>
       <PetsList />
-      <SharePetButton/>
     </Flex>
+    <SharePetButton />
     </>
   )
 }

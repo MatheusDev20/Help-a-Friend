@@ -78,6 +78,7 @@ export const SignUpPage: React.FC = () => {
     <>
     <GoBack backTo="/home"/>
     <Stack
+      border='1px solid red'
       paddingY={6}
       paddingX={12}
       spacing={25}

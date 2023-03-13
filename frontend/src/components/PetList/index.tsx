@@ -6,6 +6,7 @@ import { Pet } from '../../interfaces/pet'
 import { useState, useEffect } from 'react'
 import { SearchForm } from '../PetSearchForm'
 import { ArrowBackIcon } from '@chakra-ui/icons'
+import { SharePetButton } from '../SharePetButton'
 
 export const PetsList = (): JSX.Element => {
   const [pets, setPets] = useState<Pet[]>([] as Pet[])

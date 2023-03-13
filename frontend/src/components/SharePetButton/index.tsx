@@ -9,6 +9,7 @@ export const SharePetButton = (): JSX.Element => {
     <Flex
       paddingX={16}
       marginTop={12}
+      marginBottom={16}
       justify='center'
       width='100%'
     >
@@ -18,7 +19,7 @@ export const SharePetButton = (): JSX.Element => {
         size={{ base: 'sm', md: 'lg' }}
         _hover={{ bg: '#15a97d' }}
       >
-        <Link to={user ? '/criar-usuario' : '/cadastrar-pet'}>
+        <Link to={user ? '/cadastrar-pet' : '/criar-usuario'}>
           <Text
             fontSize={{ base: '0.9rem', md: 'md' }}
           >
