@@ -58,14 +58,12 @@ export const LoginPage: React.FC = () => {
           alt='Help a Friend'
           w='4rem' />
       </Box>
-
+      {/* Form Itself */}
       <Flex
-        border='1px solid red'
         as='form'
         onSubmit={handleSubmit(onSubmitLoginForm)}
-        maxW='360px'
         bg='#1F2029'
-        p='8'
+        p='16'
         borderRadius='8'
         flexDir='column'
       >

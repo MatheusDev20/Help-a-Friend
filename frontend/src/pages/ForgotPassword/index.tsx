@@ -5,7 +5,9 @@ import {
   FormLabel,
   Input,
   FormHelperText,
-  Button
+  Button,
+  Stack,
+  Heading
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import { useAuth } from '../../context/AuthContext'
@@ -40,28 +42,41 @@ export const ForgotPassword = (): JSX.Element => {
   //   const navigate = useNavigate()
   return (
     <Flex
-      h='100vh'
+      minH='100vh'
       paddingY={6}
       paddingX={12}
       justify='center'>
-      <Flex
+      <Stack
          p={12}
-         gap={8}
+         w={'full'}
+         spacing={4}
+         maxW={'md'}
          marginTop='5rem'
-         maxH='420px'
+         maxH={{ base: '360px', md: '420px' }}
          borderRadius='8'
          flexDir='column'
          bg='#1F2029'>
 
           {/* Title */}
-          <Text alignSelf='center' fontSize='4xl'>Resetar Senha</Text>
-          <Text color='#15a97d'>Você receberá instruções para resetar sua senha. </Text>
+          <Heading lineHeight={1.1} fontSize={{ base: '2xl', md: '3xl' }}>
+             Esqueceu sua senha?
+          </Heading>
+          <Text
+            fontSize={{ base: 'sm', sm: 'md' }}
+            color='#02966a'
+            >
+            Você receberá instruções para resetar sua senha
+          </Text>
 
           {/* Form to Reset Input */}
-          <Flex flexDir='column' as='form' gap={3}>
+          <Flex flexDir='column' as='form' gap={13} >
             <FormControl>
-              <FormLabel>Endereço de Email</FormLabel>
-                <Input type='email' onChange={(e) => { setEmail(e.target.value) }} />
+                <Input
+                placeholder='Endereço de email...'
+                type='email'
+                onChange={(e) => { setEmail(e.target.value) }}
+                w='100%'
+                mt='1rem' />
                 {
                   error.hasErr && (
                     <FormHelperText color='red.400'>{error.msg}</FormHelperText>
@@ -72,15 +87,14 @@ export const ForgotPassword = (): JSX.Element => {
             <Button
               type='submit'
               mt='6'
-              disabled={email === ''}
               onClick={handleResetPassword}
               bg='#02966a'
               _hover={{ bgColor: '#15a97d' }}
-              size='lg'>
+              size={{ base: 'sm', md: 'lg' }}>
                 Enviar
             </Button>
           </Flex>
-      </Flex>
+      </Stack>
     </Flex>
   )
 }
