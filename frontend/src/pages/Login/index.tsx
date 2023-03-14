@@ -1,38 +1,35 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { Button, Flex, Image, Stack, Box, Text, Link, CircularProgress } from '@chakra-ui/react'
+import { Button, Flex, Image, Stack, Box, Text, CircularProgress } from '@chakra-ui/react'
 import { Input } from '../../components/Form/Input'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { LoginData } from '../../interfaces'
 import { Link as RedirectLink } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
-import { useEffect, useState } from 'react'
-import { Footer } from '../../components/Footer'
+import { useState } from 'react'
+import { CustomLink } from '../../components/CustomLinks'
 
 export const LoginPage: React.FC = () => {
   const [loading, setLoading] = useState(false)
 
   const { register, handleSubmit, formState: { errors } } = useForm<LoginData>()
-  const { signIn, user } = useAuth()
+  const { signIn } = useAuth()
 
   const onSubmitLoginForm: SubmitHandler<LoginData> = async (data: LoginData): Promise<void> => {
     const incomeLoginRequestData = {
       email: data.email,
       password: data.password
     }
-    console.log('??')
     // TODO: Criar interação em tela para mensagem de Erro
     setLoading(true)
     await signIn(incomeLoginRequestData)
     setLoading(false)
   }
-  console.log(errors)
   return (
     <Flex
     flexDir='column'
     minHeight='100vh'
     justifyContent='space-between'
     gap={{ base: '5rem', xl: '3rem', '2xl': '18.5rem' }}
-    // gap='18rem'
     >
 
     <Flex
@@ -63,8 +60,8 @@ export const LoginPage: React.FC = () => {
       </Box>
 
       <Flex
+        border='1px solid red'
         as='form'
-        width='100%'
         onSubmit={handleSubmit(onSubmitLoginForm)}
         maxW='360px'
         bg='#1F2029'
@@ -89,6 +86,9 @@ export const LoginPage: React.FC = () => {
             {...register('password', {
               validate: v => v.length >= 8
             })} />
+             <RedirectLink to='/recuperar-senha'>
+              <CustomLink text='Esqueci minha senha' />
+            </RedirectLink>
         </Stack>
         <Stack spacing='6'>
           <Button
@@ -111,14 +111,7 @@ export const LoginPage: React.FC = () => {
           <Box display='flex' gap='1rem'>
             <Text fontSize='sm' color='#02966a'>Não possui uma conta?</Text>
             <RedirectLink to='/criar-usuario'>
-              <Link
-                as='span'
-                fontSize='sm'
-                fontWeight='bold'
-                textDecor='none'
-                color='blue.400'>
-                Criar
-              </Link>
+              <CustomLink text='Criar' />
             </RedirectLink>
           </Box>
 

@@ -1,7 +1,6 @@
 import { Flex } from '@chakra-ui/react'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Footer } from '../../components/Footer'
 import { useAuth } from '../../context/AuthContext'
 
 export const AboutPage: React.FC = () => {

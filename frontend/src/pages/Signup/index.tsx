@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 
 import React, { useState } from 'react'
 import {
@@ -78,7 +79,6 @@ export const SignUpPage: React.FC = () => {
     <>
     <GoBack backTo="/home"/>
     <Stack
-      border='1px solid red'
       paddingY={6}
       paddingX={12}
       spacing={25}
@@ -101,7 +101,7 @@ export const SignUpPage: React.FC = () => {
 
           {/* Formulário */}
 
-          <SignForm onSubmit={() => handleSubmit(onSubmit)}>
+          <SignForm onSubmit={handleSubmit(onSubmit)}>
             <Input
               err={errors.name}
               label='Nome' type='text'
