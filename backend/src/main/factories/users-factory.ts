@@ -1,9 +1,11 @@
+import { ForgotPasswordUseCase } from '../../data/users/usecases/auth/forgot-password-usecase';
+import { ForgotPasswordController } from '../../presentation/controllers/auth/forgot-password-controller';
 import { Controller } from '../../presentation/protocols/controller';
 /* eslint-disable import/prefer-default-export */
 import UpdateUserAvatarUseCase from '../../data/users/usecases/update-user-avatar-usecase';
 import S3Storage from '../../infra/storage/S3';
 import UpdateUserAvatarController from '../../presentation/controllers/users/update-user-avatar-controller';
-import AuthorizationUseCase from '../../data/users/usecases/auth-user-usecase';
+import AuthorizationUseCase from '../../data/users/usecases/auth/auth-user-usecase';
 import AuthController from '../../presentation/controllers/auth/auth-user-controller';
 import DeleteUserController from '../../presentation/controllers/users/delete-user-controller';
 import DeleteUserUseCase from '../../data/users/usecases/delete-user-usecase';
@@ -52,10 +54,17 @@ const makeUserProfile = (): Controller => {
   return getProfileController;
 };
 
+const makeForgotPasswordController = (): Controller => {
+  const forgotPasswordUseCase = new ForgotPasswordUseCase();
+  const forgotPasswordController = new ForgotPasswordController(forgotPasswordUseCase);
+  return forgotPasswordController;
+};
+
 export {
   makeSignUpUserController,
   makeDeleteUserController,
   makeAuthUserController,
   makeAvatarUpload,
   makeUserProfile,
+  makeForgotPasswordController,
 };

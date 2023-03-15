@@ -34,11 +34,15 @@ export default (router: Router): void => {
 
   // router.get('/pet', adapter(makeListUserPetsController()));
 
-  router.get('/pet/list',
+  router.get(
+    '/pet/list',
     query('page').notEmpty().isNumeric(),
-    routeAdapter(makeListPetPageController()));
+    routeAdapter(makeListPetPageController()),
+  );
 
-  router.get('/pet/:id',
+  router.get(
+    '/pet/:id',
     param('id').notEmpty(),
-    routeAdapter(makeGetPetInformationController()));
+    routeAdapter(makeGetPetInformationController()),
+  );
 };

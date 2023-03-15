@@ -4,7 +4,7 @@ import { SignUpPage } from '../pages/Signup'
 import { RegisterPetPage } from '../pages/RegisterPet'
 import { Home } from '../pages/home/'
 import { PetInfo } from '../pages/PetInfo'
-import { AboutPage } from '../pages/about'
+import { AboutPage } from '../pages/About'
 import { ForgotPassword } from '../pages/ForgotPassword'
 
 export const AppRoutes = (): JSX.Element => {

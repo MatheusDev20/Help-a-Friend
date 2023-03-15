@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import multer from 'multer';
-import { body } from 'express-validator';
+import { body, query } from 'express-validator';
 import * as factories from '../factories/users-factory';
 import { Controller } from '../../presentation/protocols/controller';
 import authMiddleware from '../../middlewares/authorization';
@@ -21,16 +21,21 @@ export default (router: Router): void => {
     adapt(factories.makeSignUpUserController()),
   );
 
-  router.delete('/delete',
+  router.delete(
+    '/delete',
     authMiddleware,
-    adapt(factories.makeDeleteUserController()));
+    adapt(factories.makeDeleteUserController()),
+  );
 
-  router.post('/login',
+  router.post(
+    '/login',
     body('email').notEmpty().isEmail(),
     body('password').notEmpty().isLength({ min: 8 }),
-    adapt(factories.makeAuthUserController()));
+    adapt(factories.makeAuthUserController()),
+  );
 
   router.post('/avatar', authMiddleware, upload.single('avatar'), adapt(factories.makeAvatarUpload()));
-
   router.get('/getProfile', authMiddleware, adapt(factories.makeUserProfile()));
+
+  router.post('/forgot-password', query('email').notEmpty().isEmail(), adapt(factories.makeForgotPasswordController()));
 };
