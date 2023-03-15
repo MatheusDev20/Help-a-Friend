@@ -1,4 +1,4 @@
-import { ForgotPassword } from '../../../../domain/user/usecases/auth/forgot-password-usecase';
+import { ForgotPassword } from '../../domain/auth/forgot-password-usecase';
 
 export class ForgotPasswordUseCase implements ForgotPassword {
   public forgot(email: string): Promise<any> {

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
-import { ForgotPassword } from '../../../domain/user/usecases/auth/forgot-password-usecase';
+import { ForgotPassword } from '../../../domain/auth/forgot-password-usecase';
 import { InvalidParamError } from '../../errors/InvalidParamsError';
 import { Controller } from '../../protocols/controller';
 
@@ -16,8 +16,10 @@ export class ForgotPasswordController implements Controller {
     if (!errors.isEmpty()) {
       throw new InvalidParamError(errors);
     }
+
     const { email } = request.query;
     const res = await this.useCase.forgot(String(email));
+
     return response.json({ message: res });
   }
 }

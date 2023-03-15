@@ -1,9 +1,9 @@
 class AppResponse {
-  public readonly statusCode: number
+  public readonly statusCode: number;
 
-  public readonly data: any
+  public readonly data: any;
 
-  constructor(statusCode = 100, data: any) {
+  constructor(data: any, statusCode = 100) {
     this.statusCode = statusCode;
     this.data = data;
   }
