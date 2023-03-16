@@ -1,3 +1,4 @@
+import { ForgotPasswordTokenRepository } from '../../infra/db/postgres/repositories/forgot-password-token-repository';
 import { JwtAdapter } from '../../infra/criptography/jwt-adapter';
 import { ForgotPasswordController } from '../../presentation/controllers/auth/forgot-password-controller';
 import { ForgotPasswordUseCase } from '../../data/auth/forgot-password-usecase';
@@ -58,7 +59,8 @@ const makeUserProfile = (): Controller => {
 
 const makeForgotPasswordController = (): Controller => {
   const encrypter = new JwtAdapter();
-  const forgotPasswordUseCase = new ForgotPasswordUseCase(encrypter);
+  const forgotPasswordRepository = new ForgotPasswordTokenRepository();
+  const forgotPasswordUseCase = new ForgotPasswordUseCase(encrypter, forgotPasswordRepository);
   const forgotPasswordController = new ForgotPasswordController(forgotPasswordUseCase);
   return forgotPasswordController;
 };

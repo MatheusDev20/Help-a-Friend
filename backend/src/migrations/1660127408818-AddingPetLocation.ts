@@ -2,7 +2,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class AddingPetLocation1660127408818 implements MigrationInterface {
-    name = 'AddingPetLocation1660127408818'
+    name = 'AddingPetLocation1660127408818';
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query('ALTER TABLE "pets" DROP CONSTRAINT "FK_4ddf2615c9d24b5be6d26830b4b"');

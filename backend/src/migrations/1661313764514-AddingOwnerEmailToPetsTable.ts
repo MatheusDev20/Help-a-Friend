@@ -2,7 +2,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class AddingOwnerEmailToPetsTable1661313764514 implements MigrationInterface {
-    name = 'AddingOwnerEmailToPetsTable1661313764514'
+    name = 'AddingOwnerEmailToPetsTable1661313764514';
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query('ALTER TABLE "pets" ADD "pet_owner_email" character varying NOT NULL');
