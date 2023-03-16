@@ -1,5 +1,6 @@
-import { ForgotPasswordUseCase } from '../../data/auth/forgot-password-usecase';
+import { JwtAdapter } from '../../infra/criptography/jwt-adapter';
 import { ForgotPasswordController } from '../../presentation/controllers/auth/forgot-password-controller';
+import { ForgotPasswordUseCase } from '../../data/auth/forgot-password-usecase';
 import { Controller } from '../../presentation/protocols/controller';
 /* eslint-disable import/prefer-default-export */
 import UpdateUserAvatarUseCase from '../../data/users/usecases/update-user-avatar-usecase';
@@ -55,7 +56,8 @@ const makeUserProfile = (): Controller => {
 };
 
 const makeForgotPasswordController = (): Controller => {
-  const forgotPasswordUseCase = new ForgotPasswordUseCase();
+  const encrypter = new JwtAdapter('123');
+  const forgotPasswordUseCase = new ForgotPasswordUseCase(encrypter);
   const forgotPasswordController = new ForgotPasswordController(forgotPasswordUseCase);
   return forgotPasswordController;
 };

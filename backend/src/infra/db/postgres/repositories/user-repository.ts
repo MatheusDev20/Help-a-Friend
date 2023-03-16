@@ -9,7 +9,7 @@ export interface CreatedUserDTO {
   email: string;
 }
 class UserRepository implements IUsersRepository {
-  private userRepository: Repository<Users>
+  private userRepository: Repository<Users>;
 
   constructor() {
     this.userRepository = getRepository(Users);

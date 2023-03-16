@@ -8,54 +8,54 @@ import User from './user';
 @Entity('pets')
 export default class Pets {
   @PrimaryGeneratedColumn('uuid')
-  id: string
+    id: string;
 
   @Column()
-  name: string;
+    name: string;
 
   @Column()
-  gender: string;
+    gender: string;
 
   @Column()
-  size: string
+    size: string;
 
   @Column()
-  user_id: string;
+    user_id: string;
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })
-  user: User;
+    user: User;
 
   @Column({ nullable: true })
-  pet_photos: string
+    pet_photos: string;
 
   @Column()
-  history: string;
+    history: string;
 
   @Column()
-  castrated: boolean;
+    castrated: boolean;
 
   @Column()
-  vaccinated: boolean;
+    vaccinated: boolean;
 
   @Column()
-  city: string
+    city: string;
 
   @Column()
-  uf: string
+    uf: string;
 
   @Column()
-  pet_location: string
+    pet_location: string;
 
   @Column()
-  pet_owner_email: string
+    pet_owner_email: string;
 
   @Column()
-  specie: string
+    specie: string;
 
   @CreateDateColumn()
-  createdAt: Date
+    createdAt: Date;
 
   @UpdateDateColumn()
-  updateAt: Date
+    updateAt: Date;
 }

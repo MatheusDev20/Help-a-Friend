@@ -1,3 +1,3 @@
 export * from './user-repository';
 export * from './pets-repository';
-export * from './storage';
+export * from './storage/storage';

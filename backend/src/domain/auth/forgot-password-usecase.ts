@@ -1,3 +1,3 @@
 export interface ForgotPassword {
-    forgot(email: string): Promise<string>
+   forgot(email: string): Promise<string>
 }

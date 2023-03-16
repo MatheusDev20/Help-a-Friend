@@ -5,14 +5,14 @@ import path from 'path';
 import fs from 'fs';
 import buildPathS3 from './helpers/buildPathS3';
 import upload from '../../config/upload';
-import { Storage } from '../../data/protocols/storage';
+import { Storage } from '../../data/protocols/storage/storage';
 
 export interface Buckets {
   name: string;
   creationDate: Date
 }
 class S3Storage implements Storage {
-  private s3Client: S3
+  private s3Client: S3;
 
   constructor() {
     this.s3Client = new aws.S3({

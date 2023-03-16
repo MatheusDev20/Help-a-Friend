@@ -13,7 +13,7 @@ interface Photo {
 }
 
 class PetsRepository implements IPetsRepository {
-  private petsRepository: Repository<Pets> // Declarando o atributo do orm da classe
+  private petsRepository: Repository<Pets>; // Declarando o atributo do orm da classe
 
   constructor() {
     this.petsRepository = getRepository(Pets);

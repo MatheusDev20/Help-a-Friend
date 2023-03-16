@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs';
-import { Storage } from '../../protocols/storage';
+import { Storage } from '../../protocols/storage/storage';
 import { UpdateUserAvatar, UpdateUserAvatarDTO } from '../../../domain/user/usecases/update-user-avatar';
 
 import IUsersRepositoriy from '../../protocols/user-repository';

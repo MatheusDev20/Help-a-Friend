@@ -8,7 +8,7 @@ import { IPetsRepository } from '../../protocols/pets-repository';
 class CreatePetUseCase implements CreatePet {
   private readonly petRepository;
 
-  private readonly userRepository
+  private readonly userRepository;
 
   constructor(petRepository: IPetsRepository, userRepository: IUsersRepository) {
     this.petRepository = petRepository;
