@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { verify } from 'jsonwebtoken';
 import AppError from '../presentation/errors/AppError';
-import authConfig from '../config/auth';
+import authConfig from '../config/auth/login-token';
 
 interface TokenPayload {
   iat: number;
@@ -19,9 +19,11 @@ export default function authorization(request: Request, response: Response, next
 
   const [, token] = authHeader.split(' ');
   const { secret } = authConfig;
+
   try {
     const decoded = verify(token, secret);
     const { sub } = decoded as TokenPayload;
+    console.log(sub);
     request.user = {
       id: sub,
     };

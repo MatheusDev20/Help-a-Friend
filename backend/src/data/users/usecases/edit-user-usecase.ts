@@ -11,7 +11,6 @@ class EditUserUseCase {
 
   public edit(email: string, name: string, password: string): Promise<User | AppError> {
     return new Promise((reject, resolve) => {
-      console.log('?');
       this.repository.findByEmail(email).then((usr) => {
         if (!usr) {
           const err = new AppError('Unable to find user', 404);

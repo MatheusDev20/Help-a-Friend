@@ -12,7 +12,7 @@ class DeleteUserController implements Controller {
 
   public async handle(request: Request, response: Response): Promise<Response> {
     const { email } = request.body;
-    console.log(request);
+
     const res = await this.useCase.delete(email, request.user.id);
 
     const payload = new AppResponse(200, res);

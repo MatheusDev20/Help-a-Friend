@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
+import { GenerateToken } from '../protocols/criptography/generate-jwt';
 import { AuthenticatedUser } from '../../domain/user/dtos/AuthenticatedUser';
 import AppError from '../../presentation/errors/AppError';
-import authConfig from '../../config/auth';
+import authConfig from '../../config/auth/login-token';
 import IUsersRepository from '../protocols/user-repository';
 
 interface Request {
@@ -14,14 +15,18 @@ interface Request {
 }
 interface Response {
   authUser: AuthenticatedUser
-  token: string
+  token?: string
+  jwt: string
   expiration: string;
 }
 class AuthorizationUseCase {
   private readonly repository: IUsersRepository;
 
-  constructor(repository: IUsersRepository) {
+  private readonly generateToken: GenerateToken;
+
+  constructor(repository: IUsersRepository, generateToken: GenerateToken) {
     this.repository = repository;
+    this.generateToken = generateToken;
   }
 
   public async auth({ authInfo }: Request): Promise<Response> {
@@ -38,16 +43,18 @@ class AuthorizationUseCase {
     }
 
     const { secret, expiresIn } = authConfig;
-    const token = sign({}, secret, {
-      subject: user.id,
-      expiresIn,
-    });
+    const jwt = await this.generateToken.generate({ expiresIn, secret, sub: user.id });
+
+    // const token = sign({}, secret, {
+    //   subject: user.id,
+    //   expiresIn,
+    // });
     const {
       password, created_at, updated_at, ...authUser
     } = user;
 
     return {
-      authUser, token, expiration: expiresIn,
+      authUser, jwt, expiration: expiresIn,
     };
   }
 }

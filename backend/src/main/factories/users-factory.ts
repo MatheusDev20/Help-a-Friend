@@ -32,7 +32,8 @@ const makeDeleteUserController = (): Controller => {
 
 const makeAuthUserController = (): Controller => {
   const usersRepository = new UserRepository();
-  const authorizationUseCase = new AuthorizationUseCase(usersRepository);
+  const generateJwt = new JwtAdapter();
+  const authorizationUseCase = new AuthorizationUseCase(usersRepository, generateJwt);
   const authController = new AuthController(authorizationUseCase);
   return authController;
 };
@@ -56,7 +57,7 @@ const makeUserProfile = (): Controller => {
 };
 
 const makeForgotPasswordController = (): Controller => {
-  const encrypter = new JwtAdapter('123');
+  const encrypter = new JwtAdapter();
   const forgotPasswordUseCase = new ForgotPasswordUseCase(encrypter);
   const forgotPasswordController = new ForgotPasswordController(forgotPasswordUseCase);
   return forgotPasswordController;

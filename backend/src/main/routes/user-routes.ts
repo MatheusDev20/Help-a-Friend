@@ -22,7 +22,7 @@ export default (router: Router): void => {
   );
 
   router.delete(
-    '/delete',
+    '/user/delete',
     authMiddleware,
     adapt(factories.makeDeleteUserController()),
   );

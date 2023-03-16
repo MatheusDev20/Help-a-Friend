@@ -1,15 +1,17 @@
-import { Encrypter } from '../protocols/criptography/encrypter';
+import { GenerateToken } from '../protocols/criptography/generate-jwt';
 import { ForgotPassword } from '../../domain/auth/forgot-password-usecase';
+import forgotPassConfig from '../../config/auth/forgot-pass';
 
 export class ForgotPasswordUseCase implements ForgotPassword {
-  private readonly encrypter: Encrypter;
+  private readonly generateJwt: GenerateToken;
 
-  constructor(encrypter: Encrypter) {
-    this.encrypter = encrypter;
+  constructor(generateJwt: GenerateToken) {
+    this.generateJwt = generateJwt;
   }
 
   public async forgot(email: string): Promise<any> {
-    const forgotPassJwt = await this.encrypter.encrypt(email);
+    const { secret, expiresIn } = forgotPassConfig;
+    const forgotPassJwt = await this.generateJwt.generate({ sub: email, secret, expiresIn });
     return forgotPassJwt;
   }
 }
