@@ -1,5 +1,5 @@
 import { Pet } from '../models/pet';
 
-export interface IGetPetInformation {
+export interface IGetPetById {
    byId(id: string): Promise<Pet>
 }

@@ -1,8 +1,8 @@
 import { Pet } from '../../../domain/pets/models/pet';
 import { IPetsRepository } from '../../protocols/pets-repository';
-import { IGetPetInformation } from '../../../domain/pets/usecases/get-pet-information';
+import { IGetPetById } from '../../../domain/pets/usecases/get-pet-by-id';
 
-export class GetPetInfoUseCase implements IGetPetInformation {
+export class GetPetByIdUseCase implements IGetPetById {
   private repository: IPetsRepository;
 
   constructor(repository: IPetsRepository) {
