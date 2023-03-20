@@ -1,3 +1,4 @@
+import { Pet } from '../../domain/pets/models/pet';
 import { Filters } from '../../domain/pets/dtos/filters';
 import CreatePetDTO from '../pets/dto/create-dog-dto';
 import Pets from '../../infra/db/postgres/entities/pets';
@@ -14,5 +15,5 @@ export interface IPetsRepository {
   save(pet: Pets): Promise<Pets>;
   updatePetPhotos(pet: Pets, imgLinks: string[]): Promise<Photo[]>
   getPage(page: string, filters: Filters): Promise<Pets[] | undefined>
-  findByID(id: string): Promise<Pets>
+  findByID(id: string): Promise<Pet>
 }

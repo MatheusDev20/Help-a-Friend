@@ -11,6 +11,7 @@ export interface Buckets {
   name: string;
   creationDate: Date
 }
+
 class S3Storage implements Storage {
   private s3Client: S3;
 

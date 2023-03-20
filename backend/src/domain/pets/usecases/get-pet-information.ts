@@ -1,5 +1,5 @@
-import Pets from '../../../infra/db/postgres/entities/pets';
+import { Pet } from '../models/pet';
 
 export interface IGetPetInformation {
-   byId(id: string): Promise<Pets>
+   byId(id: string): Promise<Pet>
 }
