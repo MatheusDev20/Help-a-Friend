@@ -1,8 +1,8 @@
-import { UserProfile } from '../../domain/user/dtos/UserProfile';
-import { CreatedUserDTO } from '../../infra/db/postgres/repositories/user-repository';
+import { UserProfile } from '../../../domain/user/dtos/UserProfile';
+import { CreatedUserDTO } from '../../../infra/db/postgres/repositories/user-repository';
 // import User from '../../modules/User/Infra/typeorm/entities/User';
-import CreateUserDTO from '../users/dto/create-user-dto';
-import { User } from '../../domain/user/models/user';
+import CreateUserDTO from '../../users/dto/create-user-dto';
+import { User } from '../../../domain/user/models/user';
 
 interface IUsersRepository {
   findByEmail(email: string): Promise<User | undefined>;

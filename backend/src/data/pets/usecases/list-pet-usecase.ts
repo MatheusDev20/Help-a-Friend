@@ -1,5 +1,5 @@
-import { IPetsRepository } from '../../protocols';
-import { PetInfo } from '../../../domain/pets/dtos';
+import { PetInfo } from '../../../domain/pets/dtos/pet-info-dto';
+import { IPetsRepository } from '../../protocols/repositorys/pets-repository';
 import { ListPetsPerUser } from '../../../domain/pets/usecases/list-pets-user';
 
 export class ListPetsPerUseCase implements ListPetsPerUser {

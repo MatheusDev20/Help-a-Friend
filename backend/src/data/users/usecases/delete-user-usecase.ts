@@ -1,6 +1,6 @@
-import AppError from '../../../presentation/errors/AppError';
-import IUsersRepository from '../../protocols/user-repository';
 import { DeleteUser } from '../../../domain/user/usecases/delete-user';
+import AppError from '../../../presentation/errors/AppError';
+import IUsersRepository from '../../protocols/repositorys/user-repository';
 
 interface DeletedUser {
   name: string;

@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import { Controller } from '../../protocols/controller';
-import { ListPetsPerUser } from '../../../domain/pets/usecases';
+import { ListPetsPerUser } from '../../../domain/pets/usecases/list-pets-user';
 
 export class GetUserPetsListController implements Controller {
-  private readonly listPetsPerUser: ListPetsPerUser
+  private readonly listPetsPerUser: ListPetsPerUser;
 
   constructor(listPetsPerUser: ListPetsPerUser) {
     this.listPetsPerUser = listPetsPerUser;

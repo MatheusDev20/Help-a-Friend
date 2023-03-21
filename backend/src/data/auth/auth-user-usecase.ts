@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
-import { GenerateToken } from '../protocols/criptography/generate-jwt';
 import { AuthenticatedUser } from '../../domain/user/dtos/AuthenticatedUser';
+import { GenerateToken } from '../protocols/criptography/generate-jwt';
 import AppError from '../../presentation/errors/AppError';
 import authConfig from '../../config/auth/login-token';
-import IUsersRepository from '../protocols/user-repository';
+import IUsersRepository from '../protocols/repositorys/user-repository';
 
 interface Request {
   authInfo: {

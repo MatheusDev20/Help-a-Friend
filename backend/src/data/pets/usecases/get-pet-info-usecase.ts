@@ -1,5 +1,5 @@
+import { IPetsRepository } from '../../protocols/repositorys/pets-repository';
 import { Pet } from '../../../domain/pets/models/pet';
-import { IPetsRepository } from '../../protocols/pets-repository';
 import { IGetPetById } from '../../../domain/pets/usecases/get-pet-by-id';
 
 export class GetPetByIdUseCase implements IGetPetById {

@@ -1,6 +1,6 @@
-import { UserProfile } from 'domain/user/dtos/UserProfile';
 import { getRepository, Repository } from 'typeorm';
-import IUsersRepository from '../../../../data/protocols/user-repository';
+import { UserProfile } from '../../../../domain/user/dtos/UserProfile';
+import IUsersRepository from '../../../../data/protocols/repositorys/user-repository';
 import CreateUserDTO from '../../../../data/users/dto/create-user-dto';
 import Users from '../entities/user';
 

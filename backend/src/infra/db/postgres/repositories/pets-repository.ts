@@ -2,10 +2,10 @@
 /* eslint-disable no-param-reassign */
 import { getRepository, Repository } from 'typeorm';
 import { v4 } from 'uuid';
+import { IPetsRepository } from '../../../../data/protocols/repositorys/pets-repository';
 import { Pet } from '../../../../domain/pets/models/pet';
 import AppError from '../../../../presentation/errors/AppError';
 import CreatePetDTO from '../../../../data/pets/dto/create-dog-dto';
-import { IPetsRepository } from '../../../../data/protocols/pets-repository';
 import Pets from '../entities/pets';
 
 interface Photo {

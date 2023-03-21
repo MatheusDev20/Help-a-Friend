@@ -1,9 +1,9 @@
 import { v4 } from 'uuid';
-import IUsersRepository from '../../protocols/user-repository';
+import { CreatePet } from '../../../domain/pets/usecases/create-pet-usecase';
+import IUsersRepository from '../../protocols/repositorys/user-repository';
 import { CreatePetDTO, CreatedDogResponse } from '../../../domain/pets/dtos/create-pet-dto';
 import AppError from '../../../presentation/errors/AppError';
-import { CreatePet } from '../../../domain/pets/usecases';
-import { IPetsRepository } from '../../protocols/pets-repository';
+import { IPetsRepository } from '../../protocols/repositorys/pets-repository';
 
 class CreatePetUseCase implements CreatePet {
   private readonly petRepository;

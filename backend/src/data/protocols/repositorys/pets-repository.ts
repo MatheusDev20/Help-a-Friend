@@ -1,7 +1,7 @@
-import { Pet } from '../../domain/pets/models/pet';
-import { Filters } from '../../domain/pets/dtos/filters';
-import CreatePetDTO from '../pets/dto/create-dog-dto';
-import Pets from '../../infra/db/postgres/entities/pets';
+import { Pet } from '../../../domain/pets/models/pet';
+import { Filters } from '../../../domain/pets/dtos/filters';
+import CreatePetDTO from '../../pets/dto/create-dog-dto';
+import Pets from '../../../infra/db/postgres/entities/pets';
 
 interface Photo {
   imgId: string;

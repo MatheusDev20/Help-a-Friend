@@ -1,6 +1,6 @@
-import AppError from '../../../presentation/errors/AppError';
 import { User } from '../../../domain/user/models/user';
-import IUsersRepository from '../../protocols/user-repository';
+import AppError from '../../../presentation/errors/AppError';
+import IUsersRepository from '../../protocols/repositorys/user-repository';
 
 class EditUserUseCase {
   private readonly repository: IUsersRepository;
