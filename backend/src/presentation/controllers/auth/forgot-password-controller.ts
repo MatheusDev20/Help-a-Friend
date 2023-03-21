@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
-import { ForgotPassword } from '../../../domain/auth/forgot-password-usecase';
+import { ForgotPassword } from '../../../domain/auth/useCases/forgot-password-usecase';
 import { InvalidParamError } from '../../errors/InvalidParamsError';
 import { Controller } from '../../protocols/controller';
 

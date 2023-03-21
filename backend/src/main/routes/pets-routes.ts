@@ -2,7 +2,7 @@ import { Router } from 'express';
 import multer from 'multer';
 import { body, query, param } from 'express-validator';
 import authMiddleware from '../../middlewares/authorization';
-import uploadConfig from '../../config/upload';
+import uploadConfig from '../../config/storage/upload';
 import routeAdapter from './adapters/route-adapter';
 import {
   makeCreatePetController,

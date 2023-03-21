@@ -1,3 +1,6 @@
+import { Nodemailer } from '../../infra/mail/nodemailer';
+import { ResetPasswordController } from '../../presentation/controllers/auth/reset-password-controller';
+import { ResetPasswordUseCase } from '../../data/auth/reset-password-use-case';
 import { ForgotPasswordTokenRepository } from '../../infra/db/postgres/repositories/forgot-password-token-repository';
 import { JwtAdapter } from '../../infra/criptography/jwt-adapter';
 import { ForgotPasswordController } from '../../presentation/controllers/auth/forgot-password-controller';
@@ -65,6 +68,14 @@ const makeForgotPasswordController = (): Controller => {
   return forgotPasswordController;
 };
 
+const makeResetPasswordController = (): Controller => {
+  const mailService = new Nodemailer();
+  const resetPasswordUseCase = new ResetPasswordUseCase(mailService);
+  const resetPasswordController = new ResetPasswordController(resetPasswordUseCase);
+
+  return resetPasswordController;
+};
+
 export {
   makeSignUpUserController,
   makeDeleteUserController,
@@ -72,4 +83,5 @@ export {
   makeAvatarUpload,
   makeUserProfile,
   makeForgotPasswordController,
+  makeResetPasswordController,
 };

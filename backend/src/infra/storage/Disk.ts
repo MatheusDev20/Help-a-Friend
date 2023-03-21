@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs';
-import upload from '../../config/upload';
+import upload from '../../config/storage/upload';
 
 class DiskStorage {
   public async uploadFile(fileName: string): Promise<string> {

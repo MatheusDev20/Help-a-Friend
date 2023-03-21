@@ -15,7 +15,7 @@ class DeleteUserController implements Controller {
 
     const res = await this.useCase.delete(email, request.user.id);
 
-    const payload = new AppResponse(200, res);
+    const payload = new AppResponse(res, 200);
     return response.json(payload);
   }
 }

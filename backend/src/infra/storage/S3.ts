@@ -4,7 +4,7 @@ import aws, { S3 } from 'aws-sdk';
 import path from 'path';
 import fs from 'fs';
 import buildPathS3 from './helpers/buildPathS3';
-import upload from '../../config/upload';
+import upload from '../../config/storage/upload';
 import { Storage } from '../../data/protocols/storage/storage';
 
 export interface Buckets {

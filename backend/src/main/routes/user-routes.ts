@@ -4,7 +4,7 @@ import { body, query } from 'express-validator';
 import * as factories from '../factories/users-factory';
 import { Controller } from '../../presentation/protocols/controller';
 import authMiddleware from '../../middlewares/authorization';
-import uploadConfig from '../../config/upload';
+import uploadConfig from '../../config/storage/upload';
 
 const adapt = (controller: Controller) => async (req: Request, res: Response) => {
   await controller.handle(req, res);
@@ -37,5 +37,7 @@ export default (router: Router): void => {
   router.post('/avatar', authMiddleware, upload.single('avatar'), adapt(factories.makeAvatarUpload()));
   router.get('/getProfile', authMiddleware, adapt(factories.makeUserProfile()));
 
+  // Reset Password Routes
   router.post('/forgot-password', query('email').notEmpty().isEmail(), adapt(factories.makeForgotPasswordController()));
+  router.post('/reset-password', adapt(factories.makeResetPasswordController()));
 };

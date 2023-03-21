@@ -1,6 +1,6 @@
-import { IForgotTokenRepository } from '../protocols/forgot-pass-token-repository';
+import { IForgotTokenRepository } from '../protocols/repositorys/forgot-pass-token-repository';
 import { GenerateToken } from '../protocols/criptography/generate-jwt';
-import { ForgotPassword } from '../../domain/auth/forgot-password-usecase';
+import { ForgotPassword } from '../../domain/auth/useCases/forgot-password-usecase';
 import forgotPassConfig from '../../config/auth/forgot-pass';
 
 export class ForgotPasswordUseCase implements ForgotPassword {

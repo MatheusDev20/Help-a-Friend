@@ -1,6 +1,6 @@
 import { Repository, getRepository } from 'typeorm';
 import { ForgotPasswordDTO } from '../../../../domain/auth/dtos/forgot-password-dto';
-import { IForgotTokenRepository } from '../../../../data/protocols/forgot-pass-token-repository';
+import { IForgotTokenRepository } from '../../../../data/protocols/repositorys/forgot-pass-token-repository';
 import ForgotPasswordToken from '../entities/forgot-password-token';
 
 export class ForgotPasswordTokenRepository implements IForgotTokenRepository {
