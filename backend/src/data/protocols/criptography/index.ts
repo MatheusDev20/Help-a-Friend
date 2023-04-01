@@ -15,4 +15,4 @@ export interface VerifyTokenResponse {
 export interface Criptography {
     generate: (tokenData: GenerateTokenData) => Promise<string>
     verify: (verifyData: VerifyTokenData) => Promise<VerifyTokenResponse>
-  }
+}

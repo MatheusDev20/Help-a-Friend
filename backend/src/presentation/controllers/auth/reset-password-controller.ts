@@ -17,9 +17,10 @@ export class ResetPasswordController implements Controller {
     if (!errors.isEmpty()) {
       throw new InvalidParamError(errors);
     }
-    const { token } = request.query;
-    this.useCase.reset(String(token));
 
-    return response.json({ message: 'It works' });
+    const { token, newPassword } = request.body;
+    const userUpdated = await this.useCase.reset(String(token), newPassword);
+
+    return response.json(userUpdated);
   }
 }

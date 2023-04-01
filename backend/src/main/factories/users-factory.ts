@@ -77,7 +77,8 @@ const makeForgotPasswordController = (): Controller => {
 
 const makeResetPasswordController = (): Controller => {
   const verifyToken = new JwtAdapter();
-  const resetPasswordUseCase = new ResetPasswordUseCase(verifyToken);
+  const usersRepository = new UserRepository();
+  const resetPasswordUseCase = new ResetPasswordUseCase(verifyToken, usersRepository);
   const resetPasswordController = new ResetPasswordController(resetPasswordUseCase);
   return resetPasswordController;
 };

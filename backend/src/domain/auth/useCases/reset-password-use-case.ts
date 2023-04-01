@@ -1,3 +1,3 @@
 export interface ResetPassword {
-    reset(token: string): Promise<string>
+    reset(token: string, newPassword: string): Promise<string>
  }

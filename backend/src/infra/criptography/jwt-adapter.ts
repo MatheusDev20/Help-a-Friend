@@ -14,14 +14,16 @@ export class JwtAdapter implements Criptography {
   }
 
   public async verify({ token, secret }: VerifyTokenData): Promise<VerifyTokenResponse> {
-    try {
-      const decoded = jwt.verify(token, secret);
-      return {
-        veredict: true,
-        sub: decoded.sub,
-      };
-    } catch (err) {
-      throw new AppError('Token is not valid');
-    }
+    return new Promise((resolve) => {
+      try {
+        const decoded = jwt.verify(token, secret);
+        resolve({
+          veredict: true,
+          sub: decoded.sub,
+        });
+      } catch (err: any) {
+        throw new AppError('Token inválido', 401);
+      }
+    });
   }
 }

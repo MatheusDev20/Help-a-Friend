@@ -1,4 +1,6 @@
 import { getRepository, Repository } from 'typeorm';
+import { UpdatedUser } from '../../../../domain/user/dtos/UpdatedUser';
+/* eslint-disable dot-notation */
 import { UserProfile } from '../../../../domain/user/dtos/UserProfile';
 import IUsersRepository from '../../../../data/protocols/repositorys/user-repository';
 import CreateUserDTO from '../../../../data/users/dto/create-user-dto';
@@ -65,6 +67,28 @@ class UserRepository implements IUsersRepository {
     };
 
     return userProfile;
+  }
+
+  // eslint-disable-next-line consistent-return
+  public async update(property: string, value: any, id: string): Promise<UpdatedUser | undefined> {
+    try {
+      const userToBeUpdated = await this.findById(id);
+      if (!userToBeUpdated) {
+        throw new Error('No user found to update');
+      }
+
+      const updatedUser = {
+        ...userToBeUpdated,
+        [property]: value,
+      };
+      const response = await this.userRepository.save(updatedUser);
+      return {
+        userId: response.id,
+        updated_at: response.updated_at,
+      };
+    } catch (err) {
+      console.log(err);
+    }
   }
 }
 

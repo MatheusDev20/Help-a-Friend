@@ -39,5 +39,10 @@ export default (router: Router): void => {
 
   // Reset Password Routes
   router.post('/forgot-password', query('email').notEmpty().isEmail(), adapt(factories.makeForgotPasswordController()));
-  router.patch('/reset-password', query('token').notEmpty().isLength({ min: 16 }), adapt(factories.makeResetPasswordController()));
+  router.patch(
+    '/reset-password',
+    body('token').notEmpty().isLength({ min: 16 }),
+    body('newPassword').notEmpty().isLength({ min: 8 }),
+    adapt(factories.makeResetPasswordController()),
+  );
 };
