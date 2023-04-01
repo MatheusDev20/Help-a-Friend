@@ -62,8 +62,14 @@ const makeUserProfile = (): Controller => {
 
 const makeForgotPasswordController = (): Controller => {
   const encrypter = new JwtAdapter();
+  const mailService = new Nodemailer();
   const forgotPasswordRepository = new ForgotPasswordTokenRepository();
-  const forgotPasswordUseCase = new ForgotPasswordUseCase(encrypter, forgotPasswordRepository);
+  const forgotPasswordUseCase = new ForgotPasswordUseCase(
+    encrypter,
+    forgotPasswordRepository,
+
+    mailService,
+  );
   const forgotPasswordController = new ForgotPasswordController(forgotPasswordUseCase);
   return forgotPasswordController;
 };

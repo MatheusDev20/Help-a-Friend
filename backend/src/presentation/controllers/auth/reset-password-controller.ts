@@ -11,7 +11,6 @@ export class ResetPasswordController implements Controller {
 
   public async handle(request: Request, response: Response): Promise<Response> {
     this.useCase.reset();
-
     return response.json({ message: 'It works' });
   }
 }

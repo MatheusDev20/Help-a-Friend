@@ -4,7 +4,7 @@ interface ForgotPassJwt {
 }
 const forgotPassConfig: ForgotPassJwt = {
   secret: process.env.SECRET_FORGOT_PASSWORD, // md5 -> help_a_friend
-  expiresIn: '1h',
+  expiresIn: '15min',
 };
 
 export default forgotPassConfig;

@@ -1,3 +1,5 @@
+import { ForgotPasswordResponse } from '../../domain/auth/dtos/forgot-password-dto';
+import { MailService } from '../../domain/mail/send-mail';
 import { IForgotTokenRepository } from '../protocols/repositorys/forgot-pass-token-repository';
 import { GenerateToken } from '../protocols/criptography/generate-jwt';
 import { ForgotPassword } from '../../domain/auth/useCases/forgot-password-usecase';
@@ -8,15 +10,27 @@ export class ForgotPasswordUseCase implements ForgotPassword {
 
   private readonly repository: IForgotTokenRepository;
 
-  constructor(generateJwt: GenerateToken, repository: IForgotTokenRepository) {
+  private readonly mailService: MailService;
+
+  constructor(
+    generateJwt: GenerateToken,
+    repository: IForgotTokenRepository,
+    mailService: MailService,
+  ) {
     this.generateJwt = generateJwt;
     this.repository = repository;
+    this.mailService = mailService;
   }
 
-  public async forgot(email: string): Promise<any> {
+  public async forgot(email: string): Promise<ForgotPasswordResponse> {
     const { secret, expiresIn } = forgotPassConfig;
     const forgotPassJwt = await this.generateJwt.generate({ sub: email, secret, expiresIn });
     await this.repository.save({ userEmail: email, jwt: forgotPassJwt });
-    return forgotPassJwt;
+
+    const sentEmailResponse = await this.mailService.send(forgotPassJwt, email);
+    return {
+      ...sentEmailResponse,
+      tokenExpiration: expiresIn,
+    };
   }
 }

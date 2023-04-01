@@ -20,6 +20,6 @@ export class ForgotPasswordController implements Controller {
     const { email } = request.query;
     const res = await this.useCase.forgot(String(email));
 
-    return response.json({ message: res });
+    return response.json(res);
   }
 }

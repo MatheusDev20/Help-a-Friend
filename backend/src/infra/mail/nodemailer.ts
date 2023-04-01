@@ -1,26 +1,26 @@
 import nodemailer, { Transporter } from 'nodemailer';
-import { MailService } from '../../domain/mail/send-mail';
+import { MailResponse, MailService } from '../../domain/mail';
+import AppError from '../../presentation/errors/AppError';
 
 export class Nodemailer implements MailService {
   private client: Transporter;
 
   constructor() {
     nodemailer.createTestAccount().then((account) => {
-      console.log(account);
       const transporter = nodemailer.createTransport({
         host: account.smtp.host,
         port: account.smtp.port,
         secure: account.smtp.secure,
         auth: {
-          user: account.user,
-          pass: account.pass,
+          user: 'deron.kulas91@ethereal.email',
+          pass: 'Kzr8mN8HmqC7A5Tx7N',
         },
       });
       this.client = transporter;
     });
   }
 
-  public async send(): Promise<void> {
+  public async send(text: string, mail: string): Promise<MailResponse> {
     const mailOptions = {
       from: {
         name: 'Equipe Help a Friend',
@@ -28,21 +28,19 @@ export class Nodemailer implements MailService {
       },
       to: {
         name: 'Teste',
-        address: 'yofid86026@etondy.com',
+        address: mail,
       },
       subject: 'Reset de senha',
-      html: '<p>ALO</p>',
+      html: `<span>${text}</span>`,
     };
     try {
-      const info = await this.client.sendMail(mailOptions);
-      console.log('Message sent: %s', info.messageId);
-      // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-
-      // Preview only available when sending through an Ethereal account
-      console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-      // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+      const { response, messageId } = await this.client.sendMail(mailOptions);
+      return {
+        response,
+        messageId,
+      };
     } catch (err) {
-      console.log(err);
+      throw new AppError('Email could not be sent');
     }
   }
 }
