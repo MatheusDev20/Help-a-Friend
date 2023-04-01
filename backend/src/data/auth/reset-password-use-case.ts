@@ -25,7 +25,8 @@ export class ResetPasswordUseCase implements ResetPassword {
     }
 
     const hashedPassword = await hash(newPassword, 8);
-    const upatedUser = await this.usersRepository.update('password', hashedPassword, sub);
-    return upatedUser;
+    const updatedUser = await this.usersRepository.update('password', hashedPassword, sub);
+
+    return updatedUser;
   }
 }
