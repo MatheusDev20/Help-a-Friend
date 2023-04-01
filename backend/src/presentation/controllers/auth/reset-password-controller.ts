@@ -1,4 +1,6 @@
 import { Request, Response } from 'express';
+import { validationResult } from 'express-validator';
+import { InvalidParamError } from '../../errors/InvalidParamsError';
 import { ResetPassword } from '../../../domain/auth/useCases/reset-password-use-case';
 import { Controller } from '../../protocols/controller';
 
@@ -10,7 +12,14 @@ export class ResetPasswordController implements Controller {
   }
 
   public async handle(request: Request, response: Response): Promise<Response> {
-    this.useCase.reset();
+    const errors = validationResult(request);
+
+    if (!errors.isEmpty()) {
+      throw new InvalidParamError(errors);
+    }
+    const { token } = request.query;
+    this.useCase.reset(String(token));
+
     return response.json({ message: 'It works' });
   }
 }

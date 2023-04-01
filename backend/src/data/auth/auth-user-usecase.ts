@@ -2,7 +2,7 @@
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import { AuthenticatedUser } from '../../domain/user/dtos/AuthenticatedUser';
-import { GenerateToken } from '../protocols/criptography/generate-jwt';
+import { Criptography } from '../protocols/criptography';
 import AppError from '../../presentation/errors/AppError';
 import authConfig from '../../config/auth/login-token';
 import IUsersRepository from '../protocols/repositorys/user-repository';
@@ -22,9 +22,9 @@ interface Response {
 class AuthorizationUseCase {
   private readonly repository: IUsersRepository;
 
-  private readonly generateToken: GenerateToken;
+  private readonly generateToken: Criptography;
 
-  constructor(repository: IUsersRepository, generateToken: GenerateToken) {
+  constructor(repository: IUsersRepository, generateToken: Criptography) {
     this.repository = repository;
     this.generateToken = generateToken;
   }

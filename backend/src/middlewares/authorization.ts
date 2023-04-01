@@ -23,7 +23,6 @@ export default function authorization(request: Request, response: Response, next
   try {
     const decoded = verify(token, secret);
     const { sub } = decoded as TokenPayload;
-    console.log(sub);
     request.user = {
       id: sub,
     };

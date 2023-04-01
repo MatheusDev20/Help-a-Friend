@@ -13,6 +13,7 @@ export class ForgotPasswordController implements Controller {
 
   public async handle(request: Request, response: Response): Promise<Response> {
     const errors = validationResult(request);
+
     if (!errors.isEmpty()) {
       throw new InvalidParamError(errors);
     }

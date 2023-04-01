@@ -64,21 +64,21 @@ const makeForgotPasswordController = (): Controller => {
   const encrypter = new JwtAdapter();
   const mailService = new Nodemailer();
   const forgotPasswordRepository = new ForgotPasswordTokenRepository();
+  const usersRepository = new UserRepository();
   const forgotPasswordUseCase = new ForgotPasswordUseCase(
     encrypter,
     forgotPasswordRepository,
-
     mailService,
+    usersRepository,
   );
   const forgotPasswordController = new ForgotPasswordController(forgotPasswordUseCase);
   return forgotPasswordController;
 };
 
 const makeResetPasswordController = (): Controller => {
-  const mailService = new Nodemailer();
-  const resetPasswordUseCase = new ResetPasswordUseCase(mailService);
+  const verifyToken = new JwtAdapter();
+  const resetPasswordUseCase = new ResetPasswordUseCase(verifyToken);
   const resetPasswordController = new ResetPasswordController(resetPasswordUseCase);
-
   return resetPasswordController;
 };
 
