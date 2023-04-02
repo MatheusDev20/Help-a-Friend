@@ -37,9 +37,10 @@ export class ForgotPasswordUseCase implements ForgotPassword {
 
     const { secret, expiresIn } = forgotPassConfig;
     const forgotPassJwt = await this.generateJwt.generate({ sub: usersExists.id, secret, expiresIn });
-    console.log(forgotPassJwt);
+
     await this.forgotTokenrepository.save({ userEmail: email, jwt: forgotPassJwt });
     const sentEmailResponse = await this.mailService.send(forgotPassJwt, email);
+
     return {
       ...sentEmailResponse,
       tokenExpiration: expiresIn,

@@ -17,6 +17,9 @@ class ForgotPasswordToken {
 
     @CreateDateColumn()
       requested_at: Date;
+
+    @Column({ nullable: true })
+      has_updated: boolean;
 }
 
 export default ForgotPasswordToken;

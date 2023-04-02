@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 import { InvalidParamError } from '../../errors/InvalidParamsError';
 import { Controller } from '../../protocols/controller';
-import AuthorizationUseCase from '../../../data/auth/auth-user-usecase';
+import AuthorizationUseCase from '../../../data/auth/login-usecase';
 
 class AuthController implements Controller {
   private readonly useCase: AuthorizationUseCase;
@@ -25,7 +25,7 @@ class AuthController implements Controller {
         },
       },
     );
-
+    console.log(token);
     return response.json({
       token, expiration, authUser,
     });

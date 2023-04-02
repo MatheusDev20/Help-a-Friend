@@ -10,8 +10,8 @@ import { Controller } from '../../presentation/protocols/controller';
 import UpdateUserAvatarUseCase from '../../data/users/usecases/update-user-avatar-usecase';
 import S3Storage from '../../infra/storage/S3';
 import UpdateUserAvatarController from '../../presentation/controllers/users/update-user-avatar-controller';
-import AuthorizationUseCase from '../../data/auth/auth-user-usecase';
-import AuthController from '../../presentation/controllers/auth/auth-user-controller';
+import AuthorizationUseCase from '../../data/auth/login-usecase';
+import AuthController from '../../presentation/controllers/auth/login-controller';
 import DeleteUserController from '../../presentation/controllers/users/delete-user-controller';
 import DeleteUserUseCase from '../../data/users/usecases/delete-user-usecase';
 import RegisterNewUserController from '../../presentation/controllers/users/register-new-user-controller';
@@ -78,7 +78,12 @@ const makeForgotPasswordController = (): Controller => {
 const makeResetPasswordController = (): Controller => {
   const verifyToken = new JwtAdapter();
   const usersRepository = new UserRepository();
-  const resetPasswordUseCase = new ResetPasswordUseCase(verifyToken, usersRepository);
+  const forgotPasswordRepository = new ForgotPasswordTokenRepository();
+  const resetPasswordUseCase = new ResetPasswordUseCase(
+    verifyToken,
+    usersRepository,
+    forgotPasswordRepository,
+  );
   const resetPasswordController = new ResetPasswordController(resetPasswordUseCase);
   return resetPasswordController;
 };

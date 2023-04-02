@@ -12,8 +12,8 @@ export class Nodemailer implements MailService {
         port: account.smtp.port,
         secure: account.smtp.secure,
         auth: {
-          user: 'deron.kulas91@ethereal.email',
-          pass: 'Kzr8mN8HmqC7A5Tx7N',
+          user: 'ally.pfeffer54@ethereal.email',
+          pass: 'TqnbzdKdtnx9mCe8N8',
         },
       });
       this.client = transporter;
@@ -31,7 +31,7 @@ export class Nodemailer implements MailService {
         address: mail,
       },
       subject: 'Reset de senha',
-      html: `<span>${text}</span>`,
+      html: `<p>Não compartilhe esse token com ninguém, ele expira em cinco minutos <br/>${text}</p>`,
     };
     try {
       const { response, messageId } = await this.client.sendMail(mailOptions);

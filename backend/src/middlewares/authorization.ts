@@ -19,7 +19,6 @@ export default function authorization(request: Request, response: Response, next
 
   const [, token] = authHeader.split(' ');
   const { secret } = authConfig;
-
   try {
     const decoded = verify(token, secret);
     const { sub } = decoded as TokenPayload;

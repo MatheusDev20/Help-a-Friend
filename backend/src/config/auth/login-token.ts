@@ -3,7 +3,7 @@ interface JWT {
   expiresIn: string
 }
 const authConfig: JWT = {
-  secret: process.env.SECRET_JWT, // md5 -> help_a_friend
+  secret: process.env.SECRET_JWT_LOGIN, // md5 -> help_a_friend
   expiresIn: '1d',
 };
 

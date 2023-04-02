@@ -16,7 +16,6 @@ interface Request {
 interface Response {
   authUser: AuthenticatedUser
   token?: string
-  jwt: string
   expiration: string;
 }
 class AuthorizationUseCase {
@@ -43,8 +42,8 @@ class AuthorizationUseCase {
     }
 
     const { secret, expiresIn } = authConfig;
-    const jwt = await this.generateToken.generate({ expiresIn, secret, sub: user.id });
-
+    console.log('Secret on Use case', secret);
+    const token = await this.generateToken.generate({ expiresIn, secret, sub: user.id });
     // const token = sign({}, secret, {
     //   subject: user.id,
     //   expiresIn,
@@ -54,7 +53,7 @@ class AuthorizationUseCase {
     } = user;
 
     return {
-      authUser, jwt, expiration: expiresIn,
+      authUser, token, expiration: expiresIn,
     };
   }
 }

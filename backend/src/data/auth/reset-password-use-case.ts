@@ -1,4 +1,5 @@
 import { hash } from 'bcryptjs';
+import { IForgotTokenRepository } from 'data/protocols';
 import IUsersRepository from '../protocols/repositorys/user-repository';
 import forgotPassConfig from '../../config/auth/forgot-pass';
 import { Criptography } from '../protocols/criptography';
@@ -10,9 +11,16 @@ export class ResetPasswordUseCase implements ResetPassword {
 
   private readonly usersRepository: IUsersRepository;
 
-  constructor(verifyToken: Criptography, usersRepository: IUsersRepository) {
+  private readonly forgotTokenRepository: IForgotTokenRepository;
+
+  constructor(
+    verifyToken: Criptography,
+    usersRepository: IUsersRepository,
+    forgotTokenRepository: IForgotTokenRepository,
+  ) {
     this.verifyToken = verifyToken;
     this.usersRepository = usersRepository;
+    this.forgotTokenRepository = forgotTokenRepository;
   }
 
   public async reset(token: string, newPassword: string): Promise<any> {
@@ -27,6 +35,9 @@ export class ResetPasswordUseCase implements ResetPassword {
     const hashedPassword = await hash(newPassword, 8);
     const updatedUser = await this.usersRepository.update('password', hashedPassword, sub);
 
+    await this.forgotTokenRepository.update(token);
+
+    // await this.invalidToken()
     return updatedUser;
   }
 }

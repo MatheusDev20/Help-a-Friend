@@ -16,4 +16,18 @@ export class ForgotPasswordTokenRepository implements IForgotTokenRepository {
       user_email: userEmail,
     });
   }
+
+  public async update(token: string): Promise<void> {
+    console.log('Token no repo', token);
+    try {
+      const record = await this.repository.findOne({ where: { token } });
+      const updateRecord = {
+        ...record,
+        has_updated: true,
+      };
+      await this.repository.save(updateRecord);
+    } catch (err) {
+      throw new Error('Token not found');
+    }
+  }
 }
