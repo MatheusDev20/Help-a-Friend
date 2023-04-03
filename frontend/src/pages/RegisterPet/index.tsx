@@ -36,7 +36,7 @@ export const RegisterPetPage: React.FC = () => {
 
   const navigate = useNavigate()
   const toast = useToast()
-  const { register, handleSubmit, reset, formState: { errors, isSubmitSuccessful } } = useForm<RegisterPetData>()
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<RegisterPetData>()
 
   const handleUpload = (files: File[]): void => {
     setFiles(files)

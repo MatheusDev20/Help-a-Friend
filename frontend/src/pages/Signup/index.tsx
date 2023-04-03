@@ -115,7 +115,8 @@ export const SignUpPage: React.FC = () => {
             <Input
               err={errors.email}
               errMsg={errors.email?.message}
-              label='Endereço de Email' type='email'
+              label='Endereço de Email'
+              type='email'
               icon={<EmailIcon />}
               helperMsg='Não vamos compartilhar seu e-mail com ninguém'
               placeholder='Email válido @dominio.com...'

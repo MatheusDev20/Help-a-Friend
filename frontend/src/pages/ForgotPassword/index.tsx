@@ -1,44 +1,25 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 
 import {
   Flex, Text,
   FormControl,
-  FormLabel,
   Input,
   FormHelperText,
   Button,
   Stack,
   Heading
 } from '@chakra-ui/react'
-import { useState } from 'react'
-import { useAuth } from '../../context/AuthContext'
-import { validateEmail } from '../../utils/utils'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { ForgotPasswordForm } from '../../interfaces/ForgotPasswordData'
+import * as S from './styles'
 
-interface CustomError {
-  msg: string
-  hasErr: boolean
-}
 export const ForgotPassword = (): JSX.Element => {
-  const [email, setEmail] = useState('')
-  const [error, setError] = useState<CustomError>({ msg: '', hasErr: false })
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<ForgotPasswordForm>()
 
-  const handleResetPassword = (e: any): void => {
-    e.preventDefault()
-    if (!email) {
-      setError({
-        msg: 'Email é obrigatório',
-        hasErr: true
-      })
-      return
-    }
-
-    if (!validateEmail(email)) {
-      setError({
-        msg: 'Entre com um email válido',
-        hasErr: true
-      })
-    }
+  const onSubmit: SubmitHandler<ForgotPasswordForm> = async (data) => {
+    console.log(data)
+    // Do stuff with data.email
   }
-  const { user } = useAuth()
   //   const navigate = useNavigate()
   return (
     <Flex
@@ -69,17 +50,19 @@ export const ForgotPassword = (): JSX.Element => {
           </Text>
 
           {/* Form to Reset Input */}
-          <Flex flexDir='column' as='form' gap={13} >
+          <S.ForgotForm onSubmit={handleSubmit(onSubmit)}>
             <FormControl>
                 <Input
-                placeholder='Endereço de email...'
-                type='email'
-                onChange={(e) => { setEmail(e.target.value) }}
-                w='100%'
-                mt='1rem' />
+                  placeholder='Endereço de email...'
+                  type='email'
+                  w='100%'
+                  mt='1rem'
+                  {...register('email', {
+                    required: 'Email é obrigatório'
+                  })} />
                 {
-                  error.hasErr && (
-                    <FormHelperText color='red.400'>{error.msg}</FormHelperText>
+                  errors.email && (
+                    <FormHelperText color='red.400'>{errors.email.message}</FormHelperText>
                   )
                 }
             </FormControl>
@@ -87,13 +70,12 @@ export const ForgotPassword = (): JSX.Element => {
             <Button
               type='submit'
               mt='6'
-              onClick={handleResetPassword}
               bg='#02966a'
               _hover={{ bgColor: '#15a97d' }}
               size={{ base: 'sm', md: 'lg' }}>
                 Enviar
             </Button>
-          </Flex>
+          </S.ForgotForm>
       </Stack>
     </Flex>
   )
