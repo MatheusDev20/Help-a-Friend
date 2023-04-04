@@ -1,6 +1,7 @@
 import { AxiosResponse } from 'axios'
 import { RegisterUser, LoginData } from '../../interfaces'
 import { HafApi } from './haf_backend'
+import { ForgotPasswordForm } from '../../interfaces/ForgotPasswordData'
 
 export const UserService = {
 
@@ -34,7 +35,12 @@ export const UserService = {
     },
     { headers: { 'Content-Type': 'application/json' } }
     )
+    return res
+  },
 
+  async forgotPassword (data: ForgotPasswordForm): Promise<AxiosResponse> {
+    const { email } = data
+    const res = await HafApi.post(`/api/forgot-password?email=${email}`)
     return res
   }
 }

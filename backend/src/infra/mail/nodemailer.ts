@@ -12,8 +12,8 @@ export class Nodemailer implements MailService {
         port: account.smtp.port,
         secure: account.smtp.secure,
         auth: {
-          user: 'ally.pfeffer54@ethereal.email',
-          pass: 'TqnbzdKdtnx9mCe8N8',
+          user: 'estrella.rath33@ethereal.email',
+          pass: 'VwWCZ4jDmPh8sc6enS',
         },
       });
       this.client = transporter;

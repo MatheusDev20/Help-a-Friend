@@ -7,18 +7,35 @@ import {
   FormHelperText,
   Button,
   Stack,
-  Heading
+  Heading,
+  CircularProgress
 } from '@chakra-ui/react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { ForgotPasswordForm } from '../../interfaces/ForgotPasswordData'
 import * as S from './styles'
+import { UserService } from '../../services/api/users'
+import { useState } from 'react'
+
+interface GeneralError {
+  message: string
+  code: number
+}
 
 export const ForgotPassword = (): JSX.Element => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm<ForgotPasswordForm>()
+  const [generalError, setGeneralError] = useState<GeneralError>()
+  const [loading, setLoading] = useState<boolean>(false)
 
   const onSubmit: SubmitHandler<ForgotPasswordForm> = async (data) => {
-    console.log(data)
-    // Do stuff with data.email
+    try {
+      setLoading(true)
+      await UserService.forgotPassword(data)
+    } catch (err: any) {
+      console.error(err.message)
+      setGeneralError({ code: 100, message: 'Falha no envio de e-mail' })
+    } finally {
+      setLoading(false)
+    }
   }
   //   const navigate = useNavigate()
   return (
@@ -73,9 +90,10 @@ export const ForgotPassword = (): JSX.Element => {
               bg='#02966a'
               _hover={{ bgColor: '#15a97d' }}
               size={{ base: 'sm', md: 'lg' }}>
-                Enviar
+                {loading ? <CircularProgress size={5} /> : 'Enviar'}
             </Button>
           </S.ForgotForm>
+          {generalError && <Text align='center' color='red.300'>{generalError.message}</Text>}
       </Stack>
     </Flex>
   )
