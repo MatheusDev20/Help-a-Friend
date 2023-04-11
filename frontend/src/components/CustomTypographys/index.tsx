@@ -8,6 +8,6 @@ export interface Props {
 
 export const CustomTypography = ({ size, children }: Props): JSX.Element => {
   return (
-        <Text fontSize={size}>{children}</Text>
+      <Text fontSize={size}>{children}</Text>
   )
 }

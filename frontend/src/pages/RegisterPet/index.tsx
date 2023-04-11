@@ -26,6 +26,7 @@ import { UploadInput, Input, TextArea, Select } from '../../components/Form'
 import { AiOutlineUpload } from 'react-icons/ai'
 import { IoMdPhotos } from 'react-icons/io'
 import { GoBack } from '../../components/GoBack'
+import { CustomOptions } from '../../components/CustomOptions'
 
 export const RegisterPetPage: React.FC = () => {
   const [citys, setCitys] = useState([])
@@ -120,15 +121,11 @@ export const RegisterPetPage: React.FC = () => {
                 label='Nome' type='text'
                 icon={<MdDriveFileRenameOutline color='#15a97d' />}
                 placeholder='Nome ou Apelido do animal...'
-                _placeholder={{
-                  color: '#15a97d'
-                }}
                 {...register('name', {
                   required: 'Nome é obrigatório'
                 })}
               />
               <Select
-                color='#15a97d'
                 label='Tamanho'
                 size='lg'
                 icon={<GiSittingDog color='#15a97d' />}
@@ -146,7 +143,6 @@ export const RegisterPetPage: React.FC = () => {
               </Select>
 
               <Select
-                color='#15a97d'
                 label='Gênero'
                 size='lg'
                 err={errors.gender}
@@ -164,7 +160,6 @@ export const RegisterPetPage: React.FC = () => {
 
               <Stack direction='row' spacing={6}>
                 <Select
-                  color='#15a97d'
                   label='Estado'
                   size='lg'
                   err={errors.uf}
@@ -172,38 +167,36 @@ export const RegisterPetPage: React.FC = () => {
                   errMsg='Localização do animal é obrigatória'
                   onChange={(e) => { getUfCitys(e.target.value) }}
                 >
-                  <option value="AC">Acre</option>
-                  <option value="AL">Alagoas</option>
-                  <option value="AP">Amapá</option>
-                  <option value="AM">Amazonas</option>
-                  <option value="BA">Bahia</option>
-                  <option value="CE">Ceará</option>
-                  <option value="DF">Distrito Federal</option>
-                  <option value="ES">Espírito Santo</option>
-                  <option value="GO">Goiás</option>
-                  <option value="MA">Maranhão</option>
-                  <option value="MT">Mato Grosso</option>
-                  <option value="MS">Mato Grosso do Sul</option>
-                  <option value="MG">Minas Gerais</option>
-                  <option value="PA">Pará</option>
-                  <option value="PB">Paraíba</option>
-                  <option value="PR">Paraná</option>
-                  <option value="PE">Pernambuco</option>
-                  <option value="PI">Piauí</option>
-                  <option value="RJ">Rio de Janeiro</option>
-                  <option value="RN">Rio Grande do Norte</option>
-                  <option value="RS">Rio Grande do Sul</option>
-                  <option value="RO">Rondônia</option>
-                  <option value="RR">Roraima</option>
-                  <option value="SC">Santa Catarina</option>
-                  <option value="SP">São Paulo</option>
-                  <option value="SE">Sergipe</option>
-                  <option value="TO">Tocantins</option>
-                  <option value="EX">Estrangeiro</option>
+                  <CustomOptions value="AC">Acre</CustomOptions>
+                  <CustomOptions value="AL">Alagoas</CustomOptions>
+                  <CustomOptions value="AP">Amapá</CustomOptions>
+                  <CustomOptions value="AM">Amazonas</CustomOptions>
+                  <CustomOptions value="BA">Bahia</CustomOptions>
+                  <CustomOptions value="CE">Ceará</CustomOptions>
+                  <CustomOptions value="DF">Distrito Federal</CustomOptions>
+                  <CustomOptions value="ES">Espírito Santo</CustomOptions>
+                  <CustomOptions value="GO">Goiás</CustomOptions>
+                  <CustomOptions value="MA">Maranhão</CustomOptions>
+                  <CustomOptions value="MT">Mato Grosso</CustomOptions>
+                  <CustomOptions value="MS">Mato Grosso do Sul</CustomOptions>
+                  <CustomOptions value="MG">Minas Gerais</CustomOptions>
+                  <CustomOptions value="PA">Pará</CustomOptions>
+                  <CustomOptions value="PB">Paraíba</CustomOptions>
+                  <CustomOptions value="PR">Paraná</CustomOptions>
+                  <CustomOptions value="PE">Pernambuco</CustomOptions>
+                  <CustomOptions value="PI">Piauí</CustomOptions>
+                  <CustomOptions value="RJ">Rio de Janeiro</CustomOptions>
+                  <CustomOptions value="RN">Rio Grande do Norte</CustomOptions>
+                  <CustomOptions value="RS">Rio Grande do Sul</CustomOptions>
+                  <CustomOptions value="RO">Rondônia</CustomOptions>
+                  <CustomOptions value="RR">Roraima</CustomOptions>
+                  <CustomOptions value="SC">Santa Catarina</CustomOptions>
+                  <CustomOptions value="SP">São Paulo</CustomOptions>
+                  <CustomOptions value="SE">Sergipe</CustomOptions>
+                  <CustomOptions value="TO">Tocantins</CustomOptions>
                 </Select>
 
                 <Select
-                  color='#15a97d'
                   label='Cidade'
                   size='lg'
                   err={errors.city}
@@ -215,7 +208,7 @@ export const RegisterPetPage: React.FC = () => {
 
                 >
                   {citys.map((city: any) => (
-                    <option key={city.id} value={city.nome}>{city.nome}</option>
+                    <CustomOptions key={city.id} value={city.nome}>{city.nome}</CustomOptions>
                   ))}
 
                 </Select>
@@ -250,9 +243,6 @@ export const RegisterPetPage: React.FC = () => {
                 err={errors.history}
                 size='lg'
                 placeholder='Conte um pouco da historia do animal'
-                _placeholder={{
-                  color: '#15a97d'
-                }}
                 errMsg='Por favor preencha o campo'
                 {...register('history', {
                   required: 'História é obrigatória'
@@ -262,7 +252,6 @@ export const RegisterPetPage: React.FC = () => {
               </TextArea>
 
               <Select
-                color='#15a97d'
                 label='Estou cadastrando um...'
                 size='lg'
                 err={errors.specie}
@@ -273,8 +262,8 @@ export const RegisterPetPage: React.FC = () => {
                 })}
 
               >
-                <option value='Cachorro'>Cachorro</option>
-                <option value='Gato'>Gato</option>
+                <CustomOptions value='Cachorro'>Cachorro</CustomOptions>
+                <CustomOptions value='Gato'>Gato</CustomOptions>
               </Select>
               {/* Upload Input Area */}
 

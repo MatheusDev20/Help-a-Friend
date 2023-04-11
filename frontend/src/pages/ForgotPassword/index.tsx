@@ -8,7 +8,8 @@ import {
   Button,
   Stack,
   Heading,
-  CircularProgress
+  CircularProgress,
+  useToast
 } from '@chakra-ui/react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { ForgotPasswordForm } from '../../interfaces/ForgotPasswordData'
@@ -25,14 +26,27 @@ export const ForgotPassword = (): JSX.Element => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm<ForgotPasswordForm>()
   const [generalError, setGeneralError] = useState<GeneralError>()
   const [loading, setLoading] = useState<boolean>(false)
+  const [sucessMessage, setSucessMessage] = useState('')
+
+  const toast = useToast()
 
   const onSubmit: SubmitHandler<ForgotPasswordForm> = async (data) => {
     try {
       setLoading(true)
       await UserService.forgotPassword(data)
+      setSucessMessage('Email neviado com sucesso!')
+      setLoading(false)
+      toast({
+        status: 'success',
+        duration: 4000,
+        title: 'Email enviado',
+        description: 'Cheque sua caixa de emails',
+        isClosable: true,
+        position: 'top-right'
+      })
     } catch (err: any) {
       console.error(err.message)
-      setGeneralError({ code: 100, message: 'Falha no envio de e-mail' })
+      setGeneralError({ code: 100, message: 'Falha no envio de e-mail!' })
     } finally {
       setLoading(false)
     }
@@ -90,10 +104,11 @@ export const ForgotPassword = (): JSX.Element => {
               bg='#02966a'
               _hover={{ bgColor: '#15a97d' }}
               size={{ base: 'sm', md: 'lg' }}>
-                {loading ? <CircularProgress size={5} /> : 'Enviar'}
+                {loading ? <CircularProgress isIndeterminate size={5} /> : 'Enviar'}
             </Button>
           </S.ForgotForm>
           {generalError && <Text align='center' color='red.300'>{generalError.message}</Text>}
+          {sucessMessage && <Text align='center' color='green.300'>{sucessMessage}</Text>}
       </Stack>
     </Flex>
   )
