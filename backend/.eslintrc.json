@@ -18,6 +18,7 @@
     ],
     "rules": {
         "linebreak-style": "off",
+        "no-unused-vars": "warn",
         "no-console": "off",
         "no-undefined": "off",
         "no-useless-constructor": "off",
@@ -32,7 +33,7 @@
             }
         ],
         "@typescript-eslint/no-unused-vars": [
-            "error",
+            "warn",
             {
                 "argsIgnorePattern": "_"
             }

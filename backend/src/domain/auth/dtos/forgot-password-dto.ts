@@ -4,6 +4,5 @@ export interface ForgotPasswordDTO {
 }
 export interface ForgotPasswordResponse {
     messageId: string;
-    response: string;
     tokenExpiration: string;
 }

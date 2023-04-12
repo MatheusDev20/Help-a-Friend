@@ -36,13 +36,25 @@ export class ForgotPasswordUseCase implements ForgotPassword {
     }
 
     const { secret, expiresIn } = forgotPassConfig;
+    const { name } = usersExists;
     const forgotPassJwt = await this.generateJwt.generate({ sub: usersExists.id, secret, expiresIn });
 
     await this.forgotTokenrepository.save({ userEmail: email, jwt: forgotPassJwt });
-    const sentEmailResponse = await this.mailService.send(forgotPassJwt, email);
+
+    const sentEmailResponse = await this.mailService.send({
+      to: email,
+      type: 'forgot-password',
+      subject: 'Reset de Senha',
+      userName: name,
+      data: {
+        recoveryLink: `${process.env.APP_URL}?token=${forgotPassJwt}`,
+      },
+    });
+
+    const { messageId } = sentEmailResponse;
 
     return {
-      ...sentEmailResponse,
+      messageId,
       tokenExpiration: expiresIn,
     };
   }

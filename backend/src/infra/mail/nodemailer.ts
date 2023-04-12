@@ -1,5 +1,8 @@
+/* eslint-disable max-len */
 import nodemailer, { Transporter } from 'nodemailer';
+import { MailOptions } from '../../domain/mail/send-mail';
 import { MailResponse, MailService } from '../../domain/mail';
+import { getEmailTemplate } from '../../utils';
 import AppError from '../../presentation/errors/AppError';
 
 export class Nodemailer implements MailService {
@@ -12,29 +15,29 @@ export class Nodemailer implements MailService {
         port: account.smtp.port,
         secure: account.smtp.secure,
         auth: {
-          user: 'deonte13@ethereal.email',
-          pass: '3EbDPhTYm3ybPBZT4X',
+          user: 'ubaldo28@ethereal.email',
+          pass: 'nWCX4T43CyeJu9jNrv',
         },
       });
       this.client = transporter;
     });
   }
 
-  public async send(text: string, mail: string): Promise<MailResponse> {
-    const mailOptions = {
+  public async send(mailOptions: MailOptions): Promise<MailResponse> {
+    const emailConfig = {
       from: {
         name: 'Equipe Help a Friend',
         address: 'suport@helpafriend.com.br',
       },
       to: {
-        name: 'Teste',
-        address: mail,
+        name: mailOptions.userName,
+        address: mailOptions.to,
       },
-      subject: 'Reset de senha',
-      html: `<p>Não compartilhe esse token com ninguém, ele expira em cinco minutos <br/>${text}</p>`,
+      subject: mailOptions.subject,
+      html: getEmailTemplate(mailOptions.type)({ userName: mailOptions.userName, ...mailOptions.data }),
     };
     try {
-      const { response, messageId } = await this.client.sendMail(mailOptions);
+      const { response, messageId } = await this.client.sendMail(emailConfig);
       return {
         response,
         messageId,
