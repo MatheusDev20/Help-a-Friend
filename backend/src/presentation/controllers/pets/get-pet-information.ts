@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import { IGetPetInformation } from '../../../domain/pets/usecases/get-pet-information';
+import { IGetPetById } from '../../../domain/pets/usecases/get-pet-by-id';
 
 export class GetPetInformation {
-  private readonly getPetInfo: IGetPetInformation
+  private readonly getPetInfo: IGetPetById;
 
-  constructor(getPetInfo: IGetPetInformation) {
+  constructor(getPetInfo: IGetPetById) {
     this.getPetInfo = getPetInfo;
   }
 

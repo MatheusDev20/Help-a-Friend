@@ -7,7 +7,7 @@ import UploadDogsImagesUseCase from '../../../data/pets/usecases/update-dog-phot
 import AppError from '../../errors/AppError';
 
 export default class UpdatePetsPhotosController implements Controller {
-  private readonly useCase: UploadDogsImagesUseCase
+  private readonly useCase: UploadDogsImagesUseCase;
 
   constructor(useCase: UploadDogsImagesUseCase) {
     this.useCase = useCase;

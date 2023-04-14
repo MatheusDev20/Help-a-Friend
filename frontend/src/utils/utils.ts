@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import { Pet } from './../interfaces/pet'
 
 export const parsePetImg = (pet: Pet): string => {
@@ -5,4 +6,11 @@ export const parsePetImg = (pet: Pet): string => {
 }
 export const isEmpty = (obj: Object): boolean => {
   return Object.keys(obj).length === 0
+}
+
+export const validateEmail = (email: string): boolean => {
+  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+    return (true)
+  }
+  return false
 }

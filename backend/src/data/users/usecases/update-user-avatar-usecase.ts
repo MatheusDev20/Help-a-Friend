@@ -1,12 +1,12 @@
 import path from 'path';
 import fs from 'fs';
-import { Storage } from '../../protocols/storage';
 import { UpdateUserAvatar, UpdateUserAvatarDTO } from '../../../domain/user/usecases/update-user-avatar';
+import { Storage } from '../../protocols/storage/storage';
 
-import IUsersRepositoriy from '../../protocols/user-repository';
+import IUsersRepositoriy from '../../protocols/repositorys/user-repository';
 import AppError from '../../../presentation/errors/AppError';
 import { User } from '../../../domain/user/models/user';
-import uploadConfig from '../../../config/upload';
+import uploadConfig from '../../../config/storage/upload';
 
 class UpdateUserAvatarUseCase implements UpdateUserAvatar {
   private readonly repository: IUsersRepositoriy;

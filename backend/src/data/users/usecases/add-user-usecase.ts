@@ -1,8 +1,8 @@
 /* eslint-disable no-param-reassign */
 import { hash } from 'bcryptjs';
-import { CreateNewUser } from 'domain/user/usecases/create-new-user';
+import { CreateNewUser } from '../../../domain/user/usecases/create-new-user';
 import { CreatedUserDTO } from '../../../infra/db/postgres/repositories/user-repository';
-import IUsersRepository from '../../protocols/user-repository';
+import IUsersRepository from '../../protocols/repositorys/user-repository';
 
 import AppError from '../../../presentation/errors/AppError';
 import CreateUserDTO from '../dto/create-user-dto';

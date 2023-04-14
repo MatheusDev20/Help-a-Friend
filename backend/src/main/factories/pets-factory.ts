@@ -1,4 +1,4 @@
-import { GetPetInfoUseCase } from '../../data/pets/usecases/get-pet-info-usecase';
+import { GetPetByIdUseCase } from '../../data/pets/usecases/get-pet-info-usecase';
 import { GetPetInformation } from '../../presentation/controllers/pets/get-pet-information';
 import UserRepository from '../../infra/db/postgres/repositories/user-repository';
 import { GetPetPage } from '../../data/pets/usecases/get-pet-page';
@@ -53,7 +53,7 @@ const makeListPetPageController = (): Controller => {
 
 const makeGetPetInformationController = (): Controller => {
   const petRepository = new PetsRepository();
-  const getPetInfoUseCase = new GetPetInfoUseCase(petRepository);
+  const getPetInfoUseCase = new GetPetByIdUseCase(petRepository);
   const controller = new GetPetInformation(getPetInfoUseCase);
 
   return controller;

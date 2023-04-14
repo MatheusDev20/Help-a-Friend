@@ -1,4 +1,4 @@
-import { Flex, Input as ChakraInput, InputElementProps, FormLabel, Text } from '@chakra-ui/react'
+import { Flex, Input as ChakraInput, InputElementProps, Text } from '@chakra-ui/react'
 import React, { forwardRef, ForwardRefRenderFunction, ReactNode, useRef, useState } from 'react'
 
 interface UploadInputProps extends InputElementProps {
@@ -14,9 +14,9 @@ const UploadInputBase: ForwardRefRenderFunction<HTMLInputElement, UploadInputPro
     const inputRef = useRef<HTMLInputElement | null>(null)
     const [err, setErr] = useState<string>('')
 
-    const handleClick = () => inputRef.current?.click()
+    const handleClick = (): void => inputRef.current?.click()
 
-    const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
       if (!e.currentTarget.files?.length) {
         setErr(errMsg)
       }

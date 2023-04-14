@@ -1,5 +1,5 @@
 import { UserProfile } from '../../../domain/user/dtos/UserProfile';
-import IUsersRepository from '../../protocols/user-repository';
+import IUsersRepository from '../../protocols/repositorys/user-repository';
 
 class GetUserProfileUseCase {
   private readonly repository: IUsersRepository;

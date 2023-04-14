@@ -1,10 +1,17 @@
+import { Nodemailer } from '../../infra/mail/nodemailer';
+import { ResetPasswordController } from '../../presentation/controllers/auth/reset-password-controller';
+import { ResetPasswordUseCase } from '../../data/auth/reset-password-use-case';
+import { ForgotPasswordTokenRepository } from '../../infra/db/postgres/repositories/forgot-password-token-repository';
+import { JwtAdapter } from '../../infra/criptography/jwt-adapter';
+import { ForgotPasswordController } from '../../presentation/controllers/auth/forgot-password-controller';
+import { ForgotPasswordUseCase } from '../../data/auth/forgot-password-usecase';
 import { Controller } from '../../presentation/protocols/controller';
 /* eslint-disable import/prefer-default-export */
 import UpdateUserAvatarUseCase from '../../data/users/usecases/update-user-avatar-usecase';
 import S3Storage from '../../infra/storage/S3';
 import UpdateUserAvatarController from '../../presentation/controllers/users/update-user-avatar-controller';
-import AuthorizationUseCase from '../../data/users/usecases/auth-user-usecase';
-import AuthController from '../../presentation/controllers/auth/auth-user-controller';
+import AuthorizationUseCase from '../../data/auth/login-usecase';
+import AuthController from '../../presentation/controllers/auth/login-controller';
 import DeleteUserController from '../../presentation/controllers/users/delete-user-controller';
 import DeleteUserUseCase from '../../data/users/usecases/delete-user-usecase';
 import RegisterNewUserController from '../../presentation/controllers/users/register-new-user-controller';
@@ -29,7 +36,8 @@ const makeDeleteUserController = (): Controller => {
 
 const makeAuthUserController = (): Controller => {
   const usersRepository = new UserRepository();
-  const authorizationUseCase = new AuthorizationUseCase(usersRepository);
+  const generateJwt = new JwtAdapter();
+  const authorizationUseCase = new AuthorizationUseCase(usersRepository, generateJwt);
   const authController = new AuthController(authorizationUseCase);
   return authController;
 };
@@ -52,10 +60,40 @@ const makeUserProfile = (): Controller => {
   return getProfileController;
 };
 
+const makeForgotPasswordController = (): Controller => {
+  const encrypter = new JwtAdapter();
+  const mailService = new Nodemailer();
+  const forgotPasswordRepository = new ForgotPasswordTokenRepository();
+  const usersRepository = new UserRepository();
+  const forgotPasswordUseCase = new ForgotPasswordUseCase(
+    encrypter,
+    forgotPasswordRepository,
+    mailService,
+    usersRepository,
+  );
+  const forgotPasswordController = new ForgotPasswordController(forgotPasswordUseCase);
+  return forgotPasswordController;
+};
+
+const makeResetPasswordController = (): Controller => {
+  const verifyToken = new JwtAdapter();
+  const usersRepository = new UserRepository();
+  const forgotPasswordRepository = new ForgotPasswordTokenRepository();
+  const resetPasswordUseCase = new ResetPasswordUseCase(
+    verifyToken,
+    usersRepository,
+    forgotPasswordRepository,
+  );
+  const resetPasswordController = new ResetPasswordController(resetPasswordUseCase);
+  return resetPasswordController;
+};
+
 export {
   makeSignUpUserController,
   makeDeleteUserController,
   makeAuthUserController,
   makeAvatarUpload,
   makeUserProfile,
+  makeForgotPasswordController,
+  makeResetPasswordController,
 };

@@ -2,9 +2,10 @@
 /* eslint-disable no-param-reassign */
 import { getRepository, Repository } from 'typeorm';
 import { v4 } from 'uuid';
+import { IPetsRepository } from '../../../../data/protocols/repositorys/pets-repository';
+import { Pet } from '../../../../domain/pets/models/pet';
 import AppError from '../../../../presentation/errors/AppError';
 import CreatePetDTO from '../../../../data/pets/dto/create-dog-dto';
-import { IPetsRepository } from '../../../../data/protocols/pets-repository';
 import Pets from '../entities/pets';
 
 interface Photo {
@@ -13,7 +14,7 @@ interface Photo {
 }
 
 class PetsRepository implements IPetsRepository {
-  private petsRepository: Repository<Pets> // Declarando o atributo do orm da classe
+  private petsRepository: Repository<Pets>; // Declarando o atributo do orm da classe
 
   constructor() {
     this.petsRepository = getRepository(Pets);
@@ -92,14 +93,16 @@ class PetsRepository implements IPetsRepository {
     return filtered;
   }
 
-  public async findByID(id: string): Promise<Pets> {
-    const pet = await this.petsRepository.find({
+  public async findByID(id: string): Promise<Pet> {
+    const dbRows = await this.petsRepository.find({
       where: {
         id,
       },
     });
-    if (pet.length === 0) throw new AppError('Pet not found', 404);
-    return pet[0];
+    if (dbRows.length === 0) throw new AppError('Pet not found', 404);
+
+    const [pet] = dbRows;
+    return pet;
   }
 }
 

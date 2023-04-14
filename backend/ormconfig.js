@@ -12,7 +12,7 @@ if (process.env.ENVIROMENT == 'PROD') {
 module.exports = {
   type: 'postgres',
   url: process.env.DATABASE_URL,
-  synchronize: process.env.DB_SYNC,
+  synchronize: false,
   entities: [process.env.ENTITIES_PATH],
   cli: {
     migrationsDir: process.env.MIGRATIONS_DIR,
