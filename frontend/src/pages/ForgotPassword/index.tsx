@@ -34,7 +34,7 @@ export const ForgotPassword = (): JSX.Element => {
     try {
       setLoading(true)
       await UserService.forgotPassword(data)
-      setSucessMessage('Email neviado com sucesso!')
+      setSucessMessage('Email enviado com sucesso!')
       setLoading(false)
       toast({
         status: 'success',
@@ -44,6 +44,7 @@ export const ForgotPassword = (): JSX.Element => {
         isClosable: true,
         position: 'top-right'
       })
+      reset()
     } catch (err: any) {
       console.error(err.message)
       setGeneralError({ code: 100, message: 'Falha no envio de e-mail!' })
@@ -51,7 +52,6 @@ export const ForgotPassword = (): JSX.Element => {
       setLoading(false)
     }
   }
-  //   const navigate = useNavigate()
   return (
     <Flex
       minH='100vh'

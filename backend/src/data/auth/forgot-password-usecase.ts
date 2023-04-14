@@ -31,6 +31,7 @@ export class ForgotPasswordUseCase implements ForgotPassword {
 
   public async forgot(email: string): Promise<ForgotPasswordResponse> {
     const usersExists = await this.usersRepository.findByEmail(email);
+
     if (!usersExists) {
       throw new AppError('Email not registered', 404);
     }
@@ -47,7 +48,7 @@ export class ForgotPasswordUseCase implements ForgotPassword {
       subject: 'Reset de Senha',
       userName: name,
       data: {
-        recoveryLink: `${process.env.APP_URL}?token=${forgotPassJwt}`,
+        recoveryToken: forgotPassJwt,
       },
     });
 
