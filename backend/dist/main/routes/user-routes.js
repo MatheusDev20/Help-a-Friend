@@ -39,15 +39,17 @@ const multer_1 = __importDefault(require("multer"));
 const express_validator_1 = require("express-validator");
 const factories = __importStar(require("../factories/users-factory"));
 const authorization_1 = __importDefault(require("../../middlewares/authorization"));
-const upload_1 = __importDefault(require("../../config/upload"));
+const upload_1 = __importDefault(require("../../config/storage/upload"));
 const adapt = (controller) => (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     yield controller.handle(req, res);
 });
 const upload = (0, multer_1.default)(upload_1.default);
 exports.default = (router) => {
     router.post('/signup', (0, express_validator_1.body)('name').notEmpty().isLength({ max: 24 }), (0, express_validator_1.body)('password').notEmpty().isLength({ min: 8 }), (0, express_validator_1.body)('email').notEmpty().isEmail(), (0, express_validator_1.body)('petPreference').notEmpty(), adapt(factories.makeSignUpUserController()));
-    router.delete('/delete', authorization_1.default, adapt(factories.makeDeleteUserController()));
+    router.delete('/user/delete', authorization_1.default, adapt(factories.makeDeleteUserController()));
     router.post('/login', (0, express_validator_1.body)('email').notEmpty().isEmail(), (0, express_validator_1.body)('password').notEmpty().isLength({ min: 8 }), adapt(factories.makeAuthUserController()));
     router.post('/avatar', authorization_1.default, upload.single('avatar'), adapt(factories.makeAvatarUpload()));
     router.get('/getProfile', authorization_1.default, adapt(factories.makeUserProfile()));
+    router.post('/forgot-password', (0, express_validator_1.query)('email').notEmpty().isEmail(), adapt(factories.makeForgotPasswordController()));
+    router.patch('/reset-password', (0, express_validator_1.body)('token').notEmpty().isLength({ min: 16 }), (0, express_validator_1.body)('newPassword').notEmpty().isLength({ min: 8 }), adapt(factories.makeResetPasswordController()));
 };

@@ -16,7 +16,7 @@ const aws_sdk_1 = __importDefault(require("aws-sdk"));
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
 const buildPathS3_1 = __importDefault(require("./helpers/buildPathS3"));
-const upload_1 = __importDefault(require("../../config/upload"));
+const upload_1 = __importDefault(require("../../config/storage/upload"));
 class S3Storage {
     constructor() {
         this.s3Client = new aws_sdk_1.default.S3({

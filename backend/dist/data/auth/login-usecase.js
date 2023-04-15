@@ -24,12 +24,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const bcryptjs_1 = require("bcryptjs");
-const jsonwebtoken_1 = require("jsonwebtoken");
-const AppError_1 = __importDefault(require("../../../presentation/errors/AppError"));
-const auth_1 = __importDefault(require("../../../config/auth"));
+const AppError_1 = __importDefault(require("../../presentation/errors/AppError"));
+const login_token_1 = __importDefault(require("../../config/auth/login-token"));
 class AuthorizationUseCase {
-    constructor(repository) {
+    constructor(repository, generateToken) {
         this.repository = repository;
+        this.generateToken = generateToken;
     }
     auth({ authInfo }) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -41,11 +41,9 @@ class AuthorizationUseCase {
             if (!passwordMatch) {
                 throw new AppError_1.default('Wrong password');
             }
-            const { secret, expiresIn } = auth_1.default;
-            const token = (0, jsonwebtoken_1.sign)({}, secret, {
-                subject: user.id,
-                expiresIn,
-            });
+            const { secret, expiresIn } = login_token_1.default;
+            console.log('Secret on Use case', secret);
+            const token = yield this.generateToken.generate({ expiresIn, secret, sub: user.id });
             const { password, created_at, updated_at } = user, authUser = __rest(user, ["password", "created_at", "updated_at"]);
             return {
                 authUser, token, expiration: expiresIn,

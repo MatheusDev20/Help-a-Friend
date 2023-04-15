@@ -9,8 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GetPetInfoUseCase = void 0;
-class GetPetInfoUseCase {
+exports.GetPetByIdUseCase = void 0;
+class GetPetByIdUseCase {
     constructor(repository) {
         this.repository = repository;
     }
@@ -21,4 +21,4 @@ class GetPetInfoUseCase {
         });
     }
 }
-exports.GetPetInfoUseCase = GetPetInfoUseCase;
+exports.GetPetByIdUseCase = GetPetByIdUseCase;

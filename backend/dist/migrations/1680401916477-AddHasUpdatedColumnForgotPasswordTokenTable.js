@@ -8,22 +8,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const Response_1 = __importDefault(require("../helpers/Response"));
-class DeleteUserController {
-    constructor(useCase) {
-        this.useCase = useCase;
-    }
-    handle(request, response) {
+exports.AddHasUpdatedColumnForgotPasswordTokenTable1680401916477 = void 0;
+const typeorm_1 = require("typeorm");
+class AddHasUpdatedColumnForgotPasswordTokenTable1680401916477 {
+    up(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { email } = request.body;
-            const res = yield this.useCase.delete(email, request.user.id);
-            const payload = new Response_1.default(res, 200);
-            return response.json(payload);
+            yield queryRunner.addColumn('forgot_password_token', new typeorm_1.TableColumn({
+                name: 'has_updated',
+                type: 'bool',
+                isNullable: true,
+            }));
+        });
+    }
+    down(queryRunner) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield queryRunner.dropColumn('forgot_password_token', 'has_updated');
         });
     }
 }
-exports.default = DeleteUserController;
+exports.AddHasUpdatedColumnForgotPasswordTokenTable1680401916477 = AddHasUpdatedColumnForgotPasswordTokenTable1680401916477;

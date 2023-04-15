@@ -16,22 +16,22 @@ class FinalAdjustPetOwnerEmail1661315011693 {
     }
     up(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield queryRunner.query(`ALTER TABLE "pets" DROP CONSTRAINT "FK_8892809a0f4ab3095225783b28c"`);
-            yield queryRunner.query(`ALTER TABLE "pets" DROP COLUMN "user_email"`);
-            yield queryRunner.query(`ALTER TABLE "pets" DROP CONSTRAINT "FK_4ddf2615c9d24b5be6d26830b4b"`);
-            yield queryRunner.query(`ALTER TABLE "pets" DROP COLUMN "pet_owner_email"`);
-            yield queryRunner.query(`ALTER TABLE "pets" ADD "pet_owner_email" character varying NOT NULL`);
-            yield queryRunner.query(`ALTER TABLE "pets" ADD CONSTRAINT "FK_4ddf2615c9d24b5be6d26830b4b" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+            yield queryRunner.query('ALTER TABLE "pets" DROP CONSTRAINT "FK_8892809a0f4ab3095225783b28c"');
+            yield queryRunner.query('ALTER TABLE "pets" DROP COLUMN "user_email"');
+            yield queryRunner.query('ALTER TABLE "pets" DROP CONSTRAINT "FK_4ddf2615c9d24b5be6d26830b4b"');
+            yield queryRunner.query('ALTER TABLE "pets" DROP COLUMN "pet_owner_email"');
+            yield queryRunner.query('ALTER TABLE "pets" ADD "pet_owner_email" character varying NOT NULL');
+            yield queryRunner.query('ALTER TABLE "pets" ADD CONSTRAINT "FK_4ddf2615c9d24b5be6d26830b4b" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE NO ACTION ON UPDATE NO ACTION');
         });
     }
     down(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield queryRunner.query(`ALTER TABLE "pets" DROP CONSTRAINT "FK_4ddf2615c9d24b5be6d26830b4b"`);
-            yield queryRunner.query(`ALTER TABLE "pets" DROP COLUMN "pet_owner_email"`);
-            yield queryRunner.query(`ALTER TABLE "pets" ADD "pet_owner_email" uuid`);
-            yield queryRunner.query(`ALTER TABLE "pets" ADD CONSTRAINT "FK_4ddf2615c9d24b5be6d26830b4b" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
-            yield queryRunner.query(`ALTER TABLE "pets" ADD "user_email" character varying NOT NULL`);
-            yield queryRunner.query(`ALTER TABLE "pets" ADD CONSTRAINT "FK_8892809a0f4ab3095225783b28c" FOREIGN KEY ("pet_owner_email") REFERENCES "users"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+            yield queryRunner.query('ALTER TABLE "pets" DROP CONSTRAINT "FK_4ddf2615c9d24b5be6d26830b4b"');
+            yield queryRunner.query('ALTER TABLE "pets" DROP COLUMN "pet_owner_email"');
+            yield queryRunner.query('ALTER TABLE "pets" ADD "pet_owner_email" uuid');
+            yield queryRunner.query('ALTER TABLE "pets" ADD CONSTRAINT "FK_4ddf2615c9d24b5be6d26830b4b" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE NO ACTION ON UPDATE NO ACTION');
+            yield queryRunner.query('ALTER TABLE "pets" ADD "user_email" character varying NOT NULL');
+            yield queryRunner.query('ALTER TABLE "pets" ADD CONSTRAINT "FK_8892809a0f4ab3095225783b28c" FOREIGN KEY ("pet_owner_email") REFERENCES "users"("id") ON DELETE NO ACTION ON UPDATE NO ACTION');
         });
     }
 }

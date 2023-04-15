@@ -97,14 +97,15 @@ class PetsRepository {
     }
     findByID(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const pet = yield this.petsRepository.find({
+            const dbRows = yield this.petsRepository.find({
                 where: {
                     id,
                 },
             });
-            if (pet.length === 0)
+            if (dbRows.length === 0)
                 throw new AppError_1.default('Pet not found', 404);
-            return pet[0];
+            const [pet] = dbRows;
+            return pet;
         });
     }
 }

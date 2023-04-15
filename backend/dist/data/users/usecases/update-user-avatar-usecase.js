@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
 const AppError_1 = __importDefault(require("../../../presentation/errors/AppError"));
-const upload_1 = __importDefault(require("../../../config/upload"));
+const upload_1 = __importDefault(require("../../../config/storage/upload"));
 class UpdateUserAvatarUseCase {
     constructor(repository, storage) {
         this.repository = repository;

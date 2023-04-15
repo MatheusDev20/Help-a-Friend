@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class AppResponse {
-    constructor(statusCode = 100, data) {
+    constructor(data, statusCode = 100) {
         this.statusCode = statusCode;
         this.data = data;
     }

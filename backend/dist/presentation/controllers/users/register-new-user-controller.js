@@ -34,7 +34,7 @@ class RegisterNewUserController {
                 petPreference,
                 admin: false,
             });
-            const payload = new Response_1.default(200, user);
+            const payload = new Response_1.default(user, 200);
             return response.json(payload);
         });
     }

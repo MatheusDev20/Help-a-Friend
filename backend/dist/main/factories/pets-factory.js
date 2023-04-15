@@ -49,7 +49,7 @@ const makeListPetPageController = () => {
 exports.makeListPetPageController = makeListPetPageController;
 const makeGetPetInformationController = () => {
     const petRepository = new pets_repository_1.default();
-    const getPetInfoUseCase = new get_pet_info_usecase_1.GetPetInfoUseCase(petRepository);
+    const getPetInfoUseCase = new get_pet_info_usecase_1.GetPetByIdUseCase(petRepository);
     const controller = new get_pet_information_1.GetPetInformation(getPetInfoUseCase);
     return controller;
 };

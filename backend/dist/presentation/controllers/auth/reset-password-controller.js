@@ -9,28 +9,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ResetPasswordController = void 0;
 const express_validator_1 = require("express-validator");
 const InvalidParamsError_1 = require("../../errors/InvalidParamsError");
-class AuthController {
+class ResetPasswordController {
     constructor(useCase) {
         this.useCase = useCase;
     }
     handle(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
             const errors = (0, express_validator_1.validationResult)(request);
-            if (!errors.isEmpty())
+            if (!errors.isEmpty()) {
                 throw new InvalidParamsError_1.InvalidParamError(errors);
-            const { email, password } = request.body;
-            const { token, expiration, authUser } = yield this.useCase.auth({
-                authInfo: {
-                    email,
-                    userPassword: password,
-                },
-            });
-            return response.json({
-                token, expiration, authUser,
-            });
+            }
+            const { token, newPassword } = request.body;
+            const userUpdated = yield this.useCase.reset(String(token), newPassword);
+            return response.json(userUpdated);
         });
     }
 }
-exports.default = AuthController;
+exports.ResetPasswordController = ResetPasswordController;

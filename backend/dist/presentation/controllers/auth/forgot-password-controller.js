@@ -8,22 +8,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const Response_1 = __importDefault(require("../helpers/Response"));
-class DeleteUserController {
+exports.ForgotPasswordController = void 0;
+const express_validator_1 = require("express-validator");
+const InvalidParamsError_1 = require("../../errors/InvalidParamsError");
+class ForgotPasswordController {
     constructor(useCase) {
         this.useCase = useCase;
     }
     handle(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { email } = request.body;
-            const res = yield this.useCase.delete(email, request.user.id);
-            const payload = new Response_1.default(res, 200);
-            return response.json(payload);
+            const errors = (0, express_validator_1.validationResult)(request);
+            if (!errors.isEmpty()) {
+                throw new InvalidParamsError_1.InvalidParamError(errors);
+            }
+            const { email } = request.query;
+            const res = yield this.useCase.forgot(String(email));
+            return response.json(res);
         });
     }
 }
-exports.default = DeleteUserController;
+exports.ForgotPasswordController = ForgotPasswordController;

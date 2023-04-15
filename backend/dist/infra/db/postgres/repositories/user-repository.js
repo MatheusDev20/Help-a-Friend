@@ -73,5 +73,24 @@ class UserRepository {
             return userProfile;
         });
     }
+    update(property, value, id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const userToBeUpdated = yield this.findById(id);
+                if (!userToBeUpdated) {
+                    throw new Error('No user found to update');
+                }
+                const updatedUser = Object.assign(Object.assign({}, userToBeUpdated), { [property]: value });
+                const response = yield this.userRepository.save(updatedUser);
+                return {
+                    userId: response.id,
+                    updated_at: response.updated_at,
+                };
+            }
+            catch (err) {
+                console.log(err);
+            }
+        });
+    }
 }
 exports.default = UserRepository;

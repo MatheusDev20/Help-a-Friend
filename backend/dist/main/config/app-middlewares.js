@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const middlewares_1 = require("../middlewares");
-const upload_1 = __importDefault(require("../../config/upload"));
+const upload_1 = __importDefault(require("../../config/storage/upload"));
 exports.default = (app) => {
     app.use('/files', express_1.default.static(upload_1.default.directory));
     app.use(middlewares_1.jsonParser);

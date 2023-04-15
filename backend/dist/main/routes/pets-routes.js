@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const multer_1 = __importDefault(require("multer"));
 const express_validator_1 = require("express-validator");
 const authorization_1 = __importDefault(require("../../middlewares/authorization"));
-const upload_1 = __importDefault(require("../../config/upload"));
+const upload_1 = __importDefault(require("../../config/storage/upload"));
 const route_adapter_1 = __importDefault(require("./adapters/route-adapter"));
 const pets_factory_1 = require("../factories/pets-factory");
 const upload = (0, multer_1.default)(upload_1.default);
