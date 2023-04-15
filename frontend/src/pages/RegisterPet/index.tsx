@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 
 import React, { useState } from 'react'
 import {
@@ -113,7 +114,7 @@ export const RegisterPetPage: React.FC = () => {
           </Stack>
 
           {/* Formulário */}
-          <RegisterForm onSubmit={(e) => handleSubmit(onSubmit)}>
+          <RegisterForm onSubmit={handleSubmit(onSubmit)}>
             <Stack spacing={6}>
               <Input
                 err={errors.name}
@@ -136,9 +137,9 @@ export const RegisterPetPage: React.FC = () => {
                   required: 'Tamanho é obrigatório'
                 })}
               >
-                <option value='Pequeno'>Pequeno</option>
-                <option value='Médio'>Médio</option>
-                <option value='Grande'>Grande</option>
+                <CustomOptions value='Pequeno'>Pequeno</CustomOptions>
+                <CustomOptions value='Médio'>Médio</CustomOptions>
+                <CustomOptions value='Grande'>Grande</CustomOptions>
 
               </Select>
 
@@ -153,8 +154,8 @@ export const RegisterPetPage: React.FC = () => {
                   required: 'Tamanho é obrigatório'
                 })}
               >
-                <option value='M'>Macho</option>
-                <option value='F'>Fêmea</option>
+                <CustomOptions value='M'>Macho</CustomOptions>
+                <CustomOptions value='F'>Fêmea</CustomOptions>
 
               </Select>
 

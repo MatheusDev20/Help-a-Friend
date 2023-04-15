@@ -1,4 +1,3 @@
-
 import { Link as RedirectLink, useNavigate } from 'react-router-dom'
 import {
   Flex,
@@ -194,11 +193,6 @@ interface NavProps {
   redirectTo: string
 }
 const activeLinks = [
-  // {
-  //   label: 'Sobre',
-  //   redirectTo: '/about',
-  //   auth: false
-  // },
   {
     label: 'Meus interesses',
     redirectTo: '/criar-usuario',
