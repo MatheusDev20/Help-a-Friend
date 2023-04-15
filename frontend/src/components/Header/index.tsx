@@ -194,11 +194,11 @@ interface NavProps {
   redirectTo: string
 }
 const activeLinks = [
-  {
-    label: 'Sobre',
-    redirectTo: '/about',
-    auth: false
-  },
+  // {
+  //   label: 'Sobre',
+  //   redirectTo: '/about',
+  //   auth: false
+  // },
   {
     label: 'Meus interesses',
     redirectTo: '/criar-usuario',
