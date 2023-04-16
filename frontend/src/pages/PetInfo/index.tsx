@@ -1,56 +1,40 @@
 /* eslint-disable multiline-ternary */
-import { Box, Button, Container, Flex, Heading, Image, SimpleGrid, Stack, Text, transition, VStack } from '@chakra-ui/react'
+import { Button, CircularProgress, Flex, Heading, Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
-import { Link, useLocation, useParams } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { Pet } from '../../interfaces/pet'
 import { GoLocation } from 'react-icons/go'
 import { BsFillPersonFill } from 'react-icons/bs'
 import { GoBack } from '../../components/GoBack'
-import { getPetInfo } from '../../services/api/pets'
+import { AiTwotoneAlert } from 'react-icons/ai'
 import { parsePetImg } from '../../utils/utils'
 import { formatDate } from '../../utils/dates'
-
-interface CustomError {
-  msg: string
-}
+import { useFetch } from '../../hooks/useFetch'
 
 export const PetInfo: React.FC = () => {
   const { state } = useLocation()
-  const [pet, setPet] = useState<Pet | null>(null)
-  const [error, setError] = useState<CustomError>({
-    msg: ''
-  })
   const [selectedImgUrl, setSelectedImgUrl] = useState<string>('')
-  useEffect(() => {
-    const fetchPetInformation = async (petId: string): Promise<Pet> => {
-      try {
-        const petInfo = await getPetInfo(petId)
-        return petInfo
-      } catch (err: any) {
-        setError({ msg: 'Deu esse erro aqui' })
-        throw new Error('AOF')
-      }
-    }
 
-    fetchPetInformation(state.petId).then((petInfo) => {
-      console.log(petInfo)
-      if (petInfo) setPet(petInfo)
-      setSelectedImgUrl(
-        parsePetImg(petInfo)
-      )
-    }).catch((err) => {
-      console.error(err)
-    })
-  }, [])
+  const { data: petData, loading, fetchingError } = useFetch<Pet>({ path: `/api/pet/${String(state.petId)}` })
+
+  useEffect(() => {
+    if (petData) setSelectedImgUrl(parsePetImg(petData))
+  }, [petData])
+
+  if (fetchingError.err) {
+    return (
+      <h1>Erro durante a busca do dado {fetchingError.msg}</h1>
+    )
+  }
   return (
-        <>
-        <GoBack backTo="/home"/>
-        <Flex
+    <>
+    <GoBack backTo="/home"/>
+      {!loading && petData
+        ? <Flex
+        minH='100vh'
         justifyContent='space-between'
         gap={{ base: '5rem', xl: '1rem', '2xl': '10rem' }}
         flexDir='column' >
-        {
-            (pet != null) ? (
             <Flex flexDir='column' justifyContent='space-between'>
             <SimpleGrid
                 columns={{ base: 1, lg: 2 }}
@@ -61,38 +45,37 @@ export const PetInfo: React.FC = () => {
             <Flex
                 flexDir='column'
                 gap={5}
+                align='center'
                 overflow='hidden'>
-                <Stack>
-                    <Image
-                        rounded={'md'}
-                        cursor='pointer'
-                        alt={`pet_${pet?.name}`}
-                        src={selectedImgUrl}
-                        fit={'cover'}
+                <Image
+                      rounded={'md'}
+                      cursor='pointer'
+                      h={{ base: '18.75rem', md: '25rem', lg: '32.5rem' }}
+                      w={{ base: '18.75rem', md: '25rem', lg: '32.5rem' }}
+                      alt={`pet_${String(petData.name)}`}
+                      src={selectedImgUrl}
+                      fit={'cover'}
                         _hover={{
                           border: '0.7px solid #15a97d'
                         }}
-                        w={'100%'}
-                        h={{ base: '100%', sm: '400px', lg: '500px' }}
-                    />
-                </Stack>
-                { JSON.parse(pet.pet_photos).length > 1 && (
+                />
+                { JSON.parse(petData.pet_photos).length > 1 && (
                     <>
                      <Text fontWeight='bold' fontSize='2xl'>Mais fotos do Pet</Text>
                      {/* Bottom pet photos */}
                      <SimpleGrid
-                        padding={1}
                         templateColumns={{ base: 'repeat(3,1fr)', md: 'repeat(5,1fr)' }}>
                          {
-                             JSON.parse(pet.pet_photos).length > 1
+                             JSON.parse(petData.pet_photos).length > 1
                                ? (
-                                   JSON.parse(pet.pet_photos).map((photo: any) => (
+                                   JSON.parse(petData.pet_photos).map((photo: any) => (
                                      <Image
                                          _hover={{
                                            border: '0.7px solid #15a97d'
                                          }}
                                          onClick={() => { setSelectedImgUrl(photo.url) }}
                                          cursor='pointer'
+                                         marginRight='1rem'
                                          rounded={'md'}
                                          boxSize='5rem'
                                          key={photo.imgId}
@@ -108,12 +91,12 @@ export const PetInfo: React.FC = () => {
             }
             </Flex>
             <Stack direction='column' spacing={25} px={3}>
-                <Heading cursor='pointer' alignSelf='center' color='#02966a'>{pet.name}</Heading>
+                <Heading cursor='pointer' alignSelf='center'>{petData.name}</Heading>
                 {/* Location and Publish By */}
                 <Stack direction='column' spacing={35}>
                 <Flex gap={5}>
                     <GoLocation size={20} color='#02966a' />
-                    <Text color='orange.500'>{pet.pet_location}</Text>
+                    <Text color='orange.500'>{petData.pet_location}</Text>
                 </Flex>
                 <Flex gap={5}>
                 <BsFillPersonFill size={20} color='#02966a' />
@@ -126,19 +109,17 @@ export const PetInfo: React.FC = () => {
                             }}
                             color='orange.500'>Matheus Mazzola</Text>
                         </Link>
-                        Em <Text>{formatDate(pet.createdAt, 'pt-Br')}</Text>
+                        Em <Text>{formatDate(petData.createdAt, 'pt-Br')}</Text>
                     </Stack>
                 </Flex>
                 </Stack>
                 {/* History */}
-                <VStack spacing={25}>
-                    <Text fontSize='2xl'>A história de {pet.name}</Text>
-                    <Box padding={15} border='0.2px solid #02966a' background='#1F2029' boxShadow='lg'>
-                    <Text fontWeight='bold' fontFamily='heading' fontSize={{ base: '0.8rem', md: 'md' }}>
-                        CONTATE MARINES 11 907241507 Sou o Thor tenho 1 aninho , estou vermifugado e vacinado , sou muito bonzinho e gosto MUITO de crianças e pessoas !!! Sou companheiro!Somente para apartamento. Estou procurando um lar , contate Marines 11 997241507. Estou em São Paulo Capital
+                <Flex align='flex-start' justify='flex-start' gap={5}>
+                  <AiTwotoneAlert size={20} color='#02966a' />
+                    <Text fontWeight='bold' fontFamily='heading' fontSize={{ base: '0.8rem', md: 'md' }} alignSelf='flex-start'>
+                          {petData.history}
                     </Text>
-                    </Box>
-                </VStack>
+                </Flex>
                 {/* Action buttons area */}
                 <Stack direction={{ base: 'column', md: 'row' }} gap={5} >
                 <Button
@@ -173,14 +154,11 @@ export const PetInfo: React.FC = () => {
             </Stack>
             </SimpleGrid>
             </Flex>
-            )
-              : (
-        <Stack display='flex' h='100vh'>
-            <h1>Erro ao carregar informações do animal</h1>
-        </Stack>
-                )
-    }
         </Flex>
-        </>
+        : <Flex minH='100vh' justify='center'>
+            <CircularProgress marginTop='3rem' isIndeterminate color='#02966a' />
+          </Flex>
+      }
+      </>
   )
 }

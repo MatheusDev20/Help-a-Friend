@@ -8,7 +8,6 @@ export const App = (): JSX.Element => {
     <>
     <Header />
     <AppRoutes />
-    <Footer />
     </>
   )
 }
