@@ -1,4 +1,5 @@
-import { Repository, getRepository } from 'typeorm';
+import { Repository } from 'typeorm';
+import { source } from '../../helpers/postgres-conn-helper';
 import { ForgotPasswordDTO } from '../../../../domain/auth/dtos/forgot-password-dto';
 import { IForgotTokenRepository } from '../../../../data/protocols/repositorys/forgot-pass-token-repository';
 import ForgotPasswordToken from '../entities/forgot-password-token';
@@ -7,7 +8,7 @@ export class ForgotPasswordTokenRepository implements IForgotTokenRepository {
   private repository: Repository<ForgotPasswordToken>; // Declarando o atributo do orm da classe
 
   constructor() {
-    this.repository = getRepository(ForgotPasswordToken);
+    this.repository = source.getRepository(ForgotPasswordToken);
   }
 
   public async save({ jwt, userEmail }: ForgotPasswordDTO): Promise<void> {

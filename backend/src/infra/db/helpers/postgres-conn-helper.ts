@@ -1,13 +1,18 @@
-import { createConnection } from 'typeorm';
+import { DataSource } from 'typeorm';
+import dotenv from 'dotenv';
 
-createConnection();
+dotenv.config();
 
-const postgresConnection = new Promise((resolve, reject) => {
-  try {
-    resolve(createConnection());
-  } catch (error) {
-    reject(error);
-  }
+const source = new DataSource({
+  type: 'postgres',
+  host: process.env.DB_HOST,
+  port: 5432,
+  username: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  synchronize: true,
+  entities: [process.env.ENTITIES_PATH as string],
+  migrations: [process.env.MIGRATIONS_DIR as string],
 });
 
-export { postgresConnection };
+export { source };

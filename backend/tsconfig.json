@@ -19,7 +19,4 @@
     "forceConsistentCasingInFileNames": true,
     "strictPropertyInitialization": false,
   },
-  "exclude": [
-    "ormconfig.js"
-  ],
 }

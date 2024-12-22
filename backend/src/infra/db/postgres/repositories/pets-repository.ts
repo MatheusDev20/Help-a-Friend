@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable no-param-reassign */
-import { getRepository, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { v4 } from 'uuid';
+import { source } from '../../helpers/postgres-conn-helper';
 import { IPetsRepository } from '../../../../data/protocols/repositorys/pets-repository';
 import { Pet } from '../../../../domain/pets/models/pet';
 import AppError from '../../../../presentation/errors/AppError';
@@ -17,7 +18,7 @@ class PetsRepository implements IPetsRepository {
   private petsRepository: Repository<Pets>; // Declarando o atributo do orm da classe
 
   constructor() {
-    this.petsRepository = getRepository(Pets);
+    this.petsRepository = source.getRepository(Pets);
   }
 
   public async create(data: CreatePetDTO): Promise<Pets> {

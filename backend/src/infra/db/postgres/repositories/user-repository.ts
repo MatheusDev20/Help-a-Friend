@@ -1,4 +1,5 @@
-import { getRepository, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
+import { source } from '../../helpers/postgres-conn-helper';
 import { UpdatedUser } from '../../../../domain/user/dtos/UpdatedUser';
 /* eslint-disable dot-notation */
 import { UserProfile } from '../../../../domain/user/dtos/UserProfile';
@@ -14,17 +15,18 @@ class UserRepository implements IUsersRepository {
   private userRepository: Repository<Users>;
 
   constructor() {
-    this.userRepository = getRepository(Users);
+    this.userRepository = source.getRepository(Users);
   }
 
-  public async findByEmail(email: string): Promise<Users | undefined> {
+  public async findByEmail(email: string): Promise<Users | null> {
     const user = await this.userRepository.findOne({
       where: { email },
     });
+
     return user;
   }
 
-  public async findById(id: string): Promise<Users | undefined> {
+  public async findById(id: string): Promise<Users | null> {
     const user = await this.userRepository.findOne({
       where: { id },
     });
